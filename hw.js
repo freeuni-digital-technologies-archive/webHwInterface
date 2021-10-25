@@ -2,24 +2,24 @@
  * ამ ფაილში არის ნავიგაციის ფუნქციები
  */
 
-// თუ ბოლო ტესტია, next არ გამოჩნდეს
-// თუ პირვლეი ტესტია, prev არ გამოჩნდეს
-
 function setupTestsDiv() {
-    const d = document.createElement('div')
+    const d = document.getElementByID('progress-bar')
+    // CONFIG.testCount რაოდენობის მართკუთხედი უნდა დაემატოს
+    // CONFIG.currentStep ზე ნაკლებები იყოს გამწვანებული
+    // CONFIG.currentStep რამე სტილით
+    // CONFIG.currentStep -ზე მეტი იყოს ნაცრისფრად
     d.innerHTML = `
-        <button id='prev-button'>წინა</button>
-        <button id='next-button'>შემდეგი</button>
+       
     `
     document.getElementById('tests').appendChild(d)
 }
 
 
 /**
+ * ეს არ არის ახლა 
  * ეს ფუნქცია ჩატვირთვის შემდეგ შეამოწმებს, რომ ახლანდელი ნაბიჯის ყველა 
  * ტესტი წარმატებითაა. რადგან მხოლოდ ახლანდელი ნაბიჯის ტესტები ეშვება, 
  * უბრალოდ უნდა შემოწმდეს, რომ ყველა ტესტი ჩაბარდა
- * ამის მიხედვით აინთება Next/Prev ღილაკი
  * TODO NEXT რამე celebration ანიმაცია გამოჩნდეს, ამას მე გავაკეთებ
  * celebration ერთხელ უნდა გამოჩნდეს, ანუ 
  */
@@ -49,6 +49,7 @@ function nextStep() {
     // CONFIG.checkAll = true
     // CONFIG.save()
     // reload
+    // ამის იმპლემენტაცია არ არის ახლავე საჭირო, უბრალოდ კომენტარები იყოს
 }
 
 /* next-ს როდესაც დააჭერს, პირველ reload-ზე 
