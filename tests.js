@@ -4,6 +4,9 @@ CONFIG.isStep(1) && describe("step 1. bla bla ", () => {
     it("this will pass", () => {
         expect(true).eql(true)
     })
+    it("this will fail", () => {
+        expect(false).eql(true)
+    })
 })
 
 
