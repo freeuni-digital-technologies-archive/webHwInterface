@@ -32,3 +32,13 @@ active
     margin-right: 10px;
     float: right;
 }
+
+#random-number-list p, .login-container {
+    text-align: center;
+}
+
+.login-container #name-input,
+.login-container #password-input {
+    margin: 2px;
+}
+

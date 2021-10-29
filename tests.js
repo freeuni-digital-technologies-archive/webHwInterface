@@ -1,10 +1,18 @@
 const { expect, assert } = chai
 
-CONFIG.isStep(1) && describe("step 1. bla bla ", () => {
-    it("this will pass", () => {
+// todo rewrite description
+CONFIG.isStep(1) && describe("step 1. Login?? ", () => {
+    setTimeout(() => {
+
+    }, 1000)
+    it("Name provided", () => {
+        const password = document.getElementById('password-input')
+            // .querySelector('.password')
+        console.log(password)
+        console.log('rati')
         expect(true).eql(true)
     })
-    it("this will fail", () => {
+    it("Password found", () => {
         expect(false).eql(true)
     })
 })

@@ -2,6 +2,40 @@
  * ამ ფაილში არის ნავიგაციის ფუნქციები
  */
 
+function setupGuessingPassword(count=70) {
+    const numbersList = document.getElementById('random-number-list')
+
+    const max = 999999
+    const min = 100000
+    let passwordAdded = false
+
+    // todo update description with tips
+    numbersList.innerHTML = `ეცადე იპოვო პაროლი ეცადე იპოვო პაროლი ეცადე იპოვო პაროლი
+        ეცადე იპოვო პაროლი ეცადე იპოვო პაროლი ეცადე იპოვო პაროლი ეცადე იპო
+        ვო პაროლი ეცადე იპოვო პაროლი ქვემოთ შეავსე`
+
+    for (let c = 0; c < count; c++) {
+        const randomNumber = Math.floor(Math.random() * (max - min) + min)
+        if (!passwordAdded && Math.random() > 0.95) {
+            numbersList.innerHTML += '<p class="password" style="color: red"> ' + randomNumber + ' </p>';
+            passwordAdded = true
+        } else {
+            numbersList.innerHTML += '<p> ' + randomNumber + ' </p>';
+        }
+    }
+    if (!passwordAdded) {
+        numbersList.innerHTML += '<p class="password"> '
+            + Math.floor(Math.random() * (max - min) + min) + ' </p>';
+        passwordAdded = true
+    }
+
+    numbersList.innerHTML += `<div class="login-container">
+                                  <p> შემდეგი ნაბიჯისთვის შეიყვანე სწორი პაროლი </p>
+                                  <input id="name-input" type="text" placeholder="Name"><br>
+                                  <input id="password-input" type="text" placeholder="Password">
+                              </div>`
+}
+
 function setupTestsDiv() {
     const d = document.getElementById('progress-bar')
     // CONFIG.testCount რაოდენობის მართკუთხედი უნდა დაემატოს
@@ -13,6 +47,9 @@ function setupTestsDiv() {
     d.innerHTML = `
         <button class="next-step ${c}" ${click}>შემდეგი ნაბიჯი</button>
     `
+
+    setupGuessingPassword()
+
     // document.getElementById('tests').appendChild(d)
 }
 
