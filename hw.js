@@ -10,12 +10,14 @@ function setupTestsDiv() {
     // CONFIG.currentStep -ზე მეტი იყოს ნაცრისფრად
     const c = CONFIG.failed ? 'uncompleted' : 'completed'
     const click = CONFIG.failed ? '' : 'onclick="nextStep()"'
-    // TODO აქ ჩაემატოს ტესტების div-ის დამალვის ღილაკი რომ თავისი საიტი ნახონ ხოლმე
+
     d.innerHTML = `
         <button class="next-step ${c}" ${click}>შემდეგი ნაბიჯი</button>
     `
-    
 
+    // TODO body insertadjasenthtml afterbegin-ით დაემატოს 
+    // აქ ჩაემატოს ტესტების div-ის დამალვის ღილაკი რომ თავისი საიტი სრულად ნახონ ხოლმე
+    
     // document.getElementById('tests').appendChild(d)
 }
 
@@ -56,10 +58,17 @@ function nextStep() {
     // CONFIG.save()
     // reload
     // ამის იმპლემენტაცია არ არის ახლავე საჭირო, უბრალოდ კომენტარები იყოს
-    CONFIG.currentStep++
-    CONFIG.save()
-    window.location.reload()
-}
+    if (CONFIG.checkAll) {
+
+    }
+    if (CONFIG.currentStep === CONFIG.testCount) {
+        
+    } else {
+        CONFIG.currentStep++
+        CONFIG.save()
+        window.location.reload()
+    }
+}   
 
 /* next-ს როდესაც დააჭერს, პირველ reload-ზე 
  ყველა წინა უნდა შემოწმდეს (isStep ფუნქციაშია ამის შენიშვნა)
