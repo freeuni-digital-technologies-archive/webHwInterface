@@ -9,10 +9,6 @@ mocha.setup("bdd");
  *  */ 
 
 
-const steps = {
-    setup_and_password: 1,
-    header: 2,
-}
 
 function readConfig() {
     // JSON.parse(localStorage.get('testConfig'))
@@ -56,5 +52,6 @@ function increaseStep(){
  * @type Config
  */
 const CONFIG = readConfig()
+CONFIG.failed = false
 CONFIG.isStep = isStep
 CONFIG.save = saveConfig

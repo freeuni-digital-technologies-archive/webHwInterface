@@ -11,6 +11,18 @@ active
     display: none;
 }
 
+#mocha .suite a {
+    pointer-events: none;
+}
+
+#mocha .replay {
+    pointer-events: none;
+}
+
+#mocha .suite h2 {
+        pointer-events: none;    
+}
+
 /* #progress-bar, #mocha { */
 #tests {
     width: 900px;
@@ -37,9 +49,6 @@ active
     text-align: center;
 }
 
-#write-password-here{
-    display:none;
-}
 
 #random-passwords-body{
     display:flex;

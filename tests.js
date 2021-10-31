@@ -3,6 +3,47 @@ const { expect, assert } = chai
 // აქ ჩამოვწერთ რომელი მერამდენე იყოს რომ შემთხვევით
 // რიცხვების შეცვლა არ დაგვავიწყდეს
 
+const steps = {
+    // TODO add instructions
+    // ინსტრუქციებში უნდა ეწეროს რომ მხოლოდ
+    // chrome და firefox -ით შეიძლება
+    setup_and_password: 1,
+    /**
+     * სტილი შეუცვალოს პაროლს და დამალოს
+     * head title საიტის სახელი
+     * browser tab icon
+     * h1 სტუდენტის სახელის საიტი (ტესტში შეამოწმე რომ მთავრდება 'ს საიტი')
+     * h1 id იყოს მათი emailid (ეს შემოწმდება სერვერზე)
+     * div სათაურისთვის (გრძელი bar რამე ფერით, h1 იყოს მარჯვნივ)
+     */
+    header: 2,
+    /**
+     * აქვს სურათი მთლიან ბექგრაუნდზე (ლეპტოპის ეკრანის სიგანე და შესაბამისი სიმაღლე რაც გამოვა)
+     * სურათი უნდა გადმოწერონ (src შევამოწმებთ რომ http-ით არ იწყება)
+     * პარაგრაფი არის მარჯვნივ (მაგრამ ბოლომდე მიწეული არა) 
+     * აქვს ფერადი ფონი (რომ სურათს გამოეყოს) და padding
+     * h2 გვერდის სახელი id page1
+     */
+    page_1: 3,
+    /**
+     * აქვს რამდენიმე სურათი (width: 20%) გვერდიგვერდ 
+     * ჩასვან ლინკით (ამის ინსტრუქცია გამოჩნდეს)
+     * რომლებიც თავიდან ცოტა გამჭვირვალედ არის
+     * mouse hover-ზე მკვეთრდება და ოდნავ იზრდება
+     */
+    page_2: 4,
+    /**
+     * internal hrefs to page 1 and page2, aligned right. with padding
+     * ყველა ჩასქროლვაზე ჩანს
+     */
+    menu: 5,
+    /**
+     * ონი არის ნახევრად გამჭვირვალე. 
+     * ეწერება სტუდენტის სახელი და გვარი, 
+     * c თბილისის თავისუფალი უნივერსიტეტი, 2021. 
+     */
+    footer: 6
+}
 
 CONFIG.isStep(steps.setup_and_password) && describe("", () => {
     /**
@@ -18,26 +59,15 @@ CONFIG.isStep(steps.setup_and_password) && describe("", () => {
      * ინსტრუქციაში უნდა დაეწეროს, რომ იპოვონ
      * 
      */
+    setupGuessingPassword()
     it(`კოდის ედიტორის საშუალებით გახსენი html ფაილი, მოძებნე ხაზი, სადაც წერია div#write-password-here და ჩაწერე იქ პაროლი`, () => {
         const n = Number(document.querySelector('div#write-password-here').innerText)
-
+        console.log("n", n)
+        console.log("p", CONFIG.password)
         expect(n).eql(CONFIG.password)
-
-        increaseStep();
-        window.location.reload();
     })
 
 })
-
-let headerStepTestCount = 0;
-let headerStepFinished = false;
-
-async function increateHeaderStepTestCount(){
-    headerStepTestCount++;
-
-    if(headerStepTestCount == 3)
-        headerStepFinished = true;
-}
 
 // todo rewrite description
 CONFIG.isStep(steps.header) && describe(`header`, () => {
@@ -49,15 +79,13 @@ CONFIG.isStep(steps.header) && describe(`header`, () => {
      * მენიუსავით რამე div ზემოთ
      */
 
-    it(`head ელემენტში შექმენით title და ჩაწერეთ თქვენი საიტის სახელი`, () => {
-
+    it(`head ელემენტში შექმენით title და ჩაწერეთ თქვენი საიტის სახელი. აი
+    ასე: <title>ჩემი საიტი</title>`, () => {
         let title = document.querySelector("head > title");
         expect(title != null || title != undefined).to.be.true;
 
         let text = title.innerText;
         expect(text.length > 0).to.be.true;
-
-        increateHeaderStepTestCount();
 
     })
 
@@ -74,16 +102,12 @@ CONFIG.isStep(steps.header) && describe(`header`, () => {
         expect(link.href.length != 0).to.be.true
         expect(link.href != currentPath).to.be.true;
 
-        increateHeaderStepTestCount();
-
 
     })
 
     it('head ელემენტში შექმენით style ელემენტი',() => {
         const style = document.querySelector("head > style");
         expect(style != null || style != undefined).to.be.true;
-
-        increateHeaderStepTestCount();
 
     })
 
@@ -99,6 +123,8 @@ function setupGuessingPasswordHeader(passwordsDiv){
     title.style = "text-align: center";
     passwordsDiv.appendChild(title);
 }
+
+
 function setupGuessingPasswordBody(passwordsDiv, count = 104 * 5){
     const max = 999999
     const min = 100000
@@ -106,6 +132,7 @@ function setupGuessingPasswordBody(passwordsDiv, count = 104 * 5){
     let passwordsBodyContainer = document.createElement("div");
     passwordsBodyContainer.setAttribute("id","random-passwords-body");
 
+    
 
     for (let c = 0; c < count; c++) {
         const randomNumber = Math.floor(Math.random() * (max - min) + min)
@@ -114,20 +141,23 @@ function setupGuessingPasswordBody(passwordsDiv, count = 104 * 5){
 
     passwordsDiv.appendChild(passwordsBodyContainer);
 
-
+    let realPassword = Math.floor(Math.random() * (max - min) + min)
+    if (CONFIG.password) {
+            realPassword = CONFIG.password
+    } else {
+        CONFIG.password = realPassword;
+        saveConfig();
+    }
+   
     let randomPasswordIndex = Math.floor(Math.random() * count)
     let realPasswordDiv = document.getElementsByClassName("fake-password")[randomPasswordIndex];
+
     realPasswordDiv.classList = "real-password";
+    realPasswordDiv.innerText = realPassword;
 
 
     /* TODO: Remove This After Development Process */
     realPasswordDiv.style = "color: red";
-
-    let realPassword = realPasswordDiv.innerText;
-    console.log(realPassword);
-    CONFIG.password = Number(realPassword);
-
-    saveConfig();
 
 }
 
