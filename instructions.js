@@ -1,0 +1,5 @@
+const webeditor = `
+    <div>
+        
+    </div>
+`
