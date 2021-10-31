@@ -5,7 +5,12 @@ passed
 active
 
 */
-
+#mocha .pending {
+    display: none;
+}
+#mocha-stats {
+    display: none;
+}
 #mocha .test pre {
     height: 0;
     display: none;

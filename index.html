@@ -1,62 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>დავალება 5</title>
-    <link rel="icon" href="https://www.google.com/url?sa=i&url=https%3A%2F%2Fka.wikipedia.org%2Fwiki%2FPNG&psig=AOvVaw1WqRAUiRWW3QCAZrjgbca2&ust=1635777138664000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCLCGz-zu9PMCFQAAAAAdAAAAABAD" />
-
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="style.css" />
-    <!-- for tests, DO NOT MODIFY next line -->
-    <link rel="stylesheet" href="https://unpkg.com/mocha/mocha.css"/>
-    <link rel="stylesheet" href="teststyles.css"/>
-
-    <style>
-        #website-title{
-          border: 2px dotted blue;
-          padding:10px;
-          text-align: center;
-        }
-        #write-password-here{
-          display: none;
-        }
-        #page1-title{
-          text-align: center;
-        }
-        #page1-content{
-          display:flex;
-          justify-content: center;
-        }
-    </style>
   </head>
   <body>
-    <!-- ეს ხაზები არის ტესტებისთვის. დააიგნორეთ და არ შეცვალოთ -->
-    <div id="tests" class="container">
-      <h1>მეხუთე დავალება</h1>
-      <div id="progress-bar"></div>
-      <div id="test-utils"></div>
-      <div id="mocha"></div>
-      <script src="https://unpkg.com/chai/chai.js"></script>
-      <script src="https://unpkg.com/mocha/mocha.js"></script>
-    </div>
-    <!-- აქ იქნება შენი საიტი აპლიკაცია -->
-    <div id="write-password-here" >944525</div>
-    <div id="app">
-      <div id="website-title-container">
-        <h1 id="website-title">გიგის საიტი</h1>
-      </div>
+    <h1>მეხუთე დავალება</h1>
+    <div id="write-password-here"></div>
 
-      <div id="page1">
-          <h1 id="page1-title">Page 1</h1>
-          <div id="page1-content">
-            <img src="./tabs.png" style="background-color: gold; padding:15px; width:60%;">
-          </div>
-      </div>
-    </div>    
-    <!-- ეს ხაზები არის ტესტებისთვის. დააიგნორეთ და არ შეცვალოთ -->
-    <!-- START tests -->
-    <script src="./config.js"></script>
-    <script src="./tests.js"></script>
-    <script src="./hw.js"></script>
-    <!-- END tests -->
+    <!-- შემდეგი ხაზი არის ტესტებისთვის. არაფერი არ შეცვალოთ ამ ხაზში ან მის მერე -->
+    <div id="scripts"><script src="./setup.js"></script></div>
   </body>
 </html>
