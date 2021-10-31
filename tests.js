@@ -102,7 +102,6 @@ CONFIG.isStep(steps.header) && describe(`header`, () => {
         expect(link.href.length != 0).to.be.true
         expect(link.href != currentPath).to.be.true;
 
-
     })
 
     it('head ელემენტში შექმენით style ელემენტი',() => {
@@ -110,9 +109,117 @@ CONFIG.isStep(steps.header) && describe(`header`, () => {
         expect(style != null || style != undefined).to.be.true;
 
     })
+    it("div#app ელემენტში შექმენით div ელემენტი, რომლის id იქნება website-title-container",() => {
+        const elem = document.querySelector("div#app > div#website-title-container");
+        expect(elem != null || elem != undefined).to.be.true;
+    })
+
+    it(`უკვე შექმნილ div ელემენტში შექმენით h1 ელემენტი, რომლის id იქნება website-title. 
+        ჩაწერეთ სათაური, რომელიც იქნება შემდეგი ფორმატის, მაგალითად: გიგის საიტი`,() => {
+        const h1 = document.querySelector("div#app > div#website-title-container > h1#website-title");
+
+        expect(h1 != null || h1 != undefined).to.be.true;
+        
+        const h1_id = h1.getAttribute("id");
+        expect(h1_id != null || h1_id != undefined).to.be.true;
+
+
+        const text = h1.innerText;
+        console.log(text);
+        expect(strEndsWith(text,'ს საიტი')).to.be.true;
+    })
+
+    it(`შექმნილ h1 ელემენტს უნდა ჰქონდეს 2px სისქის border, რომელიც იქნება წყვეტილი(იგულისხმება dotted) და ლურჯი ფერის(blue). 
+        ტექსტის ლოკაცია უნდა იყოს შუაში. 
+        padding უნდა იყოს 10 პიქსელი.
+        გასტილეთ style თაგში #website-title`,() => {
+        const h1 = document.querySelector("div#app > div#website-title-container > h1#website-title");
+        
+        const h1style = window.getComputedStyle(h1);
+
+        const paddingPixels = h1style.getPropertyValue("padding");
+        expect(paddingPixels == "10px").to.be.true;
+
+        const textAlign = h1style.getPropertyValue("text-align");
+        expect(textAlign == "center").to.be.true;
+
+        const border = h1style.getPropertyValue("border");
+        expect(border == "2px dotted rgb(0, 0, 255)").to.be.true;
+    })
+
+    it("დამალეთ პაროლი. ამისათვის საკმარისია, რომ მისი სტილი გახადოთ display: none",() => {
+        const passwordDiv = document.getElementById("write-password-here");
+
+        const passwordDivStyle = window.getComputedStyle(passwordDiv);
+
+        expect(passwordDiv.style.display == "none" || passwordDivStyle.getPropertyValue("display") == "none").to.be.true;
+    })
 
 
 })
+
+CONFIG.isStep(steps.page_1) && describe("Page 1",() => {
+
+    it("შექმენით div ელემენტი, რომელის id იქნება page1",() => {
+        const div = document.querySelector("div#app > div#page1");
+        expect(div != null || div != undefined).to.be.true;
+
+    })
+    it("შექმნილ div#page1 ელემენტში შექმენით h1 ელემენტი,რომლის id იქნება page1-title,ეწერება Page 1 და იქნება პოზიციით შუაში",() => {
+        const h1 = document.querySelector("div#app > div#page1 > h1#page1-title");
+        expect(h1 != null || h1 != undefined).to.be.true;
+
+        expect(h1.innerText == "Page 1").to.be.true;
+
+        expect(h1.style.textAling == "center" || window.getComputedStyle(h1).getPropertyValue("text-align") == "center").to.be.true;
+    })
+    it("შექმნილ div#page1 ელემენტში შექმენით ახალი div, რომლის id იქნება page1-content", () => {
+        const div = document.querySelector("div#app > div#page1 > div#page1-content");
+        expect(div != null || div != undefined).to.be.true;
+    })
+    it("შექმნილი div#page1-content ელემენტი გასტილეთ ისე, რომ სურათი მოექცეს შუაში. (justify content)",() => {
+        const div = document.querySelector("div#app > div#page1 > div#page1-content");
+
+        const divStyle = window.getComputedStyle(div);
+
+        expect(div.style.display == "flex" || divStyle.getPropertyValue("display") == "flex").to.be.true;
+        expect(div.style.justifyContent == "center" || divStyle.getPropertyValue("justify-content") == "center").to.be.true;
+    })
+    it("შექმნილ div#page1-content ელემენტში შექმენით img ელემენტი, სადაც გამოიყენებთ ნებისმიერ სურათს.სურათი უნდა იყოს დამატებული თქვენივე ლეპტოპიდან",() => {
+        const img = document.querySelector("div#app > div#page1 > div#page1-content >img");
+        expect(img != null || img != undefined).to.be.true;
+
+        const src = img.getAttribute("src");
+        expect(src != null || src != undefined);
+
+        expect(strStartsWith(src,"http")).to.be.false;
+    })
+    it(`img ელემენტს უნდა ჰქონდეს 15px padding.
+        უკანა ფონი უნდა იყოს ნებისმიერი ფერის გარდა თეთრისა და შავისა (white,black).
+        სურათის სიგრძე იყოს 60%`, () => {
+        const img = document.querySelector("div#app > div#page1 > div#page1-content > img");
+        
+        const bgColor = img.style.backgroundColor;
+
+        expect(["white","black"].indexOf(bgColor) === -1).to.be.true;
+
+        const padding = img.style.padding;
+        expect(padding == "15px").to.be.true;
+
+        const width = img.style.width;
+        expect(width == "60%").to.be.true;
+    })
+
+
+})
+
+function strStartsWith(str, prefix){
+    return str.indexOf(prefix,0) !== -1;
+}
+
+function strEndsWith(str, suffix) {
+    return str.indexOf(suffix, str.length - suffix.length) !== -1;
+}
 
 
 function setupGuessingPasswordHeader(passwordsDiv){
