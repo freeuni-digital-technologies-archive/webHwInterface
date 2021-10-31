@@ -14,7 +14,9 @@ function setupTestsDiv() {
     d.innerHTML = `
         <button class="next-step ${c}" ${click}>შემდეგი ნაბიჯი</button>
     `
-    setupGuessingPassword()
+    
+    if(isStep(steps.setup_and_password))
+        setupGuessingPassword()
 
     // document.getElementById('tests').appendChild(d)
 }

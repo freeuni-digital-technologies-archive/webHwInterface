@@ -33,8 +33,26 @@ active
     float: right;
 }
 
-#random-number-list p, .login-container {
+#random-password-list p, .login-container {
     text-align: center;
+}
+
+#write-password-here{
+    display:none;
+}
+
+#random-passwords-body{
+    display:flex;
+    width:80%;
+    flex-wrap: wrap;
+    margin:10px auto;
+    justify-content: center;
+}
+
+.fake-password, .real-password{
+    border:1px solid black;
+    padding: 3px;
+    margin:0;
 }
 
 .login-container #name-input,

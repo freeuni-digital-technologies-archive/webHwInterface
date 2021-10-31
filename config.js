@@ -8,6 +8,12 @@ mocha.setup("bdd");
  * @property {Boolean} if any tests failed during the run
  *  */ 
 
+
+const steps = {
+    setup_and_password: 1,
+    header: 2,
+}
+
 function readConfig() {
     // JSON.parse(localStorage.get('testConfig'))
     const c = JSON.parse(localStorage.getItem('config')) || {currentStep:1}
@@ -34,6 +40,11 @@ function isStep(n) {
         return n < CONFIG.currentStep
     }
     return n === CONFIG.currentStep
+}
+
+function increaseStep(){
+    CONFIG.currentStep++;
+    saveConfig();
 }
 
 // გლობალური ცვლადი უნდა იყოს რომ სხვა ფაილებში წავიკითხოთ
