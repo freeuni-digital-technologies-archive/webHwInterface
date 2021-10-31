@@ -41,6 +41,7 @@ class Homework {
         const messageButtons = Object.keys(MESSAGES).map(m => `<button onclick="showMessage('${m}')">${m.replaceAll('-', ' ')}</button>`).join('')
         document.getElementById('help-buttons').innerHTML = `
             <button onclick="HW.setHints()">მინიშნებების ჩვენება/დამალვა</button>
+            <button onclick="toggle('tests')">ტესტების  დამალვა</button>
             ${messageButtons}
             <button onclick="toggle('help')">დახურვა</button>
         `
@@ -151,7 +152,7 @@ class Homework {
 
 function toggle(id) {
     const e = document.getElementById(id).style
-    e.visibility = e.visibility === 'hidden' ? 'visible' : 'hidden'
+    e.display = e.display === 'none' ? '' : 'none'
 }
 
 var HW = new Homework()
