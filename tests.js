@@ -3,7 +3,9 @@ const { expect, assert } = chai
 // აქ ჩამოვწერთ რომელი მერამდენე იყოს რომ შემთხვევით
 // რიცხვების შეცვლა არ დაგვავიწყდეს
 
+CONFIG.allowedFiles = ['index.html']
 const steps = {
+    introduction: 0,
     // TODO add instructions
     // ინსტრუქციებში უნდა ეწეროს რომ მხოლოდ
     // chrome და firefox -ით შეიძლება
@@ -44,6 +46,22 @@ const steps = {
      */
     footer: 6
 }
+
+CONFIG.isStep(steps.introduction) && describe("", () => {
+    CONFIG.hints = 'on'
+    it(`გამარჯობა :) კეთილი იყოს შენი მობრძანება ვების პირველ დავალებაში. 
+    დანარჩენი სემესტრი ბევრი სიახლე გელოდება და ნელ-ნელა ისწავლი
+    იმის მსგავს სამუშაო გარემოს, რომელსაც "ნამდვილი" პროგრამისტები იყენებენ`)
+    it(`ყველა დავალებას ექნება ხოლმე ტესტები`)
+    it(`ეს ტესტი ამოწმებს, რომ 2+2=4. თუ კოდი ტესტზე "გადის", მაშინ გამოჩნდება ხოლმე
+    "შემდეგი ნაბიჯის" ღილაკი, როგორც ახლა მარჯვნივ`, () => expect(2 + 2).eql(4))
+    it(`თუ ტესტის ტექსტი გაუგებარია, სცადე "დახმარება"-ში "მინიშნებების ჩვენება. 
+    ამის შემდეგ ასეთი ლურჯი ფერით გამოჩნდება ხოლმე მინიშნებები`)
+    toggle('help')
+    
+    showMessage('პირობები', 'სამუშაო-გარემო')
+    
+})
 
 CONFIG.isStep(steps.setup_and_password) && describe("", () => {
     /**
@@ -417,45 +435,13 @@ function setupGuessingPasswordBody(passwordsDiv, count = 104 * 5){
     realPasswordDiv.innerText = realPassword;
 
 
-    /* TODO: Remove This After Development Process */
-    realPasswordDiv.style = "color: red";
-
 }
 
-// function getActualPassword(){
-//     return document.querySelector(".password").innerText;
-// }
-
-// function submitPassword(){
-
-//     window.location.reload();
-
-//     /*
-//     let actualPassword = getActualPassword();
-//     let retrievePassword = document.getElementById("password-input").value;
-
-//     if(actualPassword === retrievePassword)
-//         console.log("Wow");
-//     else
-//         console.log("Puf");
-//     */
-
-// }
-
-// function setupGuessingPasswordFooter(passwordsDiv){
-//     passwordsDiv.innerHTML += `<div class="login-container">
-//     <p> შემდეგი ნაბიჯისთვის შეიყვანე სწორი პაროლი </p>
-//     <input id="name-input" type="text" placeholder="Name"><br>
-//     <input id="password-input" type="text" placeholder="Password"><br>
-//     <button type="submit" id="password-submit" onclick="submitPassword()">Submit</button>
-//     </div>`
-// }
-
-function setupGuessingPassword(count=70) {
+function setupGuessingPassword() {
     let passwordsDiv = document.createElement("div");
     passwordsDiv.setAttribute("id","random-password-list");
 
-    document.getElementById("app").appendChild(passwordsDiv);
+    document.body.appendChild(passwordsDiv);
 
     setupGuessingPasswordHeader(passwordsDiv);
     setupGuessingPasswordBody(passwordsDiv);

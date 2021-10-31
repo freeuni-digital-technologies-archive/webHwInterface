@@ -5,9 +5,16 @@ passed
 active
 
 */
-/* #mocha .pending {
-    display: none;
-} */
+
+
+.help-message {
+    padding: 10px;
+    font-size: 14px;
+}
+#tests {
+    font-family: sans-serif;
+}
+
 #mocha-stats {
     display: none;
 }
@@ -34,8 +41,9 @@ active
     margin: auto;
 }
 .uncompleted {
-    color: grey;
-    pointer-events: none;
+    /* color: grey;
+    pointer-events: none; */
+    display: none;
 }
 
 .completed {
@@ -45,7 +53,7 @@ active
 /*
 * ღილაკი უნდა იყოს 
 */
-.next-step {
+.align-right {
     margin-right: 10px;
     float: right;
 }
