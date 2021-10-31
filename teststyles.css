@@ -5,9 +5,9 @@ passed
 active
 
 */
-#mocha .pending {
+/* #mocha .pending {
     display: none;
-}
+} */
 #mocha-stats {
     display: none;
 }
