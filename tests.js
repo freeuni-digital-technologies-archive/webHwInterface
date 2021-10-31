@@ -78,24 +78,21 @@ CONFIG.isStep(steps.setup_and_password) && describe("", () => {
      * 
      */
     setupGuessingPassword()
-    it(`კოდის ედიტორის საშუალებით გახსენი html ფაილი, მოძებნე ხაზი, სადაც წერია div#write-password-here და ჩაწერე იქ პაროლი`, () => {
+    it(`კოდის ედიტორის საშუალებით გახსენი html ფაილი, მოძებნე ხაზი, სადაც წერია div#write-password-here და ჩაწერე იქ პაროლი.
+    პაროლის სანახავად გამოიყენე inspect element`, () => {
         const n = Number(document.querySelector('div#write-password-here').innerText)
         expect(n).eql(CONFIG.password)
     })
 
+    toggle('help')
+    showMessage('inspect-element-გამოყენება', 'ედიტორის-გამოყენება')
+
 })
 
-// todo rewrite description
 CONFIG.isStep(steps.header) && describe(`header`, () => {
+    
 
-
-    /**
-     * ყველა მათგანი მოწმდება ცალკე ტესტით
-     * სათაური
-     * მენიუსავით რამე div ზემოთ
-     */
-
-    it(`head ელემენტში შექმენით title და ჩაწერეთ თქვენი საიტის სახელი.`, () => {
+    it(`head ელემენტში შექმენი title და ჩაწერე შენი საიტის სახელი. საიტს რამე თემა მოუფიქრე 😎`, () => {
         let title = document.querySelector("head > title");
         expect(title != null || title != undefined).to.be.true;
 
@@ -103,10 +100,15 @@ CONFIG.isStep(steps.header) && describe(`header`, () => {
         expect(text.length > 0).to.be.true;
 
     })
-    it("<title> საიტის სახელი</title>")
+    it("<title> საიტის სახელი</title> - ეს ხაზი დაამატე <head>-ის შემდეგ")
 
     // TODO: Can't check if file really exists or not.
-    it(`head ელემენტში შექმენით link, რომლის საშუალებითაც შეცვლით browser tab icon-ს`, () => {
+    it(`ახლა საიტს ლოგოსავით რამე დავამატოთ, ბრაუზერის tab-ებში რომ მარტივად
+    გამოჩნდეს. head ელემენტში შექმენი link, რომლის საშუალებითაც შეცვლი browser tab icon-ს.
+    სურათის საპოვნელად დაგუგლე "შენი საიტის თემა ico". გახსენი სურათი, გააკეთე right click
+    და copy image address. შემდეგ ედიტორში paste-ს რომ გააკეთებ, სურათის ბმულს ჩასვამს.
+    გაითვალისწინე, რომ ფაილი უნდა იყოს .ico ფორმატის. ამის შესამოწმებლად ჩასმულ ბმულს
+    დააკვირდი - ico-თი უნდა მთავრდებოდეს`, () => {
         let link = document.querySelector("head > link[rel='icon']")
          
         expect(link != null || link != undefined).to.be.true;
@@ -115,29 +117,23 @@ CONFIG.isStep(steps.header) && describe(`header`, () => {
         
         let currentPath = window.location.href;
 
-        expect(link.href.length != 0).to.be.true
+        expect(link.href.length).not.equal(0)
         expect(link.href != currentPath).to.be.true;
-
+        expect(link.href.endsWith('.ico')).to.be.true
+        expect(link.href.startsWith('http')).to.be.true
     })
-    it("<link rel='icon' href='...' />")
-    it("სამი წერტილის მაგივრად ჩასვით icon-ის path")
+    it("<link rel='icon' href='___' />")
+    it("___ მაგივრად ჩაწერე icon-ის ბმული")
 
-    it('head ელემენტში შექმენით style ელემენტი',() => {
-        const style = document.querySelector("head > style");
-        expect(style != null || style != undefined).to.be.true;
-
-    })
-    it("<style></style>")
-
-    it("div#app ელემენტში შექმენით div ელემენტი, რომლის id იქნება website-title-container",() => {
-        const elem = document.querySelector("div#app > div#website-title-container");
+   
+    // TODO აქ emailid უნდა ჩაწერონ class-ში
+    it(`შექმენი div ელემენტი, რომლის id იქნება website-title-container და
+    მასში დაამატე h1, რომლის id იქნება website-title. 
+        ჩაწერე სათაური, რომელიც იქნება შემდეგი ფორმატის, მაგალითად: გიგის საიტი. აუცილებელია, რომ ზუსტად
+        ეს სიტყვები გამოიყენო`,() => {
+            const elem = document.querySelector("div#website-title-container");
         expect(elem != null || elem != undefined).to.be.true;
-    })
-    it("<div id='website-title-container'></div>")
-
-    it(`უკვე შექმნილ div ელემენტში შექმენით h1 ელემენტი, რომლის id იქნება website-title. 
-        ჩაწერეთ სათაური, რომელიც იქნება შემდეგი ფორმატის, მაგალითად: გიგის საიტი`,() => {
-        const h1 = document.querySelector("div#app > div#website-title-container > h1#website-title");
+        const h1 = document.querySelector("div#website-title-container > h1#website-title");
 
         expect(h1 != null || h1 != undefined).to.be.true;
         
@@ -146,86 +142,81 @@ CONFIG.isStep(steps.header) && describe(`header`, () => {
 
 
         const text = h1.innerText;
-        console.log(text);
         expect(strEndsWith(text,'ს საიტი')).to.be.true;
+        expect(text.length >= 9)
     })
-    it("<h1 id='website-title'>ვინმეს საიტი</h1>")
 
-    it(`შექმნილ h1 ელემენტს უნდა ჰქონდეს 2px სისქის border, რომელიც იქნება წყვეტილი(იგულისხმება dotted) და ლურჯი ფერის(blue). 
-        ტექსტის ლოკაცია უნდა იყოს შუაში. 
-        padding უნდა იყოს 10 პიქსელი.
-        გასტილეთ style თაგში #website-title`,() => {
-        const h1 = document.querySelector("div#app > div#website-title-container > h1#website-title");
+    it("<div id='website-title-container'><h1 id='website-title'>ვინმეს საიტი</h1></div>")
+
+    it('head ელემენტში შექმენი style ელემენტი',() => {
+        const style = document.querySelector("head > style");
+        expect(style != null || style != undefined).to.be.true;
+    })
+    it("<style></style>")
+
+    it(`h1-ის div-ს უნდა ქონდეს 2px სისქის border, რომელიც იქნება წყვეტილი(იგულისხმება dotted) და ლურჯი (rgb) ფერის(blue). 
+        style თაგში გამოიყენე #website-title სელექტორი. ტექსტზე ძალიან მიბჯენილი რომ არ გამოვიდეს, 10px padding დაუმატე`,() => {
+        const h1 = document.querySelector("div#website-title-container > h1#website-title");
         
         const h1style = window.getComputedStyle(h1);
 
         const paddingPixels = h1style.getPropertyValue("padding");
         expect(paddingPixels == "10px").to.be.true;
 
-        const textAlign = h1style.getPropertyValue("text-align");
-        expect(textAlign == "center").to.be.true;
+        // const textAlign = h1style.getPropertyValue("text-align");
+        // expect(textAlign == "center").to.be.true;
 
         const border = h1style.getPropertyValue("border");
         expect(border == "2px dotted rgb(0, 0, 255)").to.be.true;
     })
-    it(`#website-title{
-        text-align: center,
-        ...
-        ...
-        ...
-    }`)
+    it(`#website-title{`)
+    it(`    border: 2px dotted rgb(0, 0, 255);`)
+    it(`}`)
 
-    it("დამალეთ პაროლი. ამისათვის საკმარისია, რომ მისი სტილი გახადოთ display: none",() => {
+    it("დამალე პაროლი. ამისათვის საკმარისია, რომ მისი სტილი გახადო display: none",() => {
         const passwordDiv = document.getElementById("write-password-here");
 
         const passwordDivStyle = window.getComputedStyle(passwordDiv);
 
         expect(passwordDiv.style.display == "none" || passwordDivStyle.getPropertyValue("display") == "none").to.be.true;
     })
-    it("შეგიძლიათ html ელემენტს მიუმატოთ style ან თვითონ #write-password-here გასტილოთ")
-
+    it(`გამოიყენე სელექტორი. ისევე, როგორც #website-title`)
 
 })
 
 CONFIG.isStep(steps.page_1) && describe("Page 1",() => {
 
-    it("შექმენით div ელემენტი div#app შიგნით, რომლის id იქნება page1",() => {
-        const div = document.querySelector("div#app > div#page1");
+    it("შექმენი div ელემენტი, რომლის id იქნება page1",() => {
+        const div = document.querySelector("div#page1");
         expect(div != null || div != undefined).to.be.true;
-
     })
     it("<div id='page1'></div>")
 
-
-    it("შექმნილ div#page1 ელემენტში შექმენით h1 ელემენტი,რომლის id იქნება page1-title,ეწერება Page 1 და იქნება პოზიციით შუაში",() => {
-        const h1 = document.querySelector("div#app > div#page1 > h1#page1-title");
+    it(`div#page1 ელემენტის დასაწყისში (კონტენტის და სურათის თავზე)
+    შექმენი h1 ელემენტი, რომლის id იქნება page1-title. ჩაწერე რამე შენთვის მნიშვნელოვანი
+    და სურათთან დაკავშირებული სიტყვები (პოეტურობა არ დაიშურო)`,() => {
+        const h1 = document.querySelector("div#page1 > h1#page1-title");
         expect(h1 != null || h1 != undefined).to.be.true;
 
-        expect(h1.innerText == "Page 1").to.be.true;
+        // expect(h1.innerText == "Page 1").to.be.true;
 
-        expect(h1.style.textAling == "center" || window.getComputedStyle(h1).getPropertyValue("text-align") == "center").to.be.true;
+        expect(h1.style.textAlign == "center" || window.getComputedStyle(h1).getPropertyValue("text-align") == "center").to.be.true;
     })
-    it("<h1 id='page1-title'></h1> \n თქვენი გადასაწყვეთია ამავე ელემენტში დაამატებთ style-ს თუ თვითონ id-ს გასტილავთ")
+    it("<h1 id='page1-title'></h1>")
 
-    it("შექმნილ div#page1 ელემენტში შექმენით ახალი div, რომლის id იქნება page1-content", () => {
-        const div = document.querySelector("div#app > div#page1 > div#page1-content");
+    it("div#page1 ელემენტში შექმენი ახალი div, რომლის id იქნება page1-content", () => {
+        const div = document.querySelector("div#page1 > div#page1-content");
         expect(div != null || div != undefined).to.be.true;
     })
-    it("<div id='page1-content'></div>")
+    it("<div id='page1-content'></div> - ეს ჩაამატე h1-ის შემდეგ")
 
-
-    it("შექმნილი div#page1-content ელემენტი გასტილეთ ისე, რომ სურათი მოექცეს შუაში",() => {
-        const div = document.querySelector("div#app > div#page1 > div#page1-content");
-
-        const divStyle = window.getComputedStyle(div);
-
-        expect(div.style.display == "flex" || divStyle.getPropertyValue("display") == "flex").to.be.true;
-        expect(div.style.justifyContent == "center" || divStyle.getPropertyValue("justify-content") == "center").to.be.true;
-    })
-    it("#page1-content{\n display:flex; \n justify-content:center \n }")
-
-    it("შექმნილ div#page1-content ელემენტში შექმენით img ელემენტი, სადაც გამოიყენებთ ნებისმიერ სურათს.სურათი უნდა იყოს დამატებული თქვენივე ლეპტოპიდან",() => {
-        const img = document.querySelector("div#app > div#page1 > div#page1-content >img");
+    it(`ამ გვერდს დიდი ლამაზი ფონი გავუკეთოთ. 
+    div#page1-content ელემენტში შექმენი img ელემენტი, სადაც გამოიყენებ ეკრანის რეზოლუციის სურათს (wallpaper კარგი
+        keyword-ია ასეთის მოსაძებნად))
+    ოღონდ სურათი უნდა იყოს დამატებული შენივე ლეპტოპიდან (გადმოწერე და პროექტის ფოლდერში გადაიტანე). 
+    იმისთვის, რომ სურათმა მთელი გვერდი დაიკავოს, მისი სიგანე 100% გავხადოთ, სიმაღლეს
+    კი ავტომატურად შეეცვლება ზომა`,() => {
+        const img = document.querySelector("div#page1 > div#page1-content >img");
         expect(img != null || img != undefined).to.be.true;
 
         const src = img.getAttribute("src");
@@ -233,49 +224,86 @@ CONFIG.isStep(steps.page_1) && describe("Page 1",() => {
 
         expect(strStartsWith(src,"http")).to.be.false;
     })
-    it("<img src='./my-image.jpg' />")
-    it("გადმოწერეთ სურათი ან გამოიყენეთ უკვე არსებული სურათი, ჩააგდეთ პროექტის ფოლდერში და სახელი მიუთითეთ src-ში")
+    it("<img src='./my-image.jpg'/>")
+    it("#page1 img { width: 100% }")
+    it(`my-image მაგივრად უნდა ეწეროს გადმოწერილი სურათის სახელი. იმისთვის, რომ გაიგო, jpg არის თუ png, გადმოწერისას შეხედე
+    ბმულს, ან გადმოწერილ ფაილზე right click > get info ან properties და იქ გაჩვენებს სრულ სახელს.
+    `)
 
-
+    /*
     it(`img ელემენტს უნდა ჰქონდეს 15px padding.
         უკანა ფონი უნდა იყოს ნებისმიერი ფერის გარდა თეთრისა და შავისა (white,black).
         სურათის სიგრძე იყოს 60%`, () => {
-        const img = document.querySelector("div#app > div#page1 > div#page1-content > img");
+    
+        const img = document.querySelector("div#page1 > div#page1-content > img");
         
-        const bgColor = img.style.backgroundColor;
+        // const bgColor = img.style.backgroundColor;
 
-        expect(["white","black"].indexOf(bgColor) === -1).to.be.true;
+        // expect(["white","black"].indexOf(bgColor) === -1).to.be.true;
 
-        const padding = img.style.padding;
-        expect(padding == "15px").to.be.true;
+        // const padding = img.style.padding;
+        // expect(padding == "15px").to.be.true;
 
-        const width = img.style.width;
-        expect(width == "60%").to.be.true;
+        // const width = img.clientWidth;
+        // ეს არ მუშაობს
+        // console.log(width, img.style)
+        // expect(width === "100%").to.be.true;
     })
+    */
+
+    it('დამატებითი ჩელენჯი თუ გინდა, დაგუგლე, როგორ მოექცეს წარწერა სურათის თავზე', () => {})
+
+    it(`თუ შენი მშვენიერი საიტით დატკბობა მოგინდება ხოლმე "დახმარება"-ში დამალე 
+    ტესტები. თავიდან გამოსაჩენად გვერდი გადატვირთე`, () => {})
+    // it("შექმნილი div#page1-content-ს სტილი ისე შეუცვალე, რომ სურათი მოექცეს შუაში",() => {
+    //     const div = document.querySelector("div#page1 > div#page1-content");
+
+    //     const divStyle = window.getComputedStyle(div);
+
+    //     expect(div.style.display == "flex" || divStyle.getPropertyValue("display") == "flex").to.be.true;
+    //     expect(div.style.justifyContent == "center" || divStyle.getPropertyValue("justify-content") == "center").to.be.true;
+    // })
+    // it("#page1-content{")
+    // it(' display:flex;')
+    // it(' justify-content:center')
+    // it("}")
+
 
 })
 
 CONFIG.isStep(steps.page_2) && describe("Page 2",() => {
-    it("შექმენით div ელემენტი div#app შიგნით, რომლის id იქნება page2",() => {
-        const div = document.querySelector("div#app > div#page2");
+    it(`შექმენი div ელემენტი, რომლის id იქნება page2. ამ გვერდს რამე ფერი შეურჩე (დაგუგლე 
+        color picker). იმისთვის, რომ 
+    ფონის ფერი გამოჩნდეს, ელემენტს სიმაღლე მიეცი - 600px`,() => {
+        const div = document.querySelector("div#page2");
         expect(div != null || div != undefined).to.be.true;
-
     })
     it("<div id='page2'></div>")
+    it("#page2 { height: 600px; background-color: rgb();")
+
+    // TODO აქ იყოს ბეგრაუნდის ფერის შეცვლა.
+    // div-ის height იყოს 600px
 
 
-    it("შექმნილ div#page2 ელემენტში შექმენით h1 ელემენტი,რომლის id იქნება page2-title,ეწერება Page 2 და იქნება პოზიციით შუაში",() => {
-        const h1 = document.querySelector("div#app > div#page2 > h1#page2-title");
+
+    it(`div#page2 ელემენტში შექმენი h1 ელემენტი,რომლის id იქნება page2-title და ჰორიზონტალურად 
+    შუაში იქნება მოქცეული. ძალიან მიბჯენილი რომ არ გამოვიდეს წინა გვერდზე, მოდი
+    margin-top იყოს 250 პიქსელი`,() => {
+        const h1 = document.querySelector("div#page2 > h1#page2-title");
         expect(h1 != null || h1 != undefined).to.be.true;
 
-        expect(h1.innerText == "Page 2").to.be.true;
+        expect(h1.innerText.length > 3).to.be.true;
 
-        expect(h1.style.textAling == "center" || window.getComputedStyle(h1).getPropertyValue("text-align") == "center").to.be.true;
+        expect(h1.style.textAlign == "center" || window.getComputedStyle(h1).getPropertyValue("text-align") == "center").to.be.true;
+        // TODO margin
     })
-    it("<h1 id='page2-title'></h1> \n თქვენი გადასაწყვეთია ამავე ელემენტში დაამატებთ style-ს თუ თვითონ id-ს გასტილავთ")
+    it("<h1 id='page2-title'></h1>")
+    it("#page2-title {")
+    it("  text-align: center")
+    it("  margin-top: 250px")
 
-    it("შექმნილ div#page2 ელემენტში შექმენით ახალი div, რომლის id იქნება page2-content", () => {
-        const div = document.querySelector("div#app > div#page2 > div#page2-content");
+    it("div#page2 ელემენტში შექმენი ახალი div, რომლის id იქნება page2-content", () => {
+        const div = document.querySelector("div#page2 > div#page2-content");
         expect(div != null || div != undefined).to.be.true;
     })
     it("<div id='page2-content'></div>")
@@ -286,10 +314,11 @@ CONFIG.isStep(steps.page_2) && describe("Page 2",() => {
      * რომლებიც თავიდან ცოტა გამჭვირვალედ არის
      * mouse hover-ზე მკვეთრდება და ოდნავ იზრდება
      */
-    it("ჩასვით div#page2-content მინიმუმ სამი განსხვავებული სურათი, რომლებსაც კლასი ექნებათ page2-image",() => {
-        const container = document.querySelector("div#app > div#page2 > div#page2-content");
+    it(`ჩასვი div#page2-content მინიმუმ სამი განსხვავებული სურათი, რომლებსაც კლასი ექნებათ image-row. სურათები
+    ამჯერად როგორც გინდა ისე ჩასვი (ბმულით ან გადმოწერით)`,() => {
+        const container = document.querySelector("div#page2 > div#page2-content");
 
-        const images = container.querySelectorAll("img.page2-image");
+        const images = container.querySelectorAll("img.image-row");
 
         expect(images.length >= 3).to.be.true;
 
@@ -297,35 +326,36 @@ CONFIG.isStep(steps.page_2) && describe("Page 2",() => {
         for(image of images){
             const src = image.getAttribute("src");
             expect(src.length > 0).to.be.true;
-            expect(strStartsWith(src,"http")).to.be.false;
+            // expect(strStartsWith(src,"http")).to.be.false;
             imageSrcs.add(src);
         }
 
         expect(imageSrcs.size == images.length).to.be.true;
     })
-    it("თითოეულ სურათს უნდა ჰქონდეს სიგრძეც და სიგანეც 350px, ხოლო opacity: 20%",() => {
-        const container = document.querySelector("div#app > div#page2 > div#page2-content");
-        const image = container.querySelector("img.page2-image");
+    it("თითოეულ სურათს უნდა ჰქონდეს სიგანეც 350px, ხოლო opacity: 70%",() => {
+        const container = document.querySelector("div#page2 > div#page2-content");
+        const image = container.querySelector("img.image-row");
 
         const imageStyle = window.getComputedStyle(image);
         expect(imageStyle.getPropertyValue("width") == "350px").to.be.true;
-        expect(imageStyle.getPropertyValue("height") == "350px").to.be.true;
-        expect(imageStyle.getPropertyValue("opacity") == "0.2").to.be.true;
+        // expect(imageStyle.getPropertyValue("height") == "350px").to.be.true;
+        expect(imageStyle.getPropertyValue("opacity") == "0.7").to.be.true;
     })
+    it(".image-row { width: ...")
 
     //TODO: check if opacity is 1 on :hover
 
     // it("თუ სურათზე მაუსის კურსორს გადავატარებთ, opacity უნდა გახდეს 100%, ანუ მთლიანად უნდა გამოჩნდეს.",() => {
-    //     const container = document.querySelector("div#app > div#page2 > div#page2-content");
-    //     const image = container.querySelector("img.page2-image");
+    //     const container = document.querySelector("div#page2 > div#page2-content");
+    //     const image = container.querySelector("img.image-row");
 
     //     const imageStyle = window.getComputedStyle(image);
     //     console.log(imageStyle)
     //     expect(imageStyle.getPropertyValue("opacity") == "1").to.be.true;
     // })
 
-    it("სურათები გაბნეული უნდა იყვნენ სივრცეში",() => {
-        const container = document.querySelector("div#app > div#page2 > div#page2-content");
+    it(`სურათები თანაბრად უნდა იყვნენ დაშორებული ერთმანეთს და გვერდის კიდეებს.`,() => {
+        const container = document.querySelector("div#page2 > div#page2-content");
 
         const containerStyle = window.getComputedStyle(container);
         expect(containerStyle.getPropertyValue("display") == "flex" && containerStyle.getPropertyValue("justify-content") == "space-around").to.be.true;
@@ -334,15 +364,18 @@ CONFIG.isStep(steps.page_2) && describe("Page 2",() => {
 
 })
 
+// TODO ეს სამი ნაწილი შესამოწმებელია
 CONFIG.isStep(steps.menu) && describe("Menu",() => {
-    it("შექმენით div#app ელემენტში div ელემენტი, რომელსაც id ექნება menu",() => {
-        const div = document.querySelector("div#app > div#menu");
+    it(`ჩვენს უზარმაზარ საიტზე ამდენი სქროლვა ცოტათი დამღლელია, მოდი ნავიგაცია დავამატოთ (და თითქმის მოვრჩით).
+    შექმენი div ელემენტი, რომელსაც id ექნება menu`,() => {
+        const div = document.querySelector("div#menu");
         expect(div != null || div != undefined).to.be.true;
     })
 
 
-    it("შექმნილ დივში უნდა გვქონდეს ორი ლინკი, რომელიც ასქროლავს page1 და page2-ზე. ლინკებს უნდა ჰქონდეთ კლასი page-navigator",() => {
-        const div = document.querySelector("div#app > div#menu");
+    it(`შექმნილ დივში უნდა გვქონდეს ორი ლინკი, რომელიც ჩასქროლავს page1 და page2-ზე. 
+    ლინკებს უნდა ჰქონდეთ კლასი page-navigator`,() => {
+        const div = document.querySelector("div#menu");
         
         const children = div.querySelectorAll("a.page-navigator");
         expect(children.length == 2).to.be.true;
@@ -351,10 +384,12 @@ CONFIG.isStep(steps.menu) && describe("Menu",() => {
         expect(children[1].getAttribute("href") == "#page2").to.be.true;
 
     })
-    it("თუ a ელემენტის href ატრიბუტში მიუთითებთ მაგალითისთვის href='#app', დაჭერის შემდეგ გვერდი აისქროლება მითითებული id-ს მქონდე ელემენტთან")
+    it(`თუ a ელემენტის href ატრიბუტში მიუთითებთ მაგალითისთვის href='#app', 
+    დაჭერის შემდეგ გვერდი აისქროლება მითითებული id-ს მქონდე ელემენტთან`)
 
-    it("შექმნილი div#menu უნდა იყოს ფიქსირებული და სქროლვისას უნდა ჩანდეს ზედა მარჯვენა მხარეს. ამ ელემენტს უნდა ჰქონდეს 2px სისქის solid gold border",() => {
-        const div = document.querySelector("div#app > div#menu");
+    it(`შექმნილი div#menu უნდა იყოს ფიქსირებული და სქროლვისას უნდა ჩანდეს ზედა მარჯვენა მხარეს. 
+    ამ ელემენტს უნდა ჰქონდეს 2px სისქის solid gold border`,() => {
+        const div = document.querySelector("div#menu");
         
         const divStyle = window.getComputedStyle(div);
         expect(divStyle.getPropertyValue("position") == "fixed").to.be.true;
@@ -363,26 +398,33 @@ CONFIG.isStep(steps.menu) && describe("Menu",() => {
         expect(divStyle.getPropertyValue("border") == "2px solid rgb(255, 215, 0)").to.be.true;
 
     })
-    it("იმისათვის, რომ ელემენტი ფიქსირებული იყოს, დაგჭირდებათ position:fixed")
-    it("პოზიციის მისათითებლად, შეგიძლიათ გამოიყენოთ top right bottom left. მაგალითად, bottom:200px ნიშნავს, რომ ქვევიდან 200 პიქსელში იყოს ელემენტი მოთავსებული");
+    it(`იმისათვის, რომ ელემენტი ფიქსირებული იყოს, დაგჭირდებათ position:fixed`)
+    it(`პოზიციის მისათითებლად, შეგიძლიათ გამოიყენოთ top right bottom left. 
+    მაგალითად, bottom:200px ნიშნავს, რომ ქვევიდან 200 პიქსელში იყოს ელემენტი მოთავსებული`);
 
 })
 
 CONFIG.isStep(steps.footer) && describe("Footer",() => {
-    it("შექმენით div#app-ში ელემენტი footer",() => {
-        const footer = document.querySelector("div#app > footer");
+    it(`შენი არ ვიცი და მე და გიგი ძალიან დავიღალეთ ამხელა დავალების კეთებით,
+    ამიტომ იძულებული ვართ აქ დავასრულოთ. არადა სურათების ქვემოთ აღწერები და
+    მთელი ამბები გვინდოდა გვესწავლებინა. მოკლედ, საიტის ბოლოში დაამატე ახალი div#footer`,() => {
+        const footer = document.querySelector("footer");
         expect(footer != null || footer != undefined).to.be.true;
     })
-    it("footer ელემენტში შექმენით p ელემენტები, ერთში ჩაწერეთ თქვენი სახელი, ხოლო მეორეში გვარი.\n ხოლო მესამეში, ჩაწერეთ 'c თბილისის თავისუფალი უნივერსიტეტი, 2021' ",() => {
-        const footer = document.querySelector("div#app > footer");
+    it(`footer ელემენტში შექმენი ორი პარაგრაფი. პირველი პარაგრაფი ორი span ელემენტით. ერთში ჩაწერე შენი სახელი და გვარი.
+    მეორეში, ჩაწერე "Ⓒ  თბილისის თავისუფალი უნივერსიტეტი, 2021". არ დაგავიწყდეს გაცენტრვა. მეორე პარაგრაფში
+    რამე მესიჯი დამიწერე :)`,() => {
+        const footer = document.querySelector("footer");
         
-        const childs = footer.querySelectorAll("p");
+        const childs = footer.querySelectorAll("span");
         
         expect(childs.length == 3).to.be.true;
         expect(childs[0].innerText.length > 0).to.be.true;
         expect(childs[1].innerText.length > 0).to.be.true;
         expect(childs[2].innerText == "c თბილისის თავისუფალი უნივერსიტეტი, 2021").to.be.true;
+        // TODO გაცენტრვა შესამოწმებელი
     })
+    it('copyright symbol დაგუგლე, მონიშე და დააკოპირე')
 })
 
 function strStartsWith(str, prefix){
@@ -398,7 +440,7 @@ function setupGuessingPasswordHeader(passwordsDiv){
     let title = document.createElement("div");
     title.setAttribute("id","random-password-header");
 
-    title.innerHTML = `ეცადე იპოვო პაროლი Inspect Element საშუალებით. პაროლის div ელემენტს აქვს კლასი '.real-password'`;
+    // title.innerHTML = `ეცადე იპოვო პაროლი Inspect Element საშუალებით. პაროლის div ელემენტს აქვს კლასი '.real-password'`;
     title.style = "text-align: center";
     passwordsDiv.appendChild(title);
 }
@@ -425,7 +467,7 @@ function setupGuessingPasswordBody(passwordsDiv, count = 104 * 5){
             realPassword = CONFIG.password
     } else {
         CONFIG.password = realPassword;
-        saveConfig();
+        CONFIG.save();
     }
    
     let randomPasswordIndex = Math.floor(Math.random() * count)
