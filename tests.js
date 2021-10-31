@@ -362,11 +362,14 @@ CONFIG.isStep(steps.page_2) && describe("Page 2",() => {
     })
     it("ამისთვის დაგჭირდებათ, რომ page2-content display იყოს flex და justify-content იყოს space-around")
 
+    // TODO დამატებით კოდი დავუწეროთ on hover-ზე რომ opacity ბოლომდე გაიზარდოს
+
 })
 
 // TODO ეს სამი ნაწილი შესამოწმებელია
 CONFIG.isStep(steps.menu) && describe("Menu",() => {
-    it(`ჩვენს უზარმაზარ საიტზე ამდენი სქროლვა ცოტათი დამღლელია, მოდი ნავიგაცია დავამატოთ (და თითქმის მოვრჩით).
+    it(`ჩვენს უზარმაზარ საიტზე ამდენი სქროლვა ცოტათი დამღლელია, 
+    მოდი ნავიგაცია დავამატოთ (და თითქმის მოვრჩით).
     შექმენი div ელემენტი, რომელსაც id ექნება menu`,() => {
         const div = document.querySelector("div#menu");
         expect(div != null || div != undefined).to.be.true;
