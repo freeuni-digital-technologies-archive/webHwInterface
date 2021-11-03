@@ -37,6 +37,21 @@ MESSAGES['inspect-element-გამოყენება'] = `
        
 `
 
+MESSAGES['success'] = `
+    ვაა, ყოჩაღ :) არც ისე მარტივი დავალება დაასრულე. ახლა გამოგზავნის დროა:
+     <br>- ჯერ შეამოწმე, რომ ყველა ტესტი გადის პაროლის გვერდიდან ბოლომდე
+     <br>- ჩვენ მხოლოდ index.html უნდა გამოგვიგზავნო (კლასრუმზე ატვირთე)
+     <br>- გადაარქვი ფაილს სახელი იმავე პრინციპით, როგორც კარელზე. ოღონდ ამჯერად .txt-ის მაგივრად 
+     .html-ით დაასრულე არ მიაწერო
+
+     <br>
+     <br>
+
+    <img src="https://miro.medium.com/max/1400/0*C-cPP9D2MIyeexAT.gif">
+`
+
+// TODO linter and warnings
+
 function hideMessage() {
     document.getElementById('instructions').innerHTML = ''
 }

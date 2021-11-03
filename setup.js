@@ -37,7 +37,7 @@ const styles = [
     'teststyles.css'
 ]
 
-const customScripts = ['./config.js', './instructions.js', './tests.js', './hw.js']
+const customScripts = ['./config.js', './instructions.js',  './hw.js', './tests.js',]
 const mochaScripts = [
     'https://unpkg.com/chai/chai.js',
     'https://unpkg.com/mocha/mocha.js'
@@ -47,7 +47,7 @@ function loadAfterCondition(checkCondition, load) {
     var loadCustomScripts = setInterval(() => {
         if (checkCondition()) {
             clearInterval(loadCustomScripts)
-            setTimeout(load, 100)
+            setTimeout(load, 400)
         }
     }, 50)
 }

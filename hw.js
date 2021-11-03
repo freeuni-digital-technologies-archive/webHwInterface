@@ -36,6 +36,7 @@ class Homework {
         d.innerHTML = `
         <button class="align-right" onclick="toggle('help')">დახმარება</button>
         <button class="align-right ${c}" id="next-step" ${click}>შემდეგი ნაბიჯი</button>
+        <button class="align-right" onclick="HW.previousStep()">წინა ნაბიჯი</button>
         `
 
         const messageButtons = Object.keys(MESSAGES).map(m => `<button onclick="showMessage('${m}')">${m.replaceAll('-', ' ')}</button>`).join('')
@@ -45,9 +46,6 @@ class Homework {
             ${messageButtons}
             <button onclick="toggle('help')">დახურვა</button>
         `
-
-        // TODO body insertadjasenthtml afterbegin-ით დაემატოს 
-        // აქ ჩაემატოს ტესტების div-ის დამალვის ღილაკი რომ თავისი საიტი სრულად ნახონ ხოლმე
 
         // document.getElementById('tests').appendChild(d)
     }
@@ -116,7 +114,13 @@ class Homework {
 
     // ეს ფუნქცია ჯერ არ გვინდა :დ
     previousStep() {
+        if (CONFIG.currentStep === 1) {
 
+        } else {
+            CONFIG.currentStep--
+            CONFIG.save()
+            window.location.reload()
+        }
     }
 
     /*

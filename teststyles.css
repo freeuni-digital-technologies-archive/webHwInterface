@@ -39,9 +39,9 @@ active
     margin: auto;
 }
 .uncompleted {
-    /* color: grey;
-    pointer-events: none; */
-    display: none;
+     color: grey;
+    pointer-events: none; 
+    /*display: none;*/
 }
 
 .completed {
