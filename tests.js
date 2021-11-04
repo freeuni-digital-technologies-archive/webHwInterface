@@ -44,7 +44,9 @@ const steps = {
      * ეწერება სტუდენტის სახელი და გვარი, 
      * c თბილისის თავისუფალი უნივერსიტეტი, 2021. 
      */
-    footer: 6
+    footer: 6,
+
+    done: 7
 }
 
 CONFIG.isStep(steps.introduction) && describe("", () => {
@@ -158,16 +160,32 @@ CONFIG.isStep(steps.header) && describe(`header`, () => {
         style თაგში გამოიყენე #website-title სელექტორი. ტექსტზე ძალიან მიბჯენილი რომ არ გამოვიდეს, 10px padding დაუმატე`,() => {
         const h1 = document.querySelector("div#website-title-container > h1#website-title");
         
-        const h1style = window.getComputedStyle(h1);
 
-        const paddingPixels = h1style.getPropertyValue("padding");
-        expect(paddingPixels == "10px").to.be.true;
+        // const paddingPixels = h1style.getPropertyValue("padding");
+        // expect(paddingPixels == "10px").to.be.true;
 
-        // const textAlign = h1style.getPropertyValue("text-align");
-        // expect(textAlign == "center").to.be.true;
+        // // const textAlign = h1style.getPropertyValue("text-align");
+        // // expect(textAlign == "center").to.be.true;
 
-        const border = h1style.getPropertyValue("border");
-        expect(border == "2px dotted rgb(0, 0, 255)").to.be.true;
+        // const border = h1style.getPropertyValue("border");
+        // expect(border == "2px dotted rgb(0, 0, 255)").to.be.true;
+
+        const h1styleTag = window.getComputedStyle(h1);
+        const h1styleAttr = h1.style;
+
+        const paddingPixelsTag = h1styleTag.getPropertyValue("padding");
+        const paddingPixelsAttr = h1styleAttr.padding;
+
+        expect(paddingPixelsTag == "10px" || paddingPixelsAttr == "10px").to.be.true;
+
+        const borderTag = h1styleTag.getPropertyValue("border");
+        const borderAttr = h1styleAttr.border;
+
+        const expectBorder = "2px dotted rgb(0, 0, 255)";
+
+        expect(borderTag == expectBorder || borderAttr == expectBorder).to.be.true;
+
+
     })
     it(`#website-title{`)
     it(`    border: 2px dotted rgb(0, 0, 255);`)
@@ -176,9 +194,15 @@ CONFIG.isStep(steps.header) && describe(`header`, () => {
     it("დამალე პაროლი. ამისათვის საკმარისია, რომ მისი სტილი გახადო display: none",() => {
         const passwordDiv = document.getElementById("write-password-here");
 
-        const passwordDivStyle = window.getComputedStyle(passwordDiv);
 
-        expect(passwordDiv.style.display == "none" || passwordDivStyle.getPropertyValue("display") == "none").to.be.true;
+        const passwordDivStyleTag = window.getComputedStyle(passwordDiv);
+        const passwordDivStyleAttr = passwordDiv.style;
+
+
+        const displayTag = passwordDivStyleTag.getPropertyValue("display");
+        const displayAttr = passwordDivStyleAttr.display;
+
+        expect(displayAttr == "none" || displayTag == "none").to.be.true;
     })
     it(`გამოიყენე სელექტორი. ისევე, როგორც #website-title`)
 
@@ -200,7 +224,7 @@ CONFIG.isStep(steps.page_1) && describe("Page 1",() => {
 
         // expect(h1.innerText == "Page 1").to.be.true;
 
-        expect(h1.style.textAlign == "center" || window.getComputedStyle(h1).getPropertyValue("text-align") == "center").to.be.true;
+        //expect(h1.style.textAlign == "center" || window.getComputedStyle(h1).getPropertyValue("text-align") == "center").to.be.true;
     })
     it("<h1 id='page1-title'></h1>")
 
@@ -277,13 +301,23 @@ CONFIG.isStep(steps.page_2) && describe("Page 2",() => {
     ფონის ფერი გამოჩნდეს, ელემენტს სიმაღლე მიეცი - 600px`,() => {
         const div = document.querySelector("div#page2");
         expect(div != null || div != undefined).to.be.true;
+
+        const styleTag = window.getComputedStyle(div);
+        const styleAttr = div.style;
+
+        const heightTag = styleTag.getPropertyValue("height");
+        const heightAttr = styleAttr.height;
+
+        expect(heightTag == "600px" || heightAttr == "600px").to.be.true;
+
+        const colorTag = styleTag.getPropertyValue("background-color");
+        const colorStyle = styleAttr.backgroundColor;
+
+
+        expect(colorTag != "rgba(0, 0, 0, 0)" || colorStyle != '').to.be.true;
     })
     it("<div id='page2'></div>")
     it("#page2 { height: 600px; background-color: rgb();")
-
-    // TODO აქ იყოს ბეგრაუნდის ფერის შეცვლა.
-    // div-ის height იყოს 600px
-
 
 
     it(`div#page2 ელემენტში შექმენი h1 ელემენტი,რომლის id იქნება page2-title და ჰორიზონტალურად 
@@ -295,7 +329,7 @@ CONFIG.isStep(steps.page_2) && describe("Page 2",() => {
         expect(h1.innerText.length > 3).to.be.true;
 
         expect(h1.style.textAlign == "center" || window.getComputedStyle(h1).getPropertyValue("text-align") == "center").to.be.true;
-        // TODO margin
+        expect(h1.style.marginTop == "250px" || window.getComputedStyle(h1).getPropertyValue("margin-top") == "250px").to.be.true;
     })
     it("<h1 id='page2-title'></h1>")
     it("#page2-title {")
@@ -337,6 +371,7 @@ CONFIG.isStep(steps.page_2) && describe("Page 2",() => {
         const image = container.querySelector("img.image-row");
 
         const imageStyle = window.getComputedStyle(image);
+        console.log(imageStyle.getPropertyValue("width"),imageStyle.getPropertyValue("opacity"))
         expect(imageStyle.getPropertyValue("width") == "350px").to.be.true;
         // expect(imageStyle.getPropertyValue("height") == "350px").to.be.true;
         expect(imageStyle.getPropertyValue("opacity") == "0.7").to.be.true;
@@ -395,10 +430,12 @@ CONFIG.isStep(steps.menu) && describe("Menu",() => {
         const div = document.querySelector("div#menu");
         
         const divStyle = window.getComputedStyle(div);
-        expect(divStyle.getPropertyValue("position") == "fixed").to.be.true;
-        expect(divStyle.getPropertyValue("top") == "0px").to.be.true;
-        expect(divStyle.getPropertyValue("right") == "0px").to.be.true;
-        expect(divStyle.getPropertyValue("border") == "2px solid rgb(255, 215, 0)").to.be.true;
+        expect(divStyle.getPropertyValue("position") == "fixed" || div.style.position == "fixed").to.be.true;
+        expect(divStyle.getPropertyValue("top") == "0px" || div.style.top == "0px").to.be.true;
+        expect(divStyle.getPropertyValue("right") == "0px" || div.style.right == "0px").to.be.true;
+
+        const expectBorder = "2px solid rgb(255, 215, 0)"
+        expect(divStyle.getPropertyValue("border") == expectBorder || div.style.border == expectBorder).to.be.true;
 
     })
     it(`იმისათვის, რომ ელემენტი ფიქსირებული იყოს, დაგჭირდებათ position:fixed`)
@@ -411,24 +448,34 @@ CONFIG.isStep(steps.footer) && describe("Footer",() => {
     it(`შენი არ ვიცი და მე და გიგი ძალიან დავიღალეთ ამხელა დავალების კეთებით,
     ამიტომ იძულებული ვართ აქ დავასრულოთ. არადა სურათების ქვემოთ აღწერები და
     მთელი ამბები გვინდოდა გვესწავლებინა. მოკლედ, საიტის ბოლოში დაამატე ახალი div#footer`,() => {
-        const footer = document.querySelector("footer");
+        const footer = document.querySelector("div#footer");
         expect(footer != null || footer != undefined).to.be.true;
     })
     it(`footer ელემენტში შექმენი ორი პარაგრაფი. პირველი პარაგრაფი ორი span ელემენტით. ერთში ჩაწერე შენი სახელი და გვარი.
-    მეორეში, ჩაწერე "Ⓒ  თბილისის თავისუფალი უნივერსიტეტი, 2021". არ დაგავიწყდეს გაცენტრვა. მეორე პარაგრაფში
+    მეორეში, ჩაწერე "Ⓒ თბილისის თავისუფალი უნივერსიტეტი, 2021". არ დაგავიწყდეს გაცენტრვა. მეორე პარაგრაფში
     რამე მესიჯი დამიწერე :)`,() => {
-        const footer = document.querySelector("footer");
+        const footer = document.querySelector("div#footer");
+
+        const paragraphs = footer.querySelectorAll("p");
+        expect(paragraphs.length).eql(2);
+
+
+        const spans = paragraphs[0].querySelectorAll("span");
+        expect(spans.length).eql(2);
+
+        console.log(spans);
         
-        const childs = footer.querySelectorAll("span");
-        
-        expect(childs.length == 3).to.be.true;
-        expect(childs[0].innerText.length > 0).to.be.true;
-        expect(childs[1].innerText.length > 0).to.be.true;
-        expect(childs[2].innerText == "c თბილისის თავისუფალი უნივერსიტეტი, 2021").to.be.true;
-        // TODO გაცენტრვა შესამოწმებელი
+        expect(spans[0].innerText.length > 0).to.be.true;
+
+        expect(spans[1].innerText).eql("Ⓒ თბილისის თავისუფალი უნივერსიტეტი, 2021");
+
+        expect(footer.style.textAlign == "center" || window.getComputedStyle(footer).getPropertyValue("text-align") == "center").to.be.true;
     })
     it('copyright symbol დაგუგლე, მონიშე და დააკოპირე')
+    it('იმის მაგივრად, რომ თითოეული ტექსტი გაცენტრო, გაცენტრე მთლიანად div#footer')
 })
+
+CONFIG.isStep(steps.done) && alert("თქვენ წარმატებით შეასრულეთ დავალება!")
 
 function strStartsWith(str, prefix){
     return str.indexOf(prefix,0) !== -1;
