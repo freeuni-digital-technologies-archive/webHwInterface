@@ -1,9 +1,9 @@
-const { expect, assert } = chai
-
+// const { expect, assert } = chai
+import { expect, assert } from 'chai'
 // აქ ჩამოვწერთ რომელი მერამდენე იყოს რომ შემთხვევით
 // რიცხვების შეცვლა არ დაგვავიწყდეს
-
-CONFIG.allowedFiles = ['index.html']
+import { toggle } from './utils'
+import { showMessage } from './instructions'
 const steps = {
     introduction: 1,
     setup_and_password: 2,
@@ -45,6 +45,8 @@ const steps = {
     done: 8
 }
 
+// (:
+export function generateTests(CONFIG) {
 CONFIG.isStep(steps.introduction) && describe("", () => {
     CONFIG.hints = 'on'
     it(`გამარჯობა :) კეთილი იყოს შენი მობრძანება ვების პირველ დავალებაში. 
@@ -82,7 +84,7 @@ CONFIG.isStep(steps.setup_and_password) && describe("", () => {
      * ინსტრუქციაში უნდა დაეწეროს, რომ იპოვონ
      * 
      */
-    setupGuessingPassword()
+    setupGuessingPassword(CONFIG)
     it(`კოდის ედიტორის საშუალებით გახსენი html ფაილი, მოძებნე ხაზი, სადაც წერია div#write-password-here და ჩაწერე იქ პაროლი.
     პაროლის სანახავად გამოიყენე inspect element`, () => {
         const n = Number(document.querySelector('div#write-password-here').innerText)
@@ -483,6 +485,7 @@ CONFIG.isStep(steps.done) && describe("🥳", () => {
     showMessage('success')
 })
 
+}
 function strStartsWith(str, prefix){
     return str.indexOf(prefix,0) !== -1;
 }
@@ -502,7 +505,7 @@ function setupGuessingPasswordHeader(passwordsDiv){
 }
 
 
-function setupGuessingPasswordBody(passwordsDiv, count = 104 * 5){
+function setupGuessingPasswordBody(CONFIG, passwordsDiv, count = 104 * 5){
     const max = 999999
     const min = 100000
 
@@ -535,13 +538,14 @@ function setupGuessingPasswordBody(passwordsDiv, count = 104 * 5){
 
 }
 
-function setupGuessingPassword() {
+function setupGuessingPassword(CONFIG) {
     let passwordsDiv = document.createElement("div");
     passwordsDiv.setAttribute("id","random-password-list");
 
     document.body.appendChild(passwordsDiv);
 
     setupGuessingPasswordHeader(passwordsDiv);
-    setupGuessingPasswordBody(passwordsDiv);
+    setupGuessingPasswordBody(CONFIG, passwordsDiv);
     //setupGuessingPasswordFooter(passwordsDiv);
 }
+

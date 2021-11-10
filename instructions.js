@@ -56,7 +56,7 @@ function hideMessage() {
     document.getElementById('instructions').innerHTML = ''
 }
 
-function showMessage(args) {
+export function showMessage(args) {
    const c =  Array.from([...arguments]).map(msg =>`
    <div class="help-message">
         <h3>${msg.replaceAll('-', ' ')}</h3>
@@ -64,6 +64,6 @@ function showMessage(args) {
    </div>
 `)
 
-   document.getElementById('instructions').innerHTML = c.join('\n') + `<div><button onclick="hideMessage()">დახურვა</button></div>`
+document.getElementById('instructions').innerHTML = c.join('\n') + `<div><button onclick="hideMessage()">დახურვა</button></div>`
 //    document.getElementById('instructions-text').innerText = msg
 }

@@ -1,8 +1,12 @@
+// ეს ფაილი აღარ გვჭირდება წესით
+
 function main() {
+    // ჩატვირთვის გიფი და ტექსტი
     setUpScriptTags()
-    loadAfterCondition(() => typeof(Config) === 'function', () => {
+    loadAfterCondition(() => typeof(testsLoaded) !== 'undefined', () => {
         HW.launchTests()
     })
+    // გიფის და ტექსტის წაშლა
 }
 
 function setUpScriptTags() {
@@ -16,7 +20,8 @@ function setUpScriptTags() {
     loadAfterCondition(() => typeof (mocha.setup) === 'function', () => {
         customScripts
             .map(getScriptElement)
-            .forEach(e => document.getElementById('scripts').appendChild(e))
+            .forEach((e, i) => setTimeout(() => 
+                    document.getElementById('scripts').appendChild(e), i*50))
     })
 }
 

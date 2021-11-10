@@ -2,10 +2,14 @@
  * ამ ფაილში არის ნავიგაციის ფუნქციები
  */
 
-class Homework {
-    launchTests() {
+export class Homework {
+    constructor(CONFIG) {
+        this.CONFIG = CONFIG
+    }
+
+    launchTests(mocha) {
         mocha.run()
-            .on('fail', t => CONFIG.failed = true)
+            .on('fail', t => this.CONFIG.failed = true)
             .on('end', () => {
                 this.checkProgress()
                 this.setupTestsDiv()
@@ -26,13 +30,13 @@ class Homework {
 
     setupTestsDiv() {
         const d = document.getElementById('progress-bar')
-        // CONFIG.testCount რაოდენობის მართკუთხედი უნდა დაემატოს
-        // CONFIG.currentStep ზე ნაკლებები იყოს გამწვანებული
-        // CONFIG.currentStep რამე სტილით
-        // CONFIG.currentStep -ზე მეტი იყოს ნაცრისფრად
-        const c = CONFIG.failed ? 'uncompleted' : 'completed'
-        const click = CONFIG.failed ? '' : 'onclick="HW.nextStep()"'
-        this.setHints(CONFIG.hints)
+        // this.CONFIG.testCount რაოდენობის მართკუთხედი უნდა დაემატოს
+        // this.CONFIG.currentStep ზე ნაკლებები იყოს გამწვანებული
+        // this.CONFIG.currentStep რამე სტილით
+        // this.CONFIG.currentStep -ზე მეტი იყოს ნაცრისფრად
+        const c = this.CONFIG.failed ? 'uncompleted' : 'completed'
+        const click = this.CONFIG.failed ? '' : 'onclick="HW.nextStep()"'
+        this.setHints(this.CONFIG.hints)
         d.innerHTML = `
         <button class="align-right" onclick="toggle('help')">დახმარება</button>
         <button class="align-right ${c}" id="next-step" ${click}>შემდეგი ნაბიჯი</button>
@@ -63,7 +67,7 @@ class Homework {
     checkProgress() {
         // might be useful: https://mochajs.org/api/tutorial-custom-reporter.html
         /*
-        if (CONFIG.checkAll) {
+        if (this.CONFIG.checkAll) {
             checkAll()
             // ეს ფუნქცია თავისით გადატვირთავს გვერდს ამიტომ
             // დანარჩენს აღარ გააგრძელებს
@@ -77,24 +81,24 @@ class Homework {
      * ამ ეტაპზე შეგვიძლია უბრალოდ დავალების ბოლოს იყოს
      */
     celebrate() {
-        // CONFIG.save()
+        // this.CONFIG.save()
     }
 
     nextStep() {
         // ერთი პრობლემა რომელზეც დასაფიქრებელია არის ის, რომ ახალ ცვლილებაზე
         // წინა ტესტი თუ ჩაიჭრა, დროულად უნდა შევამოწმოთ
-        // CONFIG.checkAll = true
-        // CONFIG.save()
+        // this.CONFIG.checkAll = true
+        // this.CONFIG.save()
         // reload
         // ამის იმპლემენტაცია არ არის ახლავე საჭირო, უბრალოდ კომენტარები იყოს
-        if (CONFIG.checkAll) {
+        if (this.CONFIG.checkAll) {
 
         }
-        if (CONFIG.currentStep === CONFIG.testCount) {
+        if (this.CONFIG.currentStep === this.CONFIG.testCount) {
 
         } else {
-            CONFIG.currentStep++
-            CONFIG.save()
+            this.CONFIG.currentStep++
+            this.CONFIG.save()
             window.location.reload()
         }
     }
@@ -106,7 +110,7 @@ class Homework {
         // testConfig-ში step-ის შეცვლა
         // გვერდის გადატვირთვა (და რადგან testConfig-ში უკვე შეცვლილი იქნება,
         // შემდეგი ტესტები გამოჩნდება)
-        // CONFIG.save()
+        // this.CONFIG.save()
         // ამ ფუნქციას ჭირდება რომ ტესტების რაოდენობა იცოდეს (counter-ის გაზრდისას)
         // reload
     }
@@ -114,11 +118,11 @@ class Homework {
 
     // ეს ფუნქცია ჯერ არ გვინდა :დ
     previousStep() {
-        if (CONFIG.currentStep === 1) {
+        if (this.CONFIG.currentStep === 1) {
 
         } else {
-            CONFIG.currentStep--
-            CONFIG.save()
+            this.CONFIG.currentStep--
+            this.CONFIG.save()
             window.location.reload()
         }
     }
@@ -154,10 +158,4 @@ class Homework {
     */
 }
 
-function toggle(id) {
-    const e = document.getElementById(id).style
-    e.display = e.display === 'none' ? '' : 'none'
-}
 
-var HW = new Homework()
-toggle('help')

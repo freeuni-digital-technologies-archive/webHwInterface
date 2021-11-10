@@ -1,4 +1,3 @@
-mocha.setup("bdd");
 
 /**
  * @typedef {Object} Config
@@ -9,7 +8,7 @@ mocha.setup("bdd");
  * @property {String} show hint mode
  *  */
 
-class Config {
+export class Config {
     constructor() {
         this.readData()
         this.testCount = 0
@@ -23,7 +22,7 @@ class Config {
     }
 
     save() {
-        localStorage.setItem('config', JSON.stringify(CONFIG))
+        localStorage.setItem('config', JSON.stringify(this))
     }
 
     /**
@@ -36,20 +35,15 @@ class Config {
      * @returns {Boolean} 
      */
     isStep(n) {
-        CONFIG.testCount++
-        if (CONFIG.checkAll) {
-            return n < CONFIG.currentStep
+        this.testCount++
+        if (this.checkAll) {
+            return n < this.currentStep
         }
-        return n === CONFIG.currentStep
+        return n === this.currentStep
     }
 
     increaseStep() {
-        CONFIG.currentStep++;
+        this.currentStep++;
         saveConfig();
     }
 }
-
-/**
- * @type Config
- */
-var CONFIG = new Config()
