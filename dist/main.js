@@ -181,7 +181,8 @@ class $0cfa03a84b95b556$export$29cd7b75162a9425 {
 function $f43eaace178b557b$export$a882e025400e7e5e() {
     const styles = [
         'https://unpkg.com/mocha/mocha.css',
-        'teststyles.css'
+        // TODO move to appropriate place and change
+        'https://freeuni-digital-technologies.github.io/webHwInterface/teststyles.css'
     ];
     styles.map($f43eaace178b557b$var$getStyleElement).forEach((e)=>document.head.appendChild(e)
     );
