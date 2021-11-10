@@ -1,0 +1,12 @@
+{
+  "name": "webHwInterface",
+  "packageManager": "yarn@3.0.2",
+  "scripts": {
+    "build": "parcel build --no-optimize main.js"
+  },
+  "dependencies": {
+    "chai": "^4.3.4",
+    "mocha": "^9.1.3",
+    "parcel": "^2.0.1"
+  }
+}
