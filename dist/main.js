@@ -29029,7 +29029,7 @@ function $0b734eadbf9f1918$export$8fc432ccba9329a5(CONFIG) {
             const n = Number(document.querySelector('div#write-password-here').innerText);
             $070e14a38d3e3576$exports.expect(n).eql(CONFIG.password);
         });
-        it("იმისათვის, რომ პაროლი ჩაწეროთ, div ელემენტის id არ შეცვალოთ. საბოლოოდ გამოვა ასეთი რამე: <div id='write-password-here>aq paroli</div>'");
+        it("იმისათვის, რომ პაროლი ჩაწეროთ, div ელემენტის id არ შეცვალოთ. საბოლოოდ გამოვა ასეთი რამე: <div id='write-password-here'>aq paroli</div>'");
         $f43eaace178b557b$export$e03c1c3201ee8bb7('help');
         $3fc8b3df958d995d$export$787f5d117f138d13('inspect-element-გამოყენება', 'ედიტორის-გამოყენება');
     });
