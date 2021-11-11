@@ -90,6 +90,7 @@ CONFIG.isStep(steps.setup_and_password) && describe("", () => {
         const n = Number(document.querySelector('div#write-password-here').innerText)
         expect(n).eql(CONFIG.password)
     })
+    it("იმისათვის, რომ პაროლი ჩაწეროთ, div ელემენტის id არ შეცვალოთ. საბოლოოდ გამოვა ასეთი რამე: <div id='write-password-here>aq paroli</div>'")
 
     toggle('help')
     showMessage('inspect-element-გამოყენება', 'ედიტორის-გამოყენება')
