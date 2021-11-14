@@ -38,4 +38,6 @@ export function toggle(id) {
     e.display = e.display === 'none' ? '' : 'none'
 }
 
+window.toggle = toggle
+
 

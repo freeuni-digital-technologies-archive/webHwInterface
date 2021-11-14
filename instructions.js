@@ -68,6 +68,7 @@ export function showMessage(args) {
        ${MESSAGES[msg]}
    </div>
 `)
+window.showMessage = showMessage
 
 document.getElementById('instructions').innerHTML = c.join('\n') + `<div><button onclick="hideMessage()">დახურვა</button></div>`
 //    document.getElementById('instructions-text').innerText = msg
