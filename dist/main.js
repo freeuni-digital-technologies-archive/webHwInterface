@@ -208,6 +208,7 @@ function $f43eaace178b557b$export$e03c1c3201ee8bb7(id) {
     const e = document.getElementById(id).style;
     e.display = e.display === 'none' ? '' : 'none';
 }
+window.toggle = $f43eaace178b557b$export$e03c1c3201ee8bb7;
 
 
 var $6c251bd002dee964$exports = {};
@@ -9858,9 +9859,9 @@ var $a76d64f583151603$export$c500593c0574a51a;
  * @returns {string|void}
  */ var $a76d64f583151603$export$1aff45235d159c27;
 
+
 var $9dQaw = parcelRequire("9dQaw");
 var $a76d64f583151603$require$Buffer = $9dQaw.Buffer;
-
 'use strict';
 
 var $3gTQk = parcelRequire("3gTQk");
@@ -28949,6 +28950,7 @@ function $3fc8b3df958d995d$export$787f5d117f138d13(args) {
    </div>
 `
     );
+    window.showMessage = $3fc8b3df958d995d$export$787f5d117f138d13;
     document.getElementById('instructions').innerHTML = c.join('\n') + `<div><button onclick="hideMessage()">დახურვა</button></div>`;
 //    document.getElementById('instructions-text').innerText = msg
 }
