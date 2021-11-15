@@ -28,6 +28,16 @@ export class Homework {
         })   
     }
 
+    checkPath(){
+        const unzipPaths = [".zip","Local/Temp/Rar"]
+        const url = window.location.href;
+        let result = unzipPaths.find(unzipPath => url.includes(unzipPath));
+
+        if(result !== undefined){
+            document.innerHTML = "Oops! როგორც ჩანს, ფაილის გახსნას .zip არქივიდან ცდილობ. ასე რაღაცეები არ იმუშავებს. ჯერ გააკეთე extract.\nთუ ეს მესიჯი შეცდომით მიიღე, მოგვწერე მეილზე ";
+        }
+    }
+
     setupTestsDiv() {
         const d = document.getElementById('progress-bar')
         // this.CONFIG.testCount რაოდენობის მართკუთხედი უნდა დაემატოს

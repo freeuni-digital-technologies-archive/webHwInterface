@@ -12,9 +12,11 @@ window.HW = HW
 
 // ეს კიდე საჭიროა რომ ნაბიჯებს გადავახტეთ
 window.CONFIG = CONFIG
+HW.checkPath();
 setupTestsDiv()
 toggle('help')
 
 mocha.setup("bdd");
 generateTests(CONFIG)
+
 HW.launchTests(mocha)
