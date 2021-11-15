@@ -64,6 +64,16 @@ class $73892e34a9d1c022$export$f9423027ed3f6fc2 {
             else mochaPending.display = mochaPending.display === 'none' ? '' : 'none';
         });
     }
+    checkPath() {
+        const unzipPaths = [
+            ".zip",
+            "Local/Temp/Rar"
+        ];
+        const url = window.location.href;
+        let result = unzipPaths.find((unzipPath)=>url.includes(unzipPath)
+        );
+        if (result !== undefined) document.innerHTML = "Oops! როგორც ჩანს, ფაილის გახსნას .zip არქივიდან ცდილობ. ასე რაღაცეები არ იმუშავებს. ჯერ გააკეთე extract.\nთუ ეს მესიჯი შეცდომით მიიღე, მოგვწერე მეილზე ";
+    }
     setupTestsDiv() {
         const d = document.getElementById('progress-bar');
         // this.CONFIG.testCount რაოდენობის მართკუთხედი უნდა დაემატოს
@@ -29379,6 +29389,7 @@ var $585cdbe44f465c0b$var$HW = new $73892e34a9d1c022$export$f9423027ed3f6fc2($58
 window.HW = $585cdbe44f465c0b$var$HW;
 // ეს კიდე საჭიროა რომ ნაბიჯებს გადავახტეთ
 window.CONFIG = $585cdbe44f465c0b$var$CONFIG;
+$585cdbe44f465c0b$var$HW.checkPath();
 $f43eaace178b557b$export$a882e025400e7e5e();
 $f43eaace178b557b$export$e03c1c3201ee8bb7('help');
 (/*@__PURE__*/$parcel$interopDefault($6c251bd002dee964$exports)).setup("bdd");
