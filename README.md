@@ -10,7 +10,7 @@ yarn build
 git checkout dist
 git merge master
 yarn build
-git add -f dist
+git add -f docs
 git commit
 git push
 git checkout master
