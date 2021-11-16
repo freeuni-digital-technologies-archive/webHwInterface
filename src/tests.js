@@ -1,1 +1,1 @@
-homeworks/hw6/tests.js
+../homeworks/hw6/tests.js

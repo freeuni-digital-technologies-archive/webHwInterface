@@ -2,7 +2,7 @@
   "name": "webHwInterface",
   "packageManager": "yarn@3.0.2",
   "scripts": {
-    "build": "parcel build --no-optimize src/main.js -o docs/hw6.js"
+    "build": "parcel build --no-optimize src/main.js --dist-dir docs/hw6"
   },
   "dependencies": {
     "chai": "^4.3.4",
