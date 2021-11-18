@@ -370,6 +370,7 @@ CONFIG.isStep(steps.page_2) && describe("Page 2",() => {
 
         expect(imageSrcs.size == images.length).to.be.true;
     })
+    /*
     it("თითოეულ სურათს უნდა ჰქონდეს სიგანეც 350px, ხოლო opacity: 70%",() => {
         const container = document.querySelector("div#page2 > div#page2-content");
         const image = container.querySelector("img.image-row");
@@ -380,6 +381,7 @@ CONFIG.isStep(steps.page_2) && describe("Page 2",() => {
         // expect(imageStyle.getPropertyValue("height") == "350px").to.be.true;
         expect(imageStyle.getPropertyValue("opacity") == "0.7").to.be.true;
     })
+    */
     it(".image-row { width: ...")
 
     //TODO: check if opacity is 1 on :hover
