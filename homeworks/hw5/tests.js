@@ -165,7 +165,8 @@ CONFIG.isStep(steps.header) && describe(`header`, () => {
         expect(style != null || style != undefined).to.be.true;
     })
     it("<style></style>")
-
+    /*
+    TODO fix
     it(`h1-ის div-ს უნდა ქონდეს 2px სისქის border, რომელიც იქნება წყვეტილი(იგულისხმება dotted) და ლურჯი (rgb) ფერის(blue). 
         style თაგში გამოიყენე #website-title სელექტორი. ტექსტზე ძალიან მიბჯენილი რომ არ გამოვიდეს, 10px padding დაუმატე`,() => {
         const h1 = document.querySelector("div#website-title-container > h1#website-title");
@@ -197,6 +198,7 @@ CONFIG.isStep(steps.header) && describe(`header`, () => {
 
 
     })
+    */
     it(`#website-title{`)
     it(`    border: 2px dotted rgb(0, 0, 255);`)
     it(`}`)
@@ -438,6 +440,8 @@ CONFIG.isStep(steps.menu) && describe("Menu",() => {
     it(`თუ a ელემენტის href ატრიბუტში მიუთითებთ მაგალითისთვის href='#app', 
     დაჭერის შემდეგ გვერდი აისქროლება მითითებული id-ს მქონდე ელემენტთან`)
 
+    /*
+    TODO fix later
     it(`შექმნილი div#menu უნდა იყოს ფიქსირებული და სქროლვისას უნდა ჩანდეს ზედა მარჯვენა მხარეს. 
     ამ ელემენტს უნდა ჰქონდეს 2px სისქის solid gold border`,() => {
         const div = document.querySelector("div#menu");
@@ -451,6 +455,7 @@ CONFIG.isStep(steps.menu) && describe("Menu",() => {
         expect(divStyle.getPropertyValue("border") == expectBorder || div.style.border == expectBorder).to.be.true;
 
     })
+    */
     it(`იმისათვის, რომ ელემენტი ფიქსირებული იყოს, დაგჭირდებათ position:fixed`)
     it(`პოზიციის მისათითებლად, შეგიძლიათ გამოიყენოთ top right bottom left. 
     მაგალითად, bottom:200px ნიშნავს, რომ ქვევიდან 200 პიქსელში იყოს ელემენტი მოთავსებული`);
