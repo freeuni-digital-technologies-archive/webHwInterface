@@ -1,1 +1,0 @@
-../homeworks/hw6/tests.js

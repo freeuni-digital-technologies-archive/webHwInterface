@@ -2,25 +2,24 @@
 
 ```sh
 yarn install
-yarn build
 ```
 
 ## development
 დეველოპმენტისთვის მხოლოდ საჭიროა რომ დროებით სკრიპტ თეგში იყოს
 ```html
-<script type="module" src="../../src/main.js"></script>
+<script type="module" src="./hw<X>.js"></script>
 ```
 ამის შემდეგ `yarn start` ბრძანებით ცვლილებები ავტომატურად აისახება ლოკალჰოსტის მისამართზე
 
 ```sh
-yarn start
+yarn start -- homeworks/hw<X>/index.html
 ```
 
 ## to push changes
 ```sh
 git checkout dist
 git merge master
-yarn build
+yarn build-student-tests
 git add -f docs
 git commit
 git push

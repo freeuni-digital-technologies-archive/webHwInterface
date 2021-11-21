@@ -12,9 +12,12 @@ export function setupInterface(CONFIG, HW) {
 	}
 	window.HW = HW
 	window.CONFIG = CONFIG
+<<<<<<< HEAD
 
 	HW.checkPath();
 
+=======
+>>>>>>> a5e81cf (refactor)
 	// ეს კიდე საჭიროა რომ ნაბიჯებს გადავახტეთ
 	setupTestsDiv()
 	toggle('help')
@@ -24,4 +27,9 @@ export function setupInterface(CONFIG, HW) {
 		HW: HW,
 		mocha: mocha
 	}
+<<<<<<< HEAD
 }
+=======
+}
+
+>>>>>>> a5e81cf (refactor)

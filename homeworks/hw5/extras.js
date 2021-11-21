@@ -2,7 +2,6 @@
 
 export function createServerConfig(CONFIG) {
 	CONFIG.isStep = function(i) {
-		console.log(i)
 		return i > 2 && i < 8
 	}
 	return CONFIG
@@ -11,3 +10,9 @@ export function createServerConfig(CONFIG) {
 export function generateServerTests() {
 
 }
+
+
+export function getScore(test) {
+	return 1
+}
+
