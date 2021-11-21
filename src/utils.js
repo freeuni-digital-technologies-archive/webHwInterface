@@ -47,3 +47,9 @@ export function splitToLines(code) {
         // კი აუცილებელია რომ {} ქონდეს
         .map(l => { it(l) })
 }
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 5664483 (add function to display code with mocha reporter)
