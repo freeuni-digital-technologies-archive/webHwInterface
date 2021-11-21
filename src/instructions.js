@@ -23,9 +23,13 @@ MESSAGES['სამუშაო-გარემო'] = `
 `
 
 MESSAGES['ედიტორის-გამოყენება'] = `
-    გახსენი visual studio code. დააჭირე cmd/ctrl+o ს ან Menu>File>Open და მონიშნე დავალების folder
-    მარცხნივ sidebar-ში გამოჩნდება ფაილები, რომლებიც შეგიძლია 
-    იმისთვის, რომ შეცვლილი კოდის შედეგი ნახო, 1. შეინახე ფაილი და 2. გადატვირთე გვერდი ბრაუზერში
+    გახსენი visual studio code. დააჭირე cmd/ctrl+o ს ან Menu>File>Open, დააჭირე დავალების folder-ს 
+    და შემდეგ ქვემოთ მარჯვნივ open ღილაკს.
+    <br>დარწმუნდი, რომ ფოლდერს ხსნი და არა მხოლოდ index.html ფაილს, რადგან დავალებაში
+    სხვა ფაილებიც დაგჭირდება
+    იმისთვის, რომ შეცვლილი კოდის შედეგი ნახო, 
+        <br>1. შეინახე ფაილი (ctrl+s/cmd+s)
+        <br>2. გადატვირთე გვერდი ბრაუზერში (ctrl+r/cmd+r)
 `
 
 MESSAGES['inspect-element-გამოყენება'] = `
@@ -36,6 +40,15 @@ MESSAGES['inspect-element-გამოყენება'] = `
     სხვათა შორის, ctrl+f/cmd+f ძებნის უნივერსალური shortcut-ია და თითქმის ყველა აპლიკაციაში შეგიძლია გამოყენება.
        
 `
+
+MESSAGES['კონსოლის-გამოყენება'] = `
+    ბრაუზერის კონსოლი იმავე სივრცეშია, სადაც inspect element. უცებ გამოსატანად
+    ეს shortcut გამოიყენე
+        <br>MAC chrome > cmd + option + j
+        <br>MAC firefox > cmd + option + k
+        <br>windows chrome > ctrl + shift + j
+        <br>windows firefox > ctrl + shift + k
+`   
 
 MESSAGES['success'] = `
     ვაა, ყოჩაღ :) არც ისე მარტივი დავალება დაასრულე. ახლა გამოგზავნის დროა:
@@ -69,6 +82,7 @@ export function showMessage(args) {
    </div>
 `)
 window.showMessage = showMessage
+window.hideMessage = hideMessage
 
 document.getElementById('instructions').innerHTML = c.join('\n') + `<div><button onclick="hideMessage()">დახურვა</button></div>`
 //    document.getElementById('instructions-text').innerText = msg
