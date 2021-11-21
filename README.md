@@ -14,6 +14,15 @@ yarn install
 ```sh
 yarn start -- homeworks/hw<X>/index_solution.html
 ```
+## publish homework
+```sh
+git checkout dist
+git merge master
+./scripts/createZips
+git add -f docs
+git commit
+git push
+git checkout master
 ```
 
 ## to push changes
