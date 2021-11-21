@@ -49,6 +49,12 @@ export function generateTests(CONFIG) {
 }
 
 
+
+function getCalculatorElement() {
+
+}
+
+
 function setPassword(CONFIG) {
 	let password = Math.floor(Math.random() * (999999 - 100000) + 100000)
 	if (!CONFIG.password) {
