@@ -87,7 +87,6 @@ export function generateTests(CONFIG) {
 			სკრიპტ თეგი აუცილებელია, რომ იყოს app div-ის შემდეგ 
 			(ადგილი უკვე მონიშნულია). თეგის id იყოს my-script, `, () => {
 			scriptElem = document.getElementById(`my-script`)
-			console.log(scriptElem.src)
 			expect(scriptElem.src).include('index')
 		})
 		it(`<script id="my-script" src="./index.js"></script>`)
@@ -134,7 +133,8 @@ export function generateTests(CONFIG) {
 			სწორად მუშაობს თუ არა, ფუნქციიდან უბრალოდ რამე მესიჯი გააგზავნე
 			კონსოლში. გადატვირთე გვერდი, დააჭირე ღილაკს და ნახე მესიჯი
 			კონსოლში`, () => {
-				expect(document.querySelector(`button#add`)).includes(calculatorAdd)
+				const c = document.querySelector(`button#add`).onclick
+				expect(c).to.not.be.undefined
 			})
 		splitToLines(`function calculatorAdd() {
 				console.log('function works!')
@@ -283,7 +283,8 @@ export function generateTests(CONFIG) {
 
 
 	CONFIG.isStep(steps.substract) && describe('გამოკლება', () => {
-		it(`ძააალიან მაგარია. შეგიძლია calculatorSubstract() ფუნქციის დაწერა
+		it(`ძააალიან მაგარია.`, () => {})
+		it(`შეგიძლია calculatorSubstract() ფუნქციის დაწერა
 			დამოუკიდებლად სცადო?`, () => {
 			const a = Math.round(Math.random() * 10)
 			const b = Math.round(Math.random() * 10)
