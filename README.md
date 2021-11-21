@@ -12,7 +12,8 @@ yarn install
 ამის შემდეგ `yarn start` ბრძანებით ცვლილებები ავტომატურად აისახება ლოკალჰოსტის მისამართზე
 
 ```sh
-yarn start -- homeworks/hw<X>/index.html
+yarn start -- homeworks/hw<X>/index_solution.html
+```
 ```
 
 ## to push changes
