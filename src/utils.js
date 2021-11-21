@@ -1,6 +1,4 @@
 export function setupTestsDiv() {
-
-
     const styles = [
         'https://unpkg.com/mocha/mocha.css',
     'https://freeuni-digital-technologies.github.io/webHwInterface/teststyles.css'
@@ -38,5 +36,17 @@ export function toggle(id) {
 }
 
 window.toggle = toggle
+
+
+export function splitToLines(code) {
+    code
+        .split('\n')
+        .filter(l => l.replaceAll(' ', '')
+                    .replaceAll('\t', '')
+                    .length > 0)
+        // კი აუცილებელია რომ {} ქონდეს
+        .map(l => { it(l) })
+}
+
 
 
