@@ -1,4 +1,14 @@
-/**
- * აქ იყოს კალკულატორის სტილი, რომ თუ რამეა შეცვალონ სტუდენტებმა
- * თან ნახავენ
- */ 
+#app {
+    padding-top:  20px;
+    padding-bottom:  350px;
+    display: flex;
+    justify-content: center;
+    /*align-items: center;*/
+}
+
+#calculator {
+    background-color: gray;
+    padding:  10px;
+    display:  inline-block;
+    margin:  auto;
+}
