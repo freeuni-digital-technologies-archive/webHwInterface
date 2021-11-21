@@ -13,3 +13,5 @@ index-solution.html
 .parcel-cache
 .editorconfig
 docs/
+server-tests/
+*_solution.*
