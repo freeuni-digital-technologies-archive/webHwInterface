@@ -5,7 +5,7 @@ import { toggle } from '../../src/utils'
 import { showMessage } from '../../src/instructions'
 
 const steps = {
-	greeting: 1,
+	introduction: 1,
 	console: 2,
 	task1: 3,
 
@@ -13,8 +13,11 @@ const steps = {
 
 export function generateTests(CONFIG) {
 	CONFIG.isStep(steps.introduction) && describe(`შესავალი`, () => {
+		CONFIG.hints = 'on'
 		it(`ამ დავალების მიზანია ჯავასკრიპტის ფუნქციების და DOM-ის ვარჯიში`)
-
+		console.log('hhh')
+		toggle('help')
+		// showMessage
 	})
 
 

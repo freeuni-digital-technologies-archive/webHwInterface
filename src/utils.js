@@ -3,7 +3,6 @@ export function setupTestsDiv() {
 
     const styles = [
         'https://unpkg.com/mocha/mocha.css',
-    // TODO move to appropriate place and change
     'https://freeuni-digital-technologies.github.io/webHwInterface/teststyles.css'
     ]
     styles

@@ -47,7 +47,6 @@ const steps = {
 
 // (:
 export function generateTests(CONFIG) {
-
 CONFIG.isStep(steps.introduction) && describe("", () => {
 
     CONFIG.hints = 'on'
@@ -138,7 +137,6 @@ CONFIG.isStep(steps.header) && describe(`header`, () => {
     it("___ მაგივრად ჩაწერე icon-ის ბმული")
 
    
-    // TODO აქ emailid უნდა ჩაწერონ class-ში (შემოწმება)
     it(`შექმენი div ელემენტი, რომლის id იქნება website-title-container და
     მასში დაამატე h1, რომლის id იქნება website-title. ხოლო კლასი უნდა ქონდეს შენი emailid
         ჩაწერე სათაური, რომელიც იქნება შემდეგი ფორმატის, მაგალითად: გიგის საიტი. აუცილებელია, რომ ზუსტად
@@ -166,7 +164,6 @@ CONFIG.isStep(steps.header) && describe(`header`, () => {
     })
     it("<style></style>")
     /*
-    TODO fix
     it(`h1-ის div-ს უნდა ქონდეს 2px სისქის border, რომელიც იქნება წყვეტილი(იგულისხმება dotted) და ლურჯი (rgb) ფერის(blue). 
         style თაგში გამოიყენე #website-title სელექტორი. ტექსტზე ძალიან მიბჯენილი რომ არ გამოვიდეს, 10px padding დაუმატე`,() => {
         const h1 = document.querySelector("div#website-title-container > h1#website-title");
@@ -221,6 +218,7 @@ CONFIG.isStep(steps.header) && describe(`header`, () => {
 })
 
 CONFIG.isStep(steps.page_1) && describe("Page 1",() => {
+    console.log("whyyyyy")
 
     it("შექმენი div ელემენტი, რომლის id იქნება page1",() => {
         const div = document.querySelector("div#page1");
@@ -392,7 +390,7 @@ CONFIG.isStep(steps.page_2) && describe("Page 2",() => {
     */
     it(".image-row { width: ...")
 
-    //TODO: check if opacity is 1 on :hover
+    
 
     // it("თუ სურათზე მაუსის კურსორს გადავატარებთ, opacity უნდა გახდეს 100%, ანუ მთლიანად უნდა გამოჩნდეს.",() => {
     //     const container = document.querySelector("div#page2 > div#page2-content");
@@ -441,7 +439,6 @@ CONFIG.isStep(steps.menu) && describe("Menu",() => {
     დაჭერის შემდეგ გვერდი აისქროლება მითითებული id-ს მქონდე ელემენტთან`)
 
     /*
-    TODO fix later
     it(`შექმნილი div#menu უნდა იყოს ფიქსირებული და სქროლვისას უნდა ჩანდეს ზედა მარჯვენა მხარეს. 
     ამ ელემენტს უნდა ჰქონდეს 2px სისქის solid gold border`,() => {
         const div = document.querySelector("div#menu");

@@ -2,9 +2,9 @@
   "name": "webHwInterface",
   "packageManager": "yarn@3.0.2",
   "scripts": {
-    "build-student-tests": "parcel build src/main.js --dist-dir docs/hw6",
-    "build-server-tests": "parcel build src/server.js --dist-dir server-tests/hw5",
-    "start": "parcel index-solution.html"
+    "build-student-tests": "parcel build homeworks/*/hw..js --dist-dir docs/",
+    "build-server-tests": "parcel build homeworks/*/hw*-server.js --dist-dir server-tests/",
+    "start": "parcel "
   },
   "dependencies": {
     "chai": "^4.3.4",
