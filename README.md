@@ -17,7 +17,7 @@ yarn start -- homeworks/hw<X>/index_solution.html
 ## publish homework
 ```sh
 git checkout dist
-git merge master
+git merge hw-branch-name # აქტიური დავალება თუა  ჯერ მასტერში დამერჯილი შეიძლება არ იყოს
 ./scripts/createZips
 git add -f docs
 git commit
@@ -28,7 +28,7 @@ git checkout master
 ## to push changes
 ```sh
 git checkout dist
-git merge master
+git merge hw-branch-name # აქტიური დავალება თუა  ჯერ მასტერში დამერჯილი შეიძლება არ იყოს
 yarn build-student-tests
 git add -f docs
 git commit

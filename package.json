@@ -2,7 +2,7 @@
   "name": "webHwInterface",
   "packageManager": "yarn@3.0.2",
   "scripts": {
-    "build-student-tests": "parcel build homeworks/*/main.js --dist-dir docs/",
+    "build-student-tests": "parcel build homeworks/*/main.js --dist-dir docs/ && cp testStyles.css docs/",
     "build-server-tests": "parcel build homeworks/*/server.js --dist-dir server-tests/",
     "start": "parcel ",
     "createZips": "./scripts/createZips.sh"
