@@ -1,0 +1,88 @@
+/* 
+progress bar უნდა იყოს მთელ სიგანეზე და ეწეროს ციფრები მხოლოდ
+კლასები 
+passed
+active
+
+*/
+.help-message {
+    padding: 10px;
+    font-size: 14px;
+}
+#tests {
+    font-family: sans-serif;
+}
+
+#mocha-stats {
+    display: none;
+}
+#mocha .test pre {
+    height: 0;
+    display: none;
+}
+
+#mocha .suite a {
+    pointer-events: none;
+}
+
+#mocha .replay {
+    pointer-events: none;
+}
+
+#mocha .suite h2 {
+        pointer-events: none;    
+}
+
+/* #progress-bar, #mocha { */
+#tests {
+    width: 900px;
+    margin: auto;
+}
+.uncompleted {
+     color: grey;
+    pointer-events: none; 
+    /*display: none;*/
+}
+
+.completed {
+    color: green;
+}
+
+/*
+* ღილაკი უნდა იყოს 
+*/
+.align-right {
+    margin-right: 10px;
+    float: right;
+}
+
+#random-password-list p, .login-container {
+    text-align: center;
+}
+
+
+#random-passwords-body{
+    display:flex;
+    width:80%;
+    flex-wrap: wrap;
+    margin:10px auto;
+    justify-content: center;
+}
+
+.fake-password, .real-password{
+    border:1px solid black;
+    padding: 3px;
+    margin:0;
+}
+
+.test {
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+}
+.login-container #name-input,
+.login-container #password-input {
+    margin: 2px;
+}
+
