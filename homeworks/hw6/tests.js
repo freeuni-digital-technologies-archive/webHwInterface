@@ -10,7 +10,8 @@ const steps = {
 	addition2: 5,
 	addition_check: 6,
 	addition_refactor: 7,
-	substract: 8
+	substract: 8,
+	finish: 9
 
 }
 		
@@ -77,8 +78,6 @@ export function generateTests(CONFIG) {
 
 	CONFIG.isStep(steps.script_tag) && describe('script tag დამატება', () => {
 		toggle('help')
-		// TODO ედიტორში ჯავასკრიპტის გახსნა
-		showMessage()
 		it(`შემდეგ ნაბიჯზე გადავედით, მაგრამ კალკულატორის ელემენტი გაქრა.
 			შეგიძლია, ახსნა, რატომ?`)
 		it(`ამის მიზეზი ის არის, რომ გვერდის თავიდან ჩატვირთვისას ისევ index.html
@@ -90,6 +89,13 @@ export function generateTests(CONFIG) {
 			expect(scriptElem.src).include('index')
 		})
 		it(`<script id="my-script" src="./index.js"></script>`)
+		it(`ახლა გახსენი index.js ფაილი vs code-ში და გადაიტანე ხაზი იქ. 
+			გვერდის ჩატვირთვისას ბრაუზერი წაიკითხავს ფაილს და შეასრულებს იქ 
+			ჩაწერილ კოდს`, () => {
+			const c = document.getElementById('calculator')
+			expect(c).to.not.be.undefined
+		})
+		it(`document.getElementById('app').innerHTML = getCalculatorElement()`)
 	})
 
 	CONFIG.isStep(steps.addition1) && describe('მიმატება. ნაბიჯი 1', () => {
@@ -315,12 +321,15 @@ export function generateTests(CONFIG) {
 		`)
 	})
 
-
-
-	/**
-	 * რეფაქტორინგი
-	 * 
-	 * */
+	CONFIG.isStep(steps.finish) && describe('🥳', () => {
+		toggle('help')
+		showMessage('დავალების-ატვირთვა')
+		it(`დავალების ატვირთვის წესი იგივეა, რაც წინაზე (შეგიძლია ქვემოთ ნახო)`, () => {})
+		const celebrationGif = document.createElement('img')
+		celebrationGif.src = 'https://media0.giphy.com/media/f6hnhHkks8bk4jwjh3/giphy.gif'
+		celebrationGif.height = 400
+		document.getElementById('tests').insertBefore(celebrationGif, document.getElementById('help'))
+	})
 
 }
 
