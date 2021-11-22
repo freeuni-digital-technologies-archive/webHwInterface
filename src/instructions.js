@@ -52,7 +52,7 @@ MESSAGES['კონსოლის-გამოყენება'] = `
 MESSAGES['დავალების-ატვირთვა'] = `
     <br>- ჯერ შეამოწმე, რომ ყველა ტესტი გადის პაროლის გვერდიდან ბოლომდე
     <br>-index.html ფაილს <strong>სახელი არ შეუცვალო</strong> 
-    <br>- გადადი დავალების ფოლდერში, მონიშნე ყველა ფაილი (tip: შეგიძლია ctrl+a/cmd+a გამოიყენო)
+    <br>- გადადი დავალების ფოლდერში, მონიშნე index.html და სურათები, რომლებიც გამოიყენე,
          დააჭირე მაუსის მარჯვენა ღილაკს და MACOS - compress, ხოლო WINDOWS - send to > Compressed (zipped) folder
       თუ ეს ინსტრუქცია საკმარისი არ არის, ნახე სურათი: 
                 <a target="_blank" href="http://images.pcworld.com/images/article/2011/05/zipping-5174695.jpg">WINDOWS</a>
