@@ -10,6 +10,7 @@ export function setupInterface(CONFIG, HW) {
 	if (!HW) {
 		HW = new Homework(CONFIG)
 	}
+	HW.checkPath();
 	window.HW = HW
 	window.CONFIG = CONFIG
 	// ეს კიდე საჭიროა რომ ნაბიჯებს გადავახტეთ

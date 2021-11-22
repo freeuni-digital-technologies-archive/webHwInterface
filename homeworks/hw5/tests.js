@@ -47,6 +47,8 @@ const steps = {
 
 // (:
 export function generateTests(CONFIG) {
+    console.log(CONFIG)
+    console.log(CONFIG.isStep(4))
 CONFIG.isStep(steps.introduction) && describe("", () => {
 
     CONFIG.hints = 'on'
