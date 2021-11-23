@@ -12,6 +12,5 @@ index-solution.html
 .yarn
 .parcel-cache
 .editorconfig
-docs/
 server-tests/
 *_solution.*
