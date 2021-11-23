@@ -1,8 +1,8 @@
 #!/usr/bin/env sh
 
-rm docs/*/*.zip
+rm -r dist 2> /dev/null
 for hw in $(/bin/ls homeworks)
 do 
-	zip -rj docs/$hw/$hw.zip homeworks/$hw/ -x \
+	zip -rj dist/$hw/$hw.zip homeworks/$hw/ -x \
 		\*solution\* \*server.js \*extras.js \*tests.js \*main.js
 done
