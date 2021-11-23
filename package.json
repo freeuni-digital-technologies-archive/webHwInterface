@@ -2,10 +2,11 @@
   "name": "webHwInterface",
   "packageManager": "yarn@3.0.2",
   "scripts": {
-    "build-student-tests": "parcel build homeworks/*/main.js --dist-dir docs/ && cp testStyles.css docs/",
+    "build-student-tests": "parcel build homeworks/*/main.js --dist-dir dist/ && cp testStyles.css dist/",
     "build-server-tests": "parcel build homeworks/*/server.js --dist-dir server-tests/",
     "start": "parcel ",
-    "createZips": "./scripts/createZips.sh"
+    "createZips": "./scripts/createZips.sh",
+    "publish": "./scripts/publishTestFiles.sh"
   },
   "dependencies": {
     "chai": "^4.3.4",
