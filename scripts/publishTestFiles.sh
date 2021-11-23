@@ -8,13 +8,13 @@ then
 	exit 1
 fi
 
+
+current_branch=$(git branch --show-current)
+rm -r dist 2> /dev/null
 if [[ $2 == "zip" ]]
 then
 	yarn createZips
 fi
-
-current_branch=$(git branch --show-current)
-rm -r dist
 # make sure changes are synced first
 git checkout dist
 git pull
