@@ -57,6 +57,15 @@ export function generateTests(CONFIG) {
 			კოდის წერას ვერ გააგრძელებ. `)
 		it(`თუ ხაზის დასაწყისში წერია console > , ეს ნიშნავს რომ >-ის მერე დაწერილი
 			კოდი კონსოლში უნდა ჩაწერო`)
+
+		it(`0. ჯერ სკრიპტ თეგი ჩაამატე. index.js ფაილი უკვე შევქმენი. 
+			სკრიპტ თეგი აუცილებელია, რომ იყოს app div-ის შემდეგ 
+			(ადგილი უკვე მონიშნულია). თეგის id იყოს my-script, `, () => {
+			scriptElem = document.getElementById(`my-script`)
+			expect(scriptElem.src).include('index')
+		})
+		it(`<script id="my-script" src="./index.js"></script>`)
+		
 		it(`1. index.html-ში შენთვის უკვე შექმნილია app div 
 			(შეგიძლია ნახო inspect element-ით). 
 			იპოვე ეს ელემენტი DOM ჯავასკრიპტის გამოყენებით. მიიტანე მაუსი
@@ -82,13 +91,6 @@ export function generateTests(CONFIG) {
 			შეგიძლია, ახსნა, რატომ?`)
 		it(`ამის მიზეზი ის არის, რომ გვერდის თავიდან ჩატვირთვისას ისევ index.html
 			ფაილი წაიკითხა`)
-		it(`ჯერ სკრიპტ თეგი ჩაამატე. index.js ფაილი უკვე შევქმენი. 
-			სკრიპტ თეგი აუცილებელია, რომ იყოს app div-ის შემდეგ 
-			(ადგილი უკვე მონიშნულია). თეგის id იყოს my-script, `, () => {
-			scriptElem = document.getElementById(`my-script`)
-			expect(scriptElem.src).include('index')
-		})
-		it(`<script id="my-script" src="./index.js"></script>`)
 		it(`ახლა გახსენი index.js ფაილი vs code-ში და გადაიტანე ხაზი იქ. 
 			გვერდის ჩატვირთვისას ბრაუზერი წაიკითხავს ფაილს და შეასრულებს იქ 
 			ჩაწერილ კოდს`, () => {
