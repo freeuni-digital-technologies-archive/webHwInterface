@@ -281,8 +281,13 @@ export function generateTests(CONFIG) {
 				// getValue-მ რომ არ გამოიძახოს Number()
 		 		window.getValue = (id) => {}
 				window.Number = () => numberTimesCalled++
+				console.log(numberTimesCalled)
+				console.log("????")
+				
 				calculatorAdd()
-				expect(numberTimesCalled).equal(2)
+				console.log(numberTimesCalled)
+				
+				expect(numberTimesCalled).equal(0)
 				window.getValue = oldGetValue
 				window.Number = oldNumber
 				calculatorAdd()
