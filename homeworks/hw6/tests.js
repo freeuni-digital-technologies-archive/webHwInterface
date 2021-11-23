@@ -282,7 +282,7 @@ export function generateTests(CONFIG) {
 		 		window.getValue = (id) => {}
 				window.Number = () => numberTimesCalled++
 				calculatorAdd()
-				expect(numberTimesCalled).equal(0)
+				expect(numberTimesCalled).equal(2)
 				window.getValue = oldGetValue
 				window.Number = oldNumber
 				calculatorAdd()
