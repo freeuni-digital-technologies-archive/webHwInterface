@@ -16,3 +16,4 @@ docs/
 dist/
 server-tests/
 *_solution.*
+node_modules/
