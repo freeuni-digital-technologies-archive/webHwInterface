@@ -62,7 +62,7 @@ export function generateTests(CONFIG) {
 			სკრიპტ თეგი აუცილებელია, რომ იყოს app div-ის შემდეგ 
 			(ადგილი უკვე მონიშნულია). თეგის id იყოს my-script, `, () => {
 			scriptElem = document.getElementById(`my-script`)
-			expect(scriptElem.src).include('index')
+			expect(scriptElem.src).eql('./index.js')
 		})
 		it(`<script id="my-script" src="./index.js"></script>`)
 		
@@ -153,6 +153,8 @@ export function generateTests(CONFIG) {
 	})
 
 	CONFIG.isStep(steps.addition2) && describe('მიმატების ფუნქციის შექმნა', () => {
+		it(`ამ გვერდზე ფუნქციონალი არ მოწმდება. დარწმუნდი, რომ ყურადღებით წაიკითხე
+			ორივე ინსტრუქცია და კოდი მთლიანად გაქვს გადატანილი`, () => {})
 		it(`ახლა კოდიც გადავიტანოთ. ჯერ შედეგის
 			გამოსაჩენი ნაწილი არ დაგვიწერია, ამიტომ იმისთვის, რომ დავრწმუნდეთ,
 			ყველაფერი სწორად მუშაობს, ფუნქციიდან კონსოლში გავაგავნოთ მესიჯი. 
