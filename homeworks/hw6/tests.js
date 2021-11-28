@@ -75,7 +75,7 @@ export function generateTests(CONFIG) {
 		it(`console > let appDiv = document.getElementById('app')`)
 		it(`3. ახლა ამ ცარიელ ელემენტში კალკულატორის ჩონჩხი დავამატოთ. 
 			დრო რომ არ დაკარგო, უკვე დავწერეთ შესაბამისი html, რომელსაც 
-			getCalculator() ფუნქცია აბრუნებს. სცადე მისი გამოძახება `)
+			getCalculatorElement() ფუნქცია აბრუნებს. სცადე მისი გამოძახება `)
 		it(`console > getCalculatorElement()`)
 		it(`4. მხოლოდ ის დაგვრჩენია, რომ app div-ში ეს html კოდი ჩავწეროთ.`)
 		it(`console > appDiv.innerHTML = getCalculatorElement()`)
