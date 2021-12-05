@@ -68,17 +68,7 @@ export function generateTests(CONFIG){
         })
 
         it(`დავამატოთ ფუნქცია, რომელიც გვიბრუნებს პოსტის template-ს. ეს template უკვე აღვწერეთ წინა ნაბიჯებში როგორი უნდა იყოს. დავარქვათ ამ ფუნცქციას createPostTemplate, გადავცეთ არგუმენტად პოსტის ტექსტი და პოსტის აიდი.`, () => {
-            let result = createPostTemplate("post text 1",1);
-
-            let domParser = new DOMParser();
-            let postElem = domParser.parseFromString(result,"text/html").body.firstElementChild;
-            expect(postElem).to.not.to.be.undefined;
-            expect(postElem.getAttribute('class')).eql(specifiers.postElementClass);
-            expect(postElem.getAttribute('id')).eql(`${specifiers.postElementIdSuffix}1`)
-            
-            let postTextElem = postElem.querySelector(`div.${specifiers.postElementTextId}`);
-            expect(postTextElem).to.not.to.be.null;
-            expect(postTextElem.innerText).eql("post text 1")
+            testCreatePostTemplateBasisSection();
             
         })
        
@@ -133,26 +123,7 @@ export function generateTests(CONFIG){
         // TODO: post-like-button hardcoded value should be changed
         it('<button onclick="likePost(${postId})" class="post-like-button">like</button>')
         it('სპანის და ღილაკის ტესტი', () => {
-            let result = createPostTemplate("post text 1",1);
-
-            let domParser = new DOMParser();
-            let postElem = domParser.parseFromString(result,"text/html").body.firstElementChild;
-            expect(postElem).to.not.to.be.undefined;
-            expect(postElem.getAttribute('class')).eql(specifiers.postElementClass);
-            expect(postElem.getAttribute('id')).eql(`${specifiers.postElementIdSuffix}1`)
-            
-            let postTextElem = postElem.querySelector(`div.${specifiers.postElementTextId}`);
-            expect(postTextElem).to.not.to.be.null;
-            expect(postTextElem.innerText).eql("post text 1")
-
-            let postLikesSpan = postElem.querySelector(`span.${specifiers.postLikesNumberClass}`)
-            expect(postLikesSpan).to.not.to.be.null;
-            expect(postLikesSpan.innerText).eql('0')
-
-            let postLikeButton = postElem.querySelector(`button.${specifiers.postLikeButtonClass}`);
-            expect(postLikeButton).to.not.to.be.null;
-
-            expect(postLikeButton.getAttribute('onclick')).eql('likePost(1)')
+            testCreatePostTemplateLikeSection();
         })
 
         it(`ახლა დავფიქრდეთ, რა უნდა გააკეთოს likePost ფუნქციამ. 
@@ -186,9 +157,77 @@ export function generateTests(CONFIG){
     })
 
     CONFIG.isStep(steps.delete_post) && describe('პოსტის წაშლა', () => {
-        // TODO:
+        CONFIG.hints = 'on'
+        it('ბოლო ფუნქციონალი რაც დაგვრჩა, არის პოსტის წაშლა')
+        it('ამისთვის, ისევ createPostTemplate ფუნქციის შეცვლა მოგვიწევს, ვინაიდან თითოეულ პოსტს უნდა ჰქონდეს თავისი წაშლის ღილაკი')
+        // TODO: change delete-post hardcoded value
+        it('დაამატე ახალი button, რომლის class იქნება delete-post და onclick ექნება deletePost(${postId})')
+        it('ღილაკის შემოწმება',() => {
+            testCreatePostTemplateDeletePostSection();
+        })
         
+        it('საბოლოოდ, დაგვრჩა deletePost ფუნქციის იმპლემენტაცია.')
+        it('ჯერ, იპოვე პოსტის ელემენტი და შეინახე ცვლადში')
+        it('შემდეგ, ცვლადში შეინახე პოსტის მშობელი ელემენტი. მაგალითად, თუ პოსტი შენახულია ცვლადში post, მაშინ მისი მშობელი იქნება post.parentNode')
+        it('ახლა კი, მშობელი ელემენტიდან უნდა წავშალოთ პოსტი. ამისათვის, მშობლის ელემენტით გამოიძახე removeChild ფუნქცია')
+        it('parent.removeChild(post)')
+
+        it('deletePost ფუნქციის შემოწმება',() => {
+            setTextareaText('post text 1')
+            newPost()
+
+            let post = document.getElementById('post-1')
+            post.querySelector(`button.${specifiers.postDeleteButtonClass}`).click()
+            
+            post = document.getElementById('post-1')
+            expect(post).to.be.null;
+
+            setTextareaText("")
+        })
     })
+}
+
+function parseHtmlFromString(htmlString){
+    let domParser = new DOMParser();
+    return domParser.parseFromString(htmlString,"text/html").body.firstElementChild;
+}
+
+function testCreatePostTemplateBasisSection(){
+    let result = createPostTemplate("post text 1",1);
+    let postElem = parseHtmlFromString(result);
+    expect(postElem).to.not.to.be.undefined;
+    expect(postElem.getAttribute('class')).eql(specifiers.postElementClass);
+    expect(postElem.getAttribute('id')).eql(`${specifiers.postElementIdSuffix}1`)
+    
+    let postTextElem = postElem.querySelector(`div.${specifiers.postElementTextId}`);
+    expect(postTextElem).to.not.to.be.null;
+    expect(postTextElem.innerText).eql("post text 1")
+}
+
+function testCreatePostTemplateLikeSection(){
+    let result = createPostTemplate("post text 1",1);
+    let postElem = parseHtmlFromString(result);
+    testCreatePostTemplateBasisSection();
+
+    let postLikesSpan = postElem.querySelector(`span.${specifiers.postLikesNumberClass}`)
+    expect(postLikesSpan).to.not.to.be.null;
+    expect(postLikesSpan.innerText).eql('0')
+
+    let postLikeButton = postElem.querySelector(`button.${specifiers.postLikeButtonClass}`);
+    expect(postLikeButton).to.not.to.be.null;
+
+    expect(postLikeButton.getAttribute('onclick')).eql('likePost(1)')
+}
+
+function testCreatePostTemplateDeletePostSection(){
+    let result = createPostTemplate("post text 1",1);
+    let postElem = parseHtmlFromString(result);
+    testCreatePostTemplateLikeSection();
+
+    let postDeleteButton = postElem.querySelector(`button.${specifiers.postDeleteButtonClass}`);
+    expect(postDeleteButton).to.not.to.be.null;
+    expect(postDeleteButton.getAttribute('class')).eql(specifiers.postDeleteButtonClass);
+    expect(postDeleteButton.getAttribute('onclick')).eql('deletePost(1)')
 }
 
 function setTextareaText(text){

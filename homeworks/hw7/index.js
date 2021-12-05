@@ -4,10 +4,17 @@ function createPostTemplate(postText,postId){
     return `
         <div class='post' id='post-${postId}'>
             <div class='post-text'>${postText}</div>
+            <button class='delete-post' onclick="deletePost(${postId})">delete</button>
             <span class='post-likes-number'>0</span> likes
             <button class='post-like-button' onclick="likePost(${postId})">like</button>
         </div>
     `
+}
+
+function deletePost(postId){
+    let post = document.getElementById('post-' + postId);
+    let parent = post.parentNode;
+    parent.removeChild(post);
 }
 
 function likePost(postId){

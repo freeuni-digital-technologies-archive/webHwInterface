@@ -6,5 +6,6 @@ export const specifiers = {
     postElementIdSuffix: "post-",
     postElementTextId: 'post-text',
     postLikesNumberClass: 'post-likes-number',
-    postLikeButtonClass: 'post-like-button'
+    postLikeButtonClass: 'post-like-button',
+    postDeleteButtonClass: 'delete-post'
 }
