@@ -51,9 +51,4 @@ function testRequest() {
     xhr.send(JSON.stringify(testResults));
 // xhr.send(new Int8Array());
 // xhr.send(document);
-<<<<<<< HEAD
 }
-=======
-}
-
->>>>>>> a5e81cf (refactor)

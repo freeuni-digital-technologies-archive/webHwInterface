@@ -23,4 +23,3 @@ export function setupInterface(CONFIG, HW) {
 		mocha: mocha
 	}
 }
-

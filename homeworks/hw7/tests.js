@@ -68,11 +68,22 @@ export function generateTests(CONFIG){
         })
 
         it(`დავამატოთ ფუნქცია, რომელიც გვიბრუნებს პოსტის template-ს. ეს template უკვე აღვწერეთ წინა ნაბიჯებში როგორი უნდა იყოს. დავარქვათ ამ ფუნცქციას createPostTemplate, გადავცეთ არგუმენტად პოსტის ტექსტი და პოსტის აიდი.`, () => {
-            testCreatePostTemplateBasisSection();
+            let result = createPostTemplate("post text 1",1);
+
+            let domParser = new DOMParser();
+            let postElem = domParser.parseFromString(result,"text/html").body.firstElementChild;
+            expect(postElem).to.not.to.be.undefined;
+            expect(postElem.getAttribute('class')).eql(specifiers.postElementClass);
+            expect(postElem.getAttribute('id')).eql(`${specifiers.postElementIdSuffix}1`)
+            
+            let postTextElem = postElem.querySelector(`div.${specifiers.postElementTextId}`);
+            expect(postTextElem).to.not.to.be.null;
+            expect(postTextElem.innerText).eql("post text 1")
             
         })
        
         it(`ახლა კი შევქმნათ პოსტის დამატების ფუნქცია და სახელად დავარქვათ createNewPost, რომელსაც არგუმენტად გადაეცემა ახალი პოსტის ტექსტი და id. ჯერ, იპოვეთ პოსტების კონტეინერი და შეინახეთ ცვლადში. შემდეგ, გამოვიყენოთ ჩვენს მიერ დაწერილი createPostTemplate() ფუნქცია და მის მიერ დაბრუნებული template შევინახოთ ცვლადში. საბოლოოდ,  დავამატოთ ახალი პოსტი პოსტების კონტეინერის დასაწყისში.`, () => {
+            // TODO:
             createNewPost("post text 1", 1)
             let post = document.getElementById(`${specifiers.postElementIdSuffix}1`)
             expect(post).to.not.to.be.null;
@@ -93,17 +104,18 @@ export function generateTests(CONFIG){
             expect(button.getAttribute("onclick")).eql("newPost()")
         })
         it("ახლა კი შეგვიძლია newPost() ფუნქცია დავამატოთ. ამ ფუქნციაში, ჯერ წავიკითხოთ რა ჩაწერა იუზერმა textarea-ში. შემდეგ დავამატოთ ახალი პოსტი ამ ტექსტით. შესაბამისი ფუნქცია უკვე დაწერილი გვაქვს, შესაბამისად გამოიძახე createNewPost() ფუნქცია. საბოლოოდ, გავზარდოთ POSTS_ID_COUNTER მნიშვნელობა ერთით", () => {
-            setTextareaText('post text 1');
+            // TODO:
+            document.getElementById(specifiers.textareaId).value = 'post text 1';
             newPost();
             expect(POSTS_ID_COUNTER).eql(2)
 
             let firstPost = document.getElementById(specifiers.postsContainerId).firstElementChild;
             expect(firstPost).to.not.to.be.null;
 
-            expect(firstPost.querySelector(`div.${specifiers.postElementTextId}`).innerText).eql("post text 1")
+            expect(firstPost.querySelector("div").innerText).eql("post text 1")
 
             firstPost.parentNode.removeChild(firstPost);
-            setTextareaText('');
+            document.getElementById(specifiers.textareaId).value = ''
         })
 
         it(`თითქმის მოვრჩით ამ სექციას! textarea ელემენტს დაუმატე მინიშნება (placeholder) და ჩაუწერე შეკითხვა: "what's up? :)"`, () => {

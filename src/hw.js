@@ -55,13 +55,13 @@
         <button class="align-right" onclick="HW.previousStep()">წინა ნაბიჯი</button>
         `
 
-        const messageButtons = Object.keys(MESSAGES).map(m => `<button onclick="showMessage('${m}')">${m.replaceAll('-', ' ')}</button>`).join('')
-        document.getElementById('help-buttons').innerHTML = `
-            <button onclick="HW.setHints()">მინიშნებების ჩვენება/დამალვა</button>
-            <button onclick="toggle('tests')">ტესტების  დამალვა</button>
-            ${messageButtons}
-            <button onclick="toggle('help')">დახურვა</button>
-        `
+        // const messageButtons = Object.keys(MESSAGES).map(m => `<button onclick="showMessage('${m}')">${m.replaceAll('-', ' ')}</button>`).join('')
+        // document.getElementById('help-buttons').innerHTML = `
+        //     <button onclick="HW.setHints()">მინიშნებების ჩვენება/დამალვა</button>
+        //     <button onclick="toggle('tests')">ტესტების  დამალვა</button>
+        //     ${messageButtons}
+        //     <button onclick="toggle('help')">დახურვა</button>
+        // `
 
         document.getElementById('tests').appendChild(d)
     }
