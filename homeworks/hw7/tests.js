@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import { splitToLines } from "../../src/utils"
 import { specifiers } from './specifiers'
 
 const steps = {
@@ -10,6 +11,7 @@ const steps = {
 }
 
 export function generateTests(CONFIG){
+
     CONFIG.isStep(steps.greetings) && describe(`შესავალი`, () => {
 		it(`ამ დავალების მიზანია ჯავასკრიპტის ფუნქციების და DOM-ის ვარჯიში`)
         
@@ -81,7 +83,6 @@ export function generateTests(CONFIG){
         })
        
         it(`ახლა კი შევქმნათ პოსტის დამატების ფუნქცია და სახელად დავარქვათ createNewPost, რომელსაც არგუმენტად გადაეცემა ახალი პოსტის ტექსტი და id. ჯერ, იპოვეთ პოსტების კონტეინერი და შეინახეთ ცვლადში. შემდეგ, გამოვიყენოთ ჩვენს მიერ დაწერილი createPostTemplate() ფუნქცია და მის მიერ დაბრუნებული template შევინახოთ ცვლადში. საბოლოოდ,  დავამატოთ ახალი პოსტი პოსტების კონტეინერის დასაწყისში.`, () => {
-            // TODO:
             createNewPost("post text 1", 1)
             let post = document.getElementById(`${specifiers.postElementIdSuffix}1`)
             expect(post).to.not.to.be.null;
@@ -102,18 +103,17 @@ export function generateTests(CONFIG){
             expect(button.getAttribute("onclick")).eql("newPost()")
         })
         it("ახლა კი შეგვიძლია newPost() ფუნქცია დავამატოთ. ამ ფუქნციაში, ჯერ წავიკითხოთ რა ჩაწერა იუზერმა textarea-ში. შემდეგ დავამატოთ ახალი პოსტი ამ ტექსტით. შესაბამისი ფუნქცია უკვე დაწერილი გვაქვს, შესაბამისად გამოიძახე createNewPost() ფუნქცია. საბოლოოდ, გავზარდოთ POSTS_ID_COUNTER მნიშვნელობა ერთით", () => {
-            // TODO:
-            document.getElementById(specifiers.textareaId).value = 'post text 1';
+            setTextareaText('post text 1');
             newPost();
             expect(POSTS_ID_COUNTER).eql(2)
 
             let firstPost = document.getElementById(specifiers.postsContainerId).firstElementChild;
             expect(firstPost).to.not.to.be.null;
 
-            expect(firstPost.querySelector("div").innerText).eql("post text 1")
+            expect(firstPost.querySelector(`div.${specifiers.postElementTextId}`).innerText).eql("post text 1")
 
             firstPost.parentNode.removeChild(firstPost);
-            document.getElementById(specifiers.textareaId).value = ''
+            setTextareaText('');
         })
 
         it(`თითქმის მოვრჩით ამ სექციას! textarea ელემენტს დაუმატე მინიშნება (placeholder) და ჩაუწერე შეკითხვა: "what's up? :)"`, () => {
@@ -125,13 +125,74 @@ export function generateTests(CONFIG){
     })
 
     CONFIG.isStep(steps.add_like) && describe('ლაიქის დამატება', () => {
-        // TODO: 
+        CONFIG.hints = 'on'
+        it('ღილაკის დამატება და ფუნქციის მიბმა')
+        it(`დაპოსტვის ღილაკისგან განსხვავებით, ლაიქის ღილაკს index.html-ში ვერ დავამატებთ - ყველა პოსტს ცალკე სჭირდება. ნათელია, რომ ეს ღილაკი createPostTemplate() ფუნქციაში უნდა ჩავსვათ. ტრადიციულად პოსტის რეაქციები ტექსტის ქვემოთაა, ამიტომ ${specifiers.postElementTextId}-ის შემდეგ, '${specifiers.postElementClass}'-ში დავამატოთ span-ში რამდენი ლაიქი აქვს პოსტს, და ღილაკი რომელსაც მივაბავთ likePost ფუნქციას`)
+        it('likePost ფუნქციას უნდა გადავცეთ იმ პოსტის აიდი, რომლის დალაიქებაც გვინდა. createPostTemplate ფუნქციაში ავტომატურად გადმოგვეწოდება postId, შესაბამისად, ღილაკში, სადაც likePost ფუნქციას გამოვიძახებთ, ავტომატურად შეგვიძლია გადავცეთ postId')
+        it(`<span class="${specifiers.postLikesNumberClass}">0</span> likes`)
+        // TODO: post-like-button hardcoded value should be changed
+        it('<button onclick="likePost(${postId})" class="post-like-button">like</button>')
+        it('სპანის და ღილაკის ტესტი', () => {
+            let result = createPostTemplate("post text 1",1);
+
+            let domParser = new DOMParser();
+            let postElem = domParser.parseFromString(result,"text/html").body.firstElementChild;
+            expect(postElem).to.not.to.be.undefined;
+            expect(postElem.getAttribute('class')).eql(specifiers.postElementClass);
+            expect(postElem.getAttribute('id')).eql(`${specifiers.postElementIdSuffix}1`)
+            
+            let postTextElem = postElem.querySelector(`div.${specifiers.postElementTextId}`);
+            expect(postTextElem).to.not.to.be.null;
+            expect(postTextElem.innerText).eql("post text 1")
+
+            let postLikesSpan = postElem.querySelector(`span.${specifiers.postLikesNumberClass}`)
+            expect(postLikesSpan).to.not.to.be.null;
+            expect(postLikesSpan.innerText).eql('0')
+
+            let postLikeButton = postElem.querySelector(`button.${specifiers.postLikeButtonClass}`);
+            expect(postLikeButton).to.not.to.be.null;
+
+            expect(postLikeButton.getAttribute('onclick')).eql('likePost(1)')
+        })
+
+        it(`ახლა დავფიქრდეთ, რა უნდა გააკეთოს likePost ფუნქციამ. 
+            ჩვენ გვჭირდება ${specifiers.postLikesNumberClass}-ის innerText-ის შეცვლა. 
+            ამიტომ მოდი ჯერ ვიპოვოთ ეს ელემენტი. 
+            დალაიქების შემდეგ, პოსტის ლაიქების რაოდენობა გაიზრდება ერთით.
+            ვინაიდან პოსტის ლაიქების ელემენტი უკვე ვიპოვეთ, წავიკითხოთ მასში ლაიქების რაოდენობა და მისი მნიშვნელობა გავზარდოთ ერთით.`)
+        it('საბოლოო ჯამში, likePost ფუნქციას ექნება შემდეგი სახე:')
+        splitToLines(`
+            function likePost(postId){
+                let post =  document.getElementById('post-' + postId); 
+                let post_like_count = post.querySelector('span.post-likes-number');
+                let currentLikes = Number(post_like_count.innerText)
+                currentLikes++;
+                post_like_count.innerText = currentLikes;
+            }
+        `)
+        it('likePost ფუნქციის შემოწმება',() => {
+              setTextareaText('post text 1');
+              newPost()
+              let post = document.getElementById('post-1')
+              post.querySelector(`button.${specifiers.postLikeButtonClass}`).click()
+              
+              let postLikesCount = post.querySelector(`span.${specifiers.postLikesNumberClass}`).innerText;
+              expect(postLikesCount).eql('1')
+
+              post.parentNode.removeChild(post);
+              setTextareaText('');
+              
+        })
     })
 
     CONFIG.isStep(steps.delete_post) && describe('პოსტის წაშლა', () => {
         // TODO:
         
     })
+}
+
+function setTextareaText(text){
+    document.getElementById(specifiers.textareaId).value = text
 }
 
 function setPassword(CONFIG) {
