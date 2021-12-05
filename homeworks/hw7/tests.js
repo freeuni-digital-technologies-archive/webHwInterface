@@ -68,17 +68,7 @@ export function generateTests(CONFIG){
         })
 
         it(`დავამატოთ ფუნქცია, რომელიც გვიბრუნებს პოსტის template-ს. ეს template უკვე აღვწერეთ წინა ნაბიჯებში როგორი უნდა იყოს. დავარქვათ ამ ფუნცქციას createPostTemplate, გადავცეთ არგუმენტად პოსტის ტექსტი და პოსტის აიდი.`, () => {
-            let result = createPostTemplate("post text 1",1);
-
-            let domParser = new DOMParser();
-            let postElem = domParser.parseFromString(result,"text/html").body.firstElementChild;
-            expect(postElem).to.not.to.be.undefined;
-            expect(postElem.getAttribute('class')).eql(specifiers.postElementClass);
-            expect(postElem.getAttribute('id')).eql(`${specifiers.postElementIdSuffix}1`)
-            
-            let postTextElem = postElem.querySelector(`div.${specifiers.postElementTextId}`);
-            expect(postTextElem).to.not.to.be.null;
-            expect(postTextElem.innerText).eql("post text 1")
+            testCreatePostTemplateBasisSection();
             
         })
        
