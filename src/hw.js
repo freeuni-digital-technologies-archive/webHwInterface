@@ -1,8 +1,10 @@
+import { MESSAGES } from "./instructions"
+
 /**
  * ამ ფაილში არის ნავიგაციის ფუნქციები
  */
 
-export class Homework {
+ export class Homework {
     constructor(CONFIG) {
         this.CONFIG = CONFIG
     }
@@ -28,6 +30,17 @@ export class Homework {
         })   
     }
 
+    checkPath(){
+        const unzipPaths = [".zip","Local/Temp/Rar"]
+        const url = window.location.href;
+        let result = unzipPaths.find(unzipPath => url.includes(unzipPath));
+
+        if(result !== undefined){
+            document.innerHTML = "Oops! როგორც ჩანს, ფაილის გახსნას .zip არქივიდან ცდილობ. ასე რაღაცეები არ იმუშავებს. ჯერ გააკეთე extract.\nთუ ეს მესიჯი შეცდომით მიიღე, მოგვწერე მეილზე ";
+        }
+    }
+
+
     setupTestsDiv() {
         const d = document.getElementById('progress-bar')
         // this.CONFIG.testCount რაოდენობის მართკუთხედი უნდა დაემატოს
@@ -43,13 +56,13 @@ export class Homework {
         <button class="align-right" onclick="HW.previousStep()">წინა ნაბიჯი</button>
         `
 
-        const messageButtons = Object.keys(MESSAGES).map(m => `<button onclick="showMessage('${m}')">${m.replaceAll('-', ' ')}</button>`).join('')
-        document.getElementById('help-buttons').innerHTML = `
-            <button onclick="HW.setHints()">მინიშნებების ჩვენება/დამალვა</button>
-            <button onclick="toggle('tests')">ტესტების  დამალვა</button>
-            ${messageButtons}
-            <button onclick="toggle('help')">დახურვა</button>
-        `
+        // const messageButtons = Object.keys(MESSAGES).map(m => `<button onclick="showMessage('${m}')">${m.replaceAll('-', ' ')}</button>`).join('')
+        // document.getElementById('help-buttons').innerHTML = `
+        //     <button onclick="HW.setHints()">მინიშნებების ჩვენება/დამალვა</button>
+        //     <button onclick="toggle('tests')">ტესტების  დამალვა</button>
+        //     ${messageButtons}
+        //     <button onclick="toggle('help')">დახურვა</button>
+        // `
 
         // document.getElementById('tests').appendChild(d)
     }
@@ -157,5 +170,3 @@ export class Homework {
     mocha.reporter(MyReporter);
     */
 }
-
-
