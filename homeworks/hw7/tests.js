@@ -47,13 +47,38 @@ export function generateTests(CONFIG){
             expect(postsContainer).to.not.to.be.null;
         })
 
-        /**
-         TODO
-         ღილაკის ელემენტის დამატება (onclick-ის გარეშე)
-         */
+        it('მოდი textarea ელემენტის ქვევით დავამატოთ ღილაკი, რომელსაც მომავალში გამოვიყენებთ ახალი პოსტების დასამატებლად.')
+        it('ამ ღილაკის შიგნით ჩავწეროთ Add Post')
+        it('ღილაკის შემოწმება',() => {
+            const button = document.querySelector("div#app > button");
+            expect(button).not.to.be.null;
+            expect(button.innerText).eql('Add Post');
+        })
     })
 
     CONFIG.isStep(steps.console) && describe('DOM ფუნქციონალი', () => {
+        it('სანამ შემდეგ ეტაპზე გადახვალ, მოდი კონსოლის საშუალებით ჩავატაროთ პატარ-პატარა ოპერაციები')
+        it('თუ ხაზის დასაწყისში წერია console > , ეს ნიშნავს რომ >-ის მერე დაწერილი კოდი კონსოლში უნდა ჩაწერო')
+
+        it(`ამ ეტაპზე, ჩვენ გვაქვს დამატებული textarea, რომლის id არის ${specifiers.textareaId}.ასევე button და ერთი ცალი div, რომლის id არის ${specifiers.postsContainerId}`)
+        it(`მოდი იპოვე ეს ელემენტები DOM-ის საშუალებით. პირველ ეტაპზე, იპოვე textarea თაგი. რადგან ამ თაგს აქვს თავისი უნიკალური id, შეგიძლია document.getElementById() ფუნქცია გამოიძახო`)
+        it(`console > document.getElementById("${specifiers.textareaId}")`)
+        it(`კონსოლში დაინახავ, რომ დაიბეჭდება textarea თაგი.`)
+
+        it(`ახლა კი, თვითონ ბრაუზერში textarea შიგნით ჩაწერე რაიმე ტექსტი. მაგალითისთვის შეიძლება ჩაწერო Hello World!`)
+        it(`ისევ გავიმეოროთ ამ თაგის მოძებნის პროცესი, უბრალოდ ახლა ცვლადში შევინახოთ`)
+        it(`console > let textareaTag = document.getElementById("${specifiers.textareaId}")`)
+        it(`ამ ცვლადის საშუალებით შეგვიძლია დავბეჭდოთ ის ტექსტი, რომელიც textarea-ს შიგნით წერია.`)
+        it(`console > textareaTag.value`)
+
+        it(`მოდი იგივენაირად იპოვე და შეინახე div ელემენტი, რომლის id არის ${specifiers.postsContainerId}`)
+        it(`console > let postsContainer = document.getElementById("${specifiers.postsContainerId}")`)
+
+        it(`კონსოლიდანვე შეგვიძლია ამ კონტეინერის შიგნით დავამატოთ ტექსტი, ან რაიმე ნებიმსიერი თაგი. ამ ეტაპზე, უბრალოდ რაიმე ტექსტი დავამატოთ. ამისთვის, შეგიძლია გამოიყენო innerText ან innerHTML.`)
+        it(`რა განსხვავებაა innerText და innerHTML შორის? innerText დაამატებს გადაცემულ სიმბოლოებს როგორც ტექსტს, ხოლო innerHTML-ს დაამატებს, როგორც HTML კოდს.`)
+        it(`თვალსაჩინოებისთვის, მოდი ასეთი რამე გააკეთე:`)
+        it(`console > postsContainer.innerText = "some <div style='color: red;'> text </div>" `)
+        it(`console > postsContainer.innerHTML = "some <div style='color: red;'> text </div>"`)
         
     })
     
@@ -90,11 +115,9 @@ export function generateTests(CONFIG){
         */
         it(`დავამატოთ ფუნქცია, რომელიც გვიბრუნებს პოსტის template-ს. ეს template უკვე აღვწერეთ წინა ნაბიჯებში როგორი უნდა იყოს. დავარქვათ ამ ფუნცქციას createPostTemplate, გადავცეთ არგუმენტად პოსტის ტექსტი და პოსტის აიდი.`, () => {
             testCreatePostTemplateBasisSection();
-            
         })
        
         it(`ახლა კი შევქმნათ პოსტის დამატების ფუნქცია და სახელად დავარქვათ createNewPost, რომელსაც არგუმენტად გადაეცემა ახალი პოსტის ტექსტი და id. ჯერ, იპოვეთ პოსტების კონტეინერი და შეინახეთ ცვლადში. შემდეგ, გამოვიყენოთ ჩვენს მიერ დაწერილი createPostTemplate() ფუნქცია და მის მიერ დაბრუნებული template შევინახოთ ცვლადში. საბოლოოდ,  დავამატოთ ახალი პოსტი პოსტების კონტეინერის დასაწყისში.`, () => {
-            // TODO:
             createNewPost("post text 1", 1)
             let post = document.getElementById(`${specifiers.postElementIdSuffix}1`)
             expect(post).to.not.to.be.null;
@@ -108,8 +131,8 @@ export function generateTests(CONFIG){
 
         it('დავაკავშიროთ შესაყვანი ველი და ფუნქციის დაპოსტვის ფუნქციონალი ერთმანეთს')
 
-        it('ამისთვის, ჯერ დაამატეთ ღილაკი, რომლის id იქნება add-post. ღილაკს მიაბით newPost() ფუნქცია. არ დაიბნეთ, ამ ფუნქციონალს შემდეგ ეტაპზე დავამატებთ',() => {
-            const button = document.querySelector(`button#${specifiers.addPostButtonId}`);
+        it(`ამისთვის,ჯერ გავიხსენოთ Add Post ღილაკი. დაუმატე ამ ღილაკს id მნიშვნელობით ${specifiers.addPostButtonId}. ღილაკს მიაბით newPost() ფუნქცია. ეს შეგიძლია onclick ატრიბუტით გააკეთო, მაგალითად onclick='someFunction()'. არ დაიბნეთ, ამ ფუნქციონალს შემდეგ ეტაპზე დავამატებთ`,() => {
+            const button = document.querySelector(`div#app > button#${specifiers.addPostButtonId}`);
             expect(button).to.not.to.be.null;
             
             expect(button.getAttribute("onclick")).eql("newPost()")
@@ -220,6 +243,7 @@ function parseHtmlFromString(htmlString){
 
 function testCreatePostTemplateBasisSection(){
     let result = createPostTemplate("post text 1",1);
+    expect(result).to.not.to.be.undefined;
     let postElem = parseHtmlFromString(result);
     expect(postElem).to.not.to.be.undefined;
     expect(postElem.getAttribute('class')).eql(specifiers.postElementClass);
