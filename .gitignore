@@ -16,4 +16,5 @@ docs/
 dist/
 server-tests/
 *_solution.*
+.vscode
 node_modules/
