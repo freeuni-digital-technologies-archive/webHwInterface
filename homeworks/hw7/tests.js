@@ -8,8 +8,8 @@ const steps = {
     console: 3,
     add_post: 4,
     post_id: 5,
-    add_like: 6,
-    delete_post: 7
+    like_button: 6,
+    like_function: 7,
 }
 
 export function generateTests(CONFIG){
@@ -88,7 +88,7 @@ export function generateTests(CONFIG){
 			let scriptElem = document.querySelector("body > script#my-script")
             let srcAttr = scriptElem.getAttribute("src");
 
-            // TODO: change
+            // TODO: change .includes(). This is temporary because of server testing
             expect(srcAttr.includes("index")).to.be.true
 		})
         
@@ -109,10 +109,6 @@ export function generateTests(CONFIG){
             expect(POSTS_ID_COUNTER).eql(1)
         })
 
-        /*
-        TODO: createPostTemplate არის ფუნქცია რომელიც აბრუნებს მნიშვნელობას. ტესტებში ეს ფუნქცია უნდა გამოიძახო
-        და დაბრუნებული მნიშვნელობა შეამოწმო.
-        */
         it(`დავამატოთ ფუნქცია, რომელიც გვიბრუნებს პოსტის template-ს. ეს template უკვე აღვწერეთ წინა ნაბიჯებში როგორი უნდა იყოს. დავარქვათ ამ ფუნცქციას createPostTemplate, გადავცეთ არგუმენტად პოსტის ტექსტი და პოსტის აიდი.`, () => {
             testCreatePostTemplateBasisSection();
         })
@@ -140,7 +136,6 @@ export function generateTests(CONFIG){
         it(`ახლა კი შეგვიძლია newPost() ფუნქცია დავამატოთ. ამ ფუქნციაში, ჯერ წავიკითხოთ რა ჩაწერა იუზერმა textarea-ში. 
         შემდეგ დავამატოთ ახალი პოსტი ამ ტექსტით. შესაბამისი ფუნქცია უკვე დაწერილი გვაქვს, შესაბამისად გამოიძახე 
         createNewPost() ფუნქცია. საბოლოოდ, გავზარდოთ POSTS_ID_COUNTER მნიშვნელობა ერთით`, () => {
-            // TODO:
             document.getElementById(specifiers.textareaId).value = 'post text 1';
             newPost();
             expect(POSTS_ID_COUNTER).eql(2)
@@ -168,7 +163,7 @@ export function generateTests(CONFIG){
      * 
      */
     CONFIG.isStep(steps.post_id) && describe('პოსტებისთვის id-ის მინიჭება', () => {
-        
+        it('test')
     })
 
     CONFIG.isStep(steps.like_button) && describe('ლაიქის დამატება', () => {
@@ -184,15 +179,17 @@ export function generateTests(CONFIG){
         it(`likePost ფუნქციას უნდა გადავცეთ იმ პოსტის აიდი, რომლის დალაიქებაც გვინდა. 
             createPostTemplate ფუნქციაში ავტომატურად გადმოგვეწოდება postId, შესაბამისად, ღილაკში, სადაც likePost ფუნქციას გამოვიძახებთ, ავტომატურად შეგვიძლია გადავცეთ postId`)
         it(`<span class="${specifiers.postLikesNumberClass}">0</span> likes`)
-        // TODO: post-like-button hardcoded value should be changed
-        it('<button onclick="likePost(${postId})" class="post-like-button">like</button>')
+        it(`<button onclick="likePost(\${postId})" class="${specifiers.postLikeButtonClass}">like</button>`)
         it('სპანის და ღილაკის ტესტი', () => {
             testCreatePostTemplateLikeSection();
         })
 
-        /**
-         TODO აქ ჯერ შექმნან ცარიელი ფუნქცია და უბრალოდ კონსოლში დაწეროს რომელ პოსტზე დააჭირეს.
-         */
+        
+        it('ჯერჯერობით შექმენი ცარიელი likePost(postId) ფუნქცია და შიგნით უბრალოდ console.log საშუალებით დაბეჭდე რომელი პოსტი დალაიქდა. დაბეჭდე აი ასე: Post with id of 1 has been liked!', () => {
+            /**
+             TODO აქ ჯერ შექმნან ცარიელი ფუნქცია და უბრალოდ კონსოლში დაწეროს რომელ პოსტზე დააჭირეს.
+            */
+        })
 
     })
     CONFIG.isStep(steps.like_function) && describe(`ლაიქის ფუნქცია`, () => {
