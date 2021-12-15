@@ -49,7 +49,7 @@ export function generateTests(CONFIG){
             const postsContainer = document.querySelector(`div#app > div#${specifiers.postsContainerId}`);
             expect(postsContainer).to.not.to.be.null;
         })
-        it(`<div id="${specifiers.postsContainerId}></div>"`)
+        it(`<div id="${specifiers.postsContainerId}"></div>`)
 
         it('მოდი textarea ელემენტის ქვევით დავამატოთ ღილაკი, რომელსაც მომავალში გამოვიყენებთ ახალი პოსტების დასამატებლად.')
         it('ამ ღილაკის შიგნით ჩავწეროთ Add Post')
