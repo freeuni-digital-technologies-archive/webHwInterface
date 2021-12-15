@@ -22,7 +22,8 @@ export function generateTests(CONFIG){
          * TODO რამის მოფიქრება
          */
         window.getPassword = () => CONFIG.password
-        it(`ამჯერადაც პაროლის ... გახსენი კონსოლი და გამოიძახე getPassword() ფუნქცია, შემდეგ კი index.html ფაილში იპოვე div, რომლის id არის write-password-inside და დივის შიგნით ჩაწერეთ ფუნქციის მიერ დაბრუნებული შედეგი`, () => {
+        it(`პაროლზე რამე ორიგინალურის მოფიქრება გვინდოდა მაგრამ ვერ მოვასწარით.
+         გახსენი კონსოლი და გამოიძახე getPassword() ფუნქცია, შემდეგ კი index.html ფაილში იპოვე div, რომლის id არის write-password-inside და დივის შიგნით ჩაწერეთ ფუნქციის მიერ დაბრუნებული შედეგი`, () => {
 			const n = Number(document.querySelector(`div#write-password-inside`).innerText)
         	expect(n).eql(CONFIG.password)
 		})
@@ -85,7 +86,7 @@ export function generateTests(CONFIG){
         
     })
     
-    CONFIG.isStep(steps.add_post) && describe('პოსტის დამატება(JS)', () => {
+    CONFIG.isStep(steps.post_template) && describe('პოსტის template', () => {
 
         it(`ჯერ სკრიპტ თეგი ჩაამატე. index.js ფაილი უკვე შევქმენი. თქვენს სკრიპტ თეგს id უნდა ჰქონდეს my-script`, () => {
 			let scriptElem = document.querySelector("body > script#my-script")
@@ -101,32 +102,36 @@ export function generateTests(CONFIG){
         it(`პოსტი ჩვენთვის იქნება div ელემენტი, რომლის class იქნება ${specifiers.postElementClass}. ხოლო მისი id უნდა იწყებოდეს ${specifiers.postElementIdSuffix} და შემდეგ პოსტის იდენტიფიკატორი.`)
         it(`პოსტის ელემენტის შიგნით გვქონდეს კიდევ ერთი div, რომელშიც შევინახავთ პოსტის ტექსტს. ამ div-ის id უნდა იყოს ${specifiers.postElementTextId}`)
         it(`საბოლოო ჯამში, პოსტის ელემენტს ექნება ასეთი სახე:`)
-        it(`
-        <div class='${specifiers.postElementClass}' id='${specifiers.postElementIdSuffix}-1'>
-            <div class='${specifiers.postElementTextId}'>
-                <!-- აქ იქნება ტექსტი -->
-            </div>
-        </div>
-        `)
-        it(`იმისათვის, რომ პოსტების აიდიები გვქონდეს, შევინახოთ ცვლადში. თავდაპირველი პოსტის id იქნება 1, შესაბამისად, საწყისი მნიშვნელობა გვაქვს. შექმენით POSTS_ID_COUNTER.`, () => {
+        // it(`
+        // <div class='${specifiers.postElementClass}' id='${specifiers.postElementIdSuffix}-1'>
+        //     <div class='${specifiers.postElementTextId}'>
+        //         <!-- აქ იქნება ტექსტი -->
+        //     </div>
+        // </div>
+        // `)
+        it(`იმისათვის, რომ პოსტების აიდიები გვქონდეს, შევინახოთ ცვლადში. თავდაპირველი პოსტის id იქნება 1, შესაბამისად, საწყისი მნიშვნელობა გვაქვს. 
+            ფაილის დასაწყისში შექმენით POSTS_ID_COUNTER.`, () => {
             expect(POSTS_ID_COUNTER).to.not.to.be.undefined;
             expect(POSTS_ID_COUNTER).eql(1)
         })
         it(`let POSTS_ID_COUNTER = 1;`)
 
-        it(`დავამატოთ ფუნქცია, რომელიც გვიბრუნებს პოსტის template-ს. ეს template უკვე აღვწერეთ წინა ნაბიჯებში როგორი უნდა იყოს. დავარქვათ ამ ფუნცქციას createPostTemplate, გადავცეთ არგუმენტად პოსტის ტექსტი და პოსტის აიდი.`, () => {
+        it(`დავამატოთ ფუნქცია, რომელიც გვიბრუნებს პოსტის template-ს. ეს template უკვე აღვწერეთ წინა ნაბიჯებში როგორი უნდა იყოს. დავარქვათ ამ ფუნქციას createPostTemplate, გადავცეთ არგუმენტად პოსტის ტექსტი და პოსტის აიდი.`, () => {
             testCreatePostTemplateBasisSection();
         })
         splitToLines("function createPostTemplate(postText,postId){\n" +
             `return 
-                <div class='${specifiers.postElementClass}' id='${specifiers.postElementIdSuffix}-\${postId}'>
+                \`<div class='${specifiers.postElementClass}' id='${specifiers.postElementIdSuffix}-\${postId}'>
                     <div class='${specifiers.postElementTextId}'>
                         \${postText}
                     </div>
-                </div>
+                </div>\`
             \n` + 
         "}")
        
+       })
+
+    CONFIG.isStep(steps.add_post) && describe('პოსტის დამატება', () => {
         it(`ახლა კი შევქმნათ პოსტის დამატების ფუნქცია და სახელად დავარქვათ createNewPost, რომელსაც არგუმენტად გადაეცემა ახალი პოსტის ტექსტი და id. ჯერ, იპოვეთ პოსტების კონტეინერი და შეინახეთ ცვლადში. შემდეგ, გამოვიყენოთ ჩვენს მიერ დაწერილი createPostTemplate() ფუნქცია და მის მიერ დაბრუნებული template შევინახოთ ცვლადში. საბოლოოდ,  დავამატოთ ახალი პოსტი პოსტების კონტეინერის დასაწყისში.`, () => {
             createNewPost("post text 1", 1)
             let post = document.getElementById(`${specifiers.postElementIdSuffix}1`)
