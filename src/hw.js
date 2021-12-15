@@ -9,6 +9,11 @@
     }
 
     launchTests(mocha) {
+        if (CONFIG.currentStep > CONFIG.testCount) {
+            CONFIG.currentStep = 1
+            CONFIG.save()
+            window.location.reload()
+        }
         mocha.run()
             .on('fail', t => this.CONFIG.failed = true)
             .on('end', () => {
