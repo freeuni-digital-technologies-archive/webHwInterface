@@ -6,10 +6,11 @@ const steps = {
     greetings: 1,
     elements: 2,
     console: 3,
-    add_post: 4,
-    //post_id: 5,
-    like_button: 5,
-    like_function: 6,
+    post_template: 4,
+    add_post: 5,
+    like_button: 6,
+    like_function: 7,
+    finish: 8
 }
 
 export function generateTests(CONFIG){
@@ -271,6 +272,15 @@ export function generateTests(CONFIG){
         })
     })
 
+    CONFIG.isStep(steps.finish) && describe('🥳', () => {
+        toggle('help')
+        showMessage('დავალების-ატვირთვა')
+        it(`დავალების ატვირთვის წესი იგივეა, რაც წინაზე (შეგიძლია ქვემოთ ნახო)`, () => {})
+        const celebrationGif = document.createElement('img')
+        celebrationGif.src = 'https://media0.giphy.com/media/f6hnhHkks8bk4jwjh3/giphy.gif'
+        celebrationGif.height = 400
+        document.getElementById('tests').insertBefore(celebrationGif, document.getElementById('help'))
+    })
 }
 
 function parseHtmlFromString(htmlString){
