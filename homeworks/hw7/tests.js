@@ -122,10 +122,8 @@ export function generateTests(CONFIG){
         })
         splitToLines("function createPostTemplate(postText,postId){\n" +
             `return 
-                \`<div class='${specifiers.postElementClass}' id='${specifiers.postElementIdSuffix}-\${postId}'>
-                    <div class='${specifiers.postElementTextId}'>
-                        \${postText}
-                    </div>
+                \`<div class='${specifiers.postElementClass}' id='${specifiers.postElementIdSuffix}\${postId}'>
+                    <div class='${specifiers.postElementTextId}'>\${postText}</div>
                 </div>\`
             \n` + 
         "}")
