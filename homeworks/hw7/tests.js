@@ -2,6 +2,8 @@ import { config, expect } from 'chai';
 import { splitToLines } from "../../src/utils"
 import { specifiers } from './specifiers'
 
+import { showMessage } from '../../src/utils'
+
 const steps = {
     greetings: 1,
     elements: 2,
