@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { splitToLines } from "../../src/utils"
 import { specifiers } from './specifiers'
 
-import { showMessage } from '../../src/utils'
+import { showMessage } from '../../src/instructions'
 
 const steps = {
     greetings: 1,
