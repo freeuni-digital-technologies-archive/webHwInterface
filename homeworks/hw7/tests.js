@@ -228,7 +228,7 @@ export function generateTests(CONFIG){
         })
         splitToLines(`
             function likePost(postId){
-                console.log(\`Post with id of \${postId} has been liked!\`);
+                notify(\`Post with id of \${postId} has been liked!\`);
             }
         `)
 
