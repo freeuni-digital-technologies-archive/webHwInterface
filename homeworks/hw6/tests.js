@@ -268,7 +268,7 @@ export function generateTests(CONFIG) {
 				expect(getValue('number2')).equal(b)
 		 })
 		 splitToLines(`
-		 	function getValue() {
+		 	function getValue(id) {
 		 		let v = document.getElementById(id).value
 		 		return Number(v)
 		 	} 
