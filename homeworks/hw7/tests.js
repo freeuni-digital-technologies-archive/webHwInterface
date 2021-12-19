@@ -112,7 +112,7 @@ export function generateTests(CONFIG){
         //     </div>
         // </div>
         // `)
-        it(`იმისათვის, რომ პოსტების აიდიები გვქონდეს, შევინახოთ ცვლადში. თავდაპირველი პოსტის id იქნება 1, შესაბამისად, საწყისი მნიშვნელობა გვაქვს. 
+        !CONFIG.server && it(`იმისათვის, რომ პოსტების აიდიები გვქონდეს, შევინახოთ ცვლადში. თავდაპირველი პოსტის id იქნება 1, შესაბამისად, საწყისი მნიშვნელობა გვაქვს. 
             ფაილის დასაწყისში შექმენით POSTS_ID_COUNTER.`, () => {
             expect(POSTS_ID_COUNTER).to.not.to.be.undefined;
             expect(POSTS_ID_COUNTER).eql(1)
@@ -160,7 +160,7 @@ export function generateTests(CONFIG){
         })
         it(`<button id="${specifiers.addPostButtonId}" onclick="newPost()">Add Post</button>`)
 
-        it(`ახლა კი შეგვიძლია newPost() ფუნქცია დავამატოთ. ამ ფუქნციაში, ჯერ წავიკითხოთ რა ჩაწერა იუზერმა textarea-ში. 
+        !CONFIG.server && it(`ახლა კი შეგვიძლია newPost() ფუნქცია დავამატოთ. ამ ფუქნციაში, ჯერ წავიკითხოთ რა ჩაწერა იუზერმა textarea-ში. 
         შემდეგ დავამატოთ ახალი პოსტი ამ ტექსტით. შესაბამისი ფუნქცია უკვე დაწერილი გვაქვს, შესაბამისად გამოიძახე 
         createNewPost() ფუნქცია. საბოლოოდ, გავზარდოთ POSTS_ID_COUNTER მნიშვნელობა ერთით`, () => {
             document.getElementById(specifiers.textareaId).value = 'post text 1';
@@ -220,7 +220,7 @@ export function generateTests(CONFIG){
         })
 
         
-        it('ჯერჯერობით შექმენი ცარიელი likePost(postId) ფუნქცია და შიგნით უბრალოდ notify ფუნქციას გადაეცი რომელი პოსტი დალაიქდა. ტექსტი უნდა იყოს აი ასეთი: notify("Post with id of 1 has been liked!")', () => {
+        !CONFIG.server && it('ჯერჯერობით შექმენი ცარიელი likePost(postId) ფუნქცია და შიგნით უბრალოდ notify ფუნქციას გადაეცი რომელი პოსტი დალაიქდა. ტექსტი უნდა იყოს აი ასეთი: notify("Post with id of 1 has been liked!")', () => {
             likePost(199);
             let answer = 'Post with id of 199 has been liked!'
             expect(window.clientNotifiedText).eql(answer);
@@ -257,7 +257,7 @@ export function generateTests(CONFIG){
                 post_like_count.innerText = currentLikes;
             }
         `)
-        it('likePost ფუნქციის შემოწმება',() => {
+        !CONFIG.server && it('likePost ფუნქციის შემოწმება',() => {
               setTextareaText('post text 1');
               newPost()
               let post = document.getElementById('post-1')
