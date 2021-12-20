@@ -1,21 +1,40 @@
 // ამოაკომენტარე ქვემოთა ოთხი ხაზი
 // TODO comment out in the end
-function makeChristmasTree() {
-	createTrunk()
-	addLights()
-}
+// function makeChristmasTree() {
+// 	createTrunk()
+// 	addLights()
+// }
 
+/** 
+ * გაითვალისწინეთ, რომ ამ ფუნქციის გარდა ყველა სხვა ცვლილება სერვერზე არ აისახება
+ * 
+ */
 function createConfig() {
-	return {
-		triangleCount: 2,
+	return	{
+		triangleCount: 2, // 3-დან 6-მდე
 		// ქვედა სამკუთხედის რადიუსი
-		startingRadius: 100,
-		// ამდენით შემცირდება ყოველი მომდევნო სამკუთხედის რადიუსი 
-		radiusOffset: 10,
+		startingRadius: 79, // 80-დან 120-მდე
+		// ამდენით შემცირდება ყოველი მომდევნო სამკუთხედის რადიუსი (ზომა)
+		radiusOffset: 1, // 5-დან  15-მდე
 		// "ზემოდან ჩამოსვლის" ეფექტისთვის
-		startingY: 60,
-		yOffset: 30,
-		// message	
+		startingY: 0, // -50 -დან  -200 -მდე
+		// რა მანძილი იყოს სამკუთხედებს შორის
+		yOffset: 0, // 30-დან  40-მდე
+		// ამ სიაში დამატებული ფერებით მონაცვლეობით 
+		// გაფერადდება ნაძვის ხის "შუქები" (წრეები)
+		lightColors: ['#222222', '#222222'], // შეცვალე ფერები და დაამატე კიდევ 1-2 ფერი
+		// წვერში ნათურის ფერი. 
+		topLightColor: '#222222',
+		// უსურვე რამე შენს კურსელებს. მესიჯი გამოჩნდება სიტყვა "გისურვებ"-ის შემდეგ
+		message: "ბედნიერ 2022 წელს",
+		trunkStartingColor: {
+			red: 50,
+			green: 50,
+			blue: 50
+		},
+		// ყოველ ჯერზე ამდენით გაღიავდება/გამუქდება ფერი
+		// გახადე ეს მნიშვნელობა უარყოფითი, თუ გინდა, რომ ზედა სამკუთხედები გამუქდეს
+		trunkGradation: 0 // -50 -დან 50-მდე
 	}
 }
 
@@ -35,12 +54,12 @@ function addLights() {
 function addTrunk(i) {
 	let color = getTrunkColor(i)
 	let radius = getRadius(i)
-	let triangle = new Triangle(0, getY(i), radius, 1)
+	let triangle = new Triangle(0, config.startingY + getY(i), radius, 1)
 	triangle.setColor(color)
-	// animate({
-	// 	targets: triangle,
-	// 	y: getY(i),
-	// })
+	animate({
+		targets: triangle,
+		y: getY(i),
+	})
 }
 
 
@@ -50,10 +69,12 @@ function addLight(i) {
 	let distanceX = getXDistance(radius, config.triangleCount + 2 - i)
 	let distanceY = getYDistance(radius, 1)
 	let yPos = getY(i)
+	let lightCount = 0
 	for (let y = yPos; y < yPos + radius; y+= distanceY) {
 		for (let x = -radius + distanceX/2; x < radius; x += distanceX) {
 			let light = new Light(x, y + config.yOffset, 5, 0)
-			light.setColor(config.lightColor)
+			lightCount++
+			light.setColor(getLightColor(lightCount))
 			animate({
 				targets: light,
 				scale: 1
@@ -64,31 +85,26 @@ function addLight(i) {
 
 
 function addTopLight() {
-	let topY = getY(config.triangleCount) - getRadius(config.triangleCount)/2
+	let topY = getTopY()
 	let light = new Light(0, topY, 5, 0)
 	animate({
 		targets: light,
 		scale: 1
 	})
+	light.setColor(config.topLightColor)
 }
 
 function getTrunkColor(i) {
-	let red = 50 + i*40
-	let green = 50 + i*40
-	let blue = 50 + i*40
+	let red = config.trunkStartingColor.red + (i*config.trunkGradation) % 255
+	let green = config.trunkStartingColor.green + (i*config.trunkGradation) % 255
+	let blue = config.trunkStartingColor.blue + (i*config.trunkGradation) % 255
 	return `rgb(${red}, ${green}, ${blue})`
 }
 
 
-let lightColors = ['#FFFFFF']
 function getLightColor(i) {
-	return lightColors[i % lightColors.length]
+	return config.lightColors[i % config.lightColors.length]
 }
-
-/**
- * ეს ფუნქციები არ შეცვალოთ
- * თუ გინდათ შეცვალეთ მარა რომ გამოაგზავნით ცვლილებები წაიშლება მაინც
- */
 
 function getXDistance(radius, count) {
 	return 2*radius/count
@@ -102,6 +118,14 @@ function getRadius(i) {
 	return config.startingRadius - i*config.radiusOffset
 }
 
+function getTopY() {
+	return getY(config.triangleCount) - getRadius(config.triangleCount)/2
+}
+
 function getY(i) {
 	return getRadius(i) - i*config.yOffset	
+}
+
+function displayMessage() {
+	new Message(0, getY(0) + 60, 'გისურვებ ' + config.message)
 }
