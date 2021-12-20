@@ -105,7 +105,8 @@ function getTopY() {
 function getY(i) {
     return getRadius(i) - i * config.yOffset;
 }
-function displayMessage() {
+// ამ ფუნქციას ჩვენ გამოვიძახებთ სხვა ფაილიდან საჭირო დროს :)
+function displayMessage(config) {
     new Message(0, getY(0) + 60, 'გისურვებ ' + config.message);
 }
 
