@@ -37,6 +37,8 @@ function createConfig() {
 	}
 }
 
+const config = createConfig()
+
 function createTrunk() {
 	for (let i = 0; i < config.triangleCount; i++) {
 		addTrunk(i)
@@ -131,6 +133,6 @@ function getY(i) {
 
 
 // ამ ფუნქციას ჩვენ გამოვიძახებთ სხვა ფაილიდან საჭირო დროს :)
-function displayMessage(config) {
+function displayMessage() {
 	new Message(0, getY(0) + 60, 'გისურვებ ' + config.message)
 }
