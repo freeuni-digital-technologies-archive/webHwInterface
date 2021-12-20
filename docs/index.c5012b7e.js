@@ -62,6 +62,10 @@ function addLight(i) {
     let distanceY = getYDistance(radius, 1);
     let yPos = getY(i);
     let lightCount = 0;
+    // ამ  ხაზს ვინც სწორად დაწერთ ბონუს ქულას მიიღებთ (ნათურები რომ 
+    // არ იყოს აცდენილი). უბრალოდ უნდა დაიანგარიშოთ yOffset*i და გამოაკლოთ
+    // ჯამში i-მდე რადიუსის ცვლილებები
+    // მეილზე მომწერეთ თუ გააკეთებთ და პირველი რამდენიმე მიიღებს ბონუსს.
     for(let y = yPos; y < yPos + radius; y += distanceY)for(let x = -radius + distanceX / 2; x < radius; x += distanceX){
         let light = new Light(x, y + config.yOffset, 5, 0);
         lightCount++;
