@@ -38,6 +38,8 @@ function createConfig() {
 	}
 }
 
+const config = createConfig();
+
 function createTrunk() {
 	for (let i = 0; i < config.triangleCount; i++) {
 		addTrunk(i)

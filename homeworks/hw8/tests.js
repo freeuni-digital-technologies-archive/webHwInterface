@@ -100,7 +100,7 @@ export function generateTests(CONFIG) {
         check(`triangleCount`, 3, 6)
         check(`startingRadius`, 80, 120)
         check(`radiusOffset`, 5, 15)
-        check(`startingY`, -50, -200)
+        check(`startingY`, -200, -50)
         check(`yOffset`, 30, 40)
         it(`lightColors`, () => {
             checkBounds(s.lightColors.length, 3, 4)
