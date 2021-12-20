@@ -95,8 +95,7 @@ export function generateTests(CONFIG){
 			let scriptElem = document.querySelector("body > script#my-script")
             let srcAttr = scriptElem.getAttribute("src");
 
-            // TODO: change .includes(). This is temporary because of server testing
-            expect(srcAttr.includes("index")).to.be.true
+            expect(srcAttr).eql("./index.js");
 		})
         it(`<script id="my-script" src="./index.js"></script>`)
         
@@ -238,6 +237,7 @@ export function generateTests(CONFIG){
         it(`ახლა დავფიქრდეთ, რა უნდა გააკეთოს likePost ფუნქციამ. 
             ჩვენ გვჭირდება ${specifiers.postLikesNumberClass}-ის innerText-ის შეცვლა, როცა პოსტს დავალაიქებთ. 
             ამიტომ მოდი ჯერ ვიპოვოთ ეს ელემენტი. 
+            როდესაც პოსტის ელემენტს იპოვი, დაამატე ერთი check. ეს საჭიროა იმისთვის, რომ დავალიდურდეს პოსტის არსებობა და არარსებულ ინფორმაციას არ ვემუშავოთ.
             დალაიქების შემდეგ, პოსტის ლაიქების რაოდენობა გაიზრდება ერთით.
             ვინაიდან პოსტის ლაიქების ელემენტი უკვე ვიპოვეთ, წავიკითხოთ მასში ლაიქების რაოდენობა და მისი მნიშვნელობა გავზარდოთ ერთით.
             როდესაც ლაიქების რაოდენობას წავიკითხავთ, გადავიყვანოთ იგი რიცხვის ტიპში, რაშიც ჯავასკრიპტში ჩაშენებული Number() ფუნქცია დაგვეხმარება.
@@ -250,6 +250,10 @@ export function generateTests(CONFIG){
         it('საბოლოო ჯამში, likePost ფუნქციას ექნება შემდეგი სახე:')
         splitToLines(`
             function likePost(postId){
+                notify(\`Post with id of \${postId} has been liked!\`);
+                if(post == null){
+                    return;
+                }
                 let post =  document.getElementById('post-' + postId); 
                 let post_like_count = post.querySelector('span.post-likes-number');
                 let currentLikes = Number(post_like_count.innerText)
