@@ -251,10 +251,10 @@ export function generateTests(CONFIG){
         splitToLines(`
             function likePost(postId){
                 notify(\`Post with id of \${postId} has been liked!\`);
+                let post =  document.getElementById('post-' + postId); 
                 if(post == null){
                     return;
                 }
-                let post =  document.getElementById('post-' + postId); 
                 let post_like_count = post.querySelector('span.post-likes-number');
                 let currentLikes = Number(post_like_count.innerText)
                 currentLikes++;
