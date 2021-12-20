@@ -1,5 +1,4 @@
 // ამოაკომენტარე ქვემოთა ოთხი ხაზი
-// TODO comment out in the end
 // function makeChristmasTree() {
 // 	createTrunk()
 // 	addLights()
