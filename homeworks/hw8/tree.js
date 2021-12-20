@@ -38,8 +38,6 @@ function createConfig() {
 	}
 }
 
-const config = createConfig();
-
 function createTrunk() {
 	for (let i = 0; i < config.triangleCount; i++) {
 		addTrunk(i)
@@ -128,6 +126,8 @@ function getY(i) {
 	return getRadius(i) - i*config.yOffset	
 }
 
-function displayMessage() {
+
+// ამ ფუნქციას ჩვენ გამოვიძახებთ სხვა ფაილიდან საჭირო დროს :)
+function displayMessage(config) {
 	new Message(0, getY(0) + 60, 'გისურვებ ' + config.message)
 }

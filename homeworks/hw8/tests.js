@@ -115,7 +115,8 @@ export function generateTests(CONFIG) {
     })
 
     CONFIG.isStep(steps.finish) && describe('🌲🎄🤶🏼', () => {
-        displayMessage()
+        const config = createConfig()
+        displayMessage(config)
         it(`message-ის ტექსტიც შეცვალე და სულ ეს არის. დავალება ჩვეულებრივ ატვირთე`, () => {
             expect(s.message).to.not.equal('ბედნიერ 2022 წელს')
         })
