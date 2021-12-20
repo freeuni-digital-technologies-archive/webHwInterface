@@ -37,6 +37,7 @@
         trunkGradation: 0 // -50 -დან 50-მდე
     };
 }
+const config = createConfig();
 function createTrunk() {
     for(let i = 0; i < config.triangleCount; i++)addTrunk(i);
 }
