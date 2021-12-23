@@ -52,4 +52,3 @@ function testRequest() {
 // xhr.send(new Int8Array());
 // xhr.send(document);
 }
-

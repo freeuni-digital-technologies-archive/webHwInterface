@@ -1,13 +1,19 @@
+
 /**
  * ამ ფაილში არის ნავიგაციის ფუნქციები
  */
 
-export class Homework {
+ export class Homework {
     constructor(CONFIG) {
         this.CONFIG = CONFIG
     }
 
     launchTests(mocha) {
+        if (CONFIG.currentStep > CONFIG.testCount) {
+            CONFIG.currentStep = 1
+            CONFIG.save()
+            window.location.reload()
+        }
         mocha.run()
             .on('fail', t => this.CONFIG.failed = true)
             .on('end', () => {
@@ -54,15 +60,15 @@ export class Homework {
         <button class="align-right" onclick="HW.previousStep()">წინა ნაბიჯი</button>
         `
 
-        const messageButtons = Object.keys(MESSAGES).map(m => `<button onclick="showMessage('${m}')">${m.replaceAll('-', ' ')}</button>`).join('')
-        document.getElementById('help-buttons').innerHTML = `
-            <button onclick="HW.setHints()">მინიშნებების ჩვენება/დამალვა</button>
-            <button onclick="toggle('tests')">ტესტების  დამალვა</button>
-            ${messageButtons}
-            <button onclick="toggle('help')">დახურვა</button>
-        `
+        // const messageButtons = Object.keys(MESSAGES).map(m => `<button onclick="showMessage('${m}')">${m.replaceAll('-', ' ')}</button>`).join('')
+        // document.getElementById('help-buttons').innerHTML = `
+        //     <button onclick="HW.setHints()">მინიშნებების ჩვენება/დამალვა</button>
+        //     <button onclick="toggle('tests')">ტესტების  დამალვა</button>
+        //     ${messageButtons}
+        //     <button onclick="toggle('help')">დახურვა</button>
+        // `
 
-        // document.getElementById('tests').appendChild(d)
+        document.getElementById('tests').appendChild(d)
     }
 
 
@@ -168,5 +174,3 @@ export class Homework {
     mocha.reporter(MyReporter);
     */
 }
-
-

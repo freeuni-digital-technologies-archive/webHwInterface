@@ -47,6 +47,3 @@ export function splitToLines(code) {
         // კი აუცილებელია რომ {} ქონდეს
         .map(l => { it(l) })
 }
-
-
-

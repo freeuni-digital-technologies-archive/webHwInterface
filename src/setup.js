@@ -12,9 +12,7 @@ export function setupInterface(CONFIG, HW) {
 	}
 	window.HW = HW
 	window.CONFIG = CONFIG
-
 	HW.checkPath();
-
 	// ეს კიდე საჭიროა რომ ნაბიჯებს გადავახტეთ
 	setupTestsDiv()
 	toggle('help')
@@ -25,4 +23,3 @@ export function setupInterface(CONFIG, HW) {
 		mocha: mocha
 	}
 }
-

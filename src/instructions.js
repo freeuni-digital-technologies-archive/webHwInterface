@@ -14,7 +14,6 @@ MESSAGES['სამუშაო-გარემო'] = `
     ვების დავალებების სამუშაო გარემოსთვის აუცილებელია 
     <h3>code editor</h3>
     visual studio code <a href="https://code.visualstudio.com/" target="_blank">გადმოწერა</a>
-
     <h3>web browser</h3>
     იმისთვის, რომ გაუგებრობები თავიდან ავიცილოთ, დავალების კეთების დროს
     html ფაილები გახსენი ხოლმე მხოლოდ <strong>chrome</strong> ან <strong>firefox</strong>
@@ -64,8 +63,8 @@ MESSAGES['დავალების-ატვირთვა'] = `
     <br>- გადაარქვი ფაილს სახელი იმავე პრინციპით, როგორც კარელზე. ოღონდ ამჯერად .txt-ის მაგივრად .zip-ით უნდა მთავრდებოდეს. მაგალითად "myawesomewebsite_imghv14.zip"
      <br> 
      <br>
-
 `
+
 
 // TODO linter and warnings
 

@@ -8,7 +8,7 @@
  * @property {String} show hint mode
  *  */
 
-export class Config {
+ export class Config {
     constructor() {
         this.readData()
         this.testCount = 0

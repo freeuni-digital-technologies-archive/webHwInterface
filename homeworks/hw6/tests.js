@@ -62,7 +62,7 @@ export function generateTests(CONFIG) {
 			სკრიპტ თეგი აუცილებელია, რომ იყოს app div-ის შემდეგ 
 			(ადგილი უკვე მონიშნულია). თეგის id იყოს my-script, `, () => {
 			scriptElem = document.getElementById(`my-script`)
-			expect(scriptElem.src).eql('./index.js')
+			expect(scriptElem.src).include('index')
 		})
 		it(`<script id="my-script" src="./index.js"></script>`)
 		
@@ -268,7 +268,7 @@ export function generateTests(CONFIG) {
 				expect(getValue('number2')).equal(b)
 		 })
 		 splitToLines(`
-		 	function getValue() {
+		 	function getValue(id) {
 		 		let v = document.getElementById(id).value
 		 		return Number(v)
 		 	} 
