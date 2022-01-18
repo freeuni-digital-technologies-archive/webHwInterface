@@ -11,7 +11,7 @@ fi
 
 current_branch=$(git branch --show-current)
 rm -r dist 2> /dev/null
-if [[ $2 == "zip" ]]
+if [[ $1 == "zip" || $2 == "zip" || $3 == "zip" ]]
 then
 	yarn createZips
 fi

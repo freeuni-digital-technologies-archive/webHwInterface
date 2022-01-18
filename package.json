@@ -6,7 +6,7 @@
     "build-server-tests": "parcel build homeworks/*/server.js --dist-dir server-tests/",
     "start": "parcel ",
     "createZips": "./scripts/createZips.sh",
-    "publish": "./scripts/publishTestFiles.sh"
+    "publish-files": "./scripts/publishTestFiles.sh"
   },
   "dependencies": {
     "chai": "^4.3.4",
