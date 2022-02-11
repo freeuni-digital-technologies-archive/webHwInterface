@@ -24,7 +24,6 @@ export function generateTests(CONFIG) {
 
 	CONFIG.isStep(steps.introduction) && describe(`მინი კალკულატორი`, () => {
 		CONFIG.hints = 'on'
-		// TODO finish introduction
 		it(`ამ დავალების მიზანია ჯავასკრიპტის ფუნქციების და DOM-ის ვარჯიში.
 			თუ სემინარის შემდეგ სავარჯიშოებს დამოუკიდებლად არ აკეთებ ან 
 			სემინარებს საერთოდ არ ესწრები, დავალებას ცოტათი მეტი დრო დაჭირდება, რადგან
