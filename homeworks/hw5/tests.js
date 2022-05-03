@@ -45,7 +45,6 @@ const steps = {
     done: 8
 }
 
-// (:
 export function generateTests(CONFIG) {
     console.log(CONFIG)
     console.log(CONFIG.isStep(4))
@@ -135,7 +134,6 @@ CONFIG.isStep(steps.header) && describe(`header`, () => {
         ჩაწერე სათაური, რომელიც იქნება შემდეგი ფორმატის, მაგალითად: გიგის საიტი. აუცილებელია, რომ ზუსტად
         ეს სიტყვები გამოიყენო`,() => {
         const elem = document.querySelector("div#website-title-container");
-        //expect(elem != null || elem != undefined).to.be.true;
         expect(elem).to.exist
         const h1 = document.querySelector("div#website-title-container > h1#website-title");
         expect(h1).to.exist
@@ -156,39 +154,25 @@ CONFIG.isStep(steps.header) && describe(`header`, () => {
         expect(style).to.exist
     })
     it("<style></style>")
-    /*
+
     it(`h1-ის div-ს უნდა ქონდეს 2px სისქის border, რომელიც იქნება წყვეტილი(იგულისხმება dotted) და ლურჯი (rgb) ფერის(blue).
         style თაგში გამოიყენე #website-title სელექტორი. ტექსტზე ძალიან მიბჯენილი რომ არ გამოვიდეს, 10px padding დაუმატე`,() => {
-        const h1 = document.querySelector("div#website-title-container > h1#website-title");
-
-
-        // const paddingPixels = h1style.getPropertyValue("padding");
-        // expect(paddingPixels == "10px").to.be.true;
-
-        // // const textAlign = h1style.getPropertyValue("text-align");
-        // // expect(textAlign == "center").to.be.true;
-
-        // const border = h1style.getPropertyValue("border");
-        // expect(border == "2px dotted rgb(0, 0, 255)").to.be.true;
-
+        const h1 = document.querySelector("div#website-title-container > h1#website-title")
         const h1styleTag = window.getComputedStyle(h1);
         const h1styleAttr = h1.style;
 
         const paddingPixelsTag = h1styleTag.getPropertyValue("padding");
         const paddingPixelsAttr = h1styleAttr.padding;
 
-        expect(paddingPixelsTag == "10px" || paddingPixelsAttr == "10px").to.be.true;
+        expect(paddingPixelsTag || paddingPixelsAttr).to.equal("10px")
 
         const borderTag = h1styleTag.getPropertyValue("border");
         const borderAttr = h1styleAttr.border;
 
         const expectBorder = "2px dotted rgb(0, 0, 255)";
-
-        expect(borderTag == expectBorder || borderAttr == expectBorder).to.be.true;
-
-
+        expect(borderTag || borderAttr).to.equal(expectBorder)
     })
-    */
+
     it(`#website-title{`)
     it(`    border: 2px dotted rgb(0, 0, 255);`)
     it(`}`)
@@ -204,8 +188,7 @@ CONFIG.isStep(steps.header) && describe(`header`, () => {
         const displayTag = passwordDivStyleTag.getPropertyValue("display");
         const displayAttr = passwordDivStyleAttr.display;
 
-        // expect(displayAttr == "none" || displayTag == "none").to.be.true;
-        expect("none").to.be.oneOf([displayAttr, displayTag])
+        expect(displayAttr || displayTag).to.equal("none")
     })
     it(`გამოიყენე სელექტორი. ისევე, როგორც #website-title`)
 
@@ -222,7 +205,7 @@ CONFIG.isStep(steps.page_1) && describe("Page 1",() => {
     შექმენი h1 ელემენტი, რომლის id იქნება page1-title. ჩაწერე რამე შენთვის მნიშვნელოვანი
     და სურათთან დაკავშირებული სიტყვები (პოეტურობა არ დაიშურო)`,() => {
         const h1 = document.querySelector("div#page1 > h1#page1-title");
-        expect(h1 != null || h1 != undefined).to.be.true;
+        expect(h1).to.exist
     })
     it("<h1 id='page1-title'></h1>")
 
@@ -250,43 +233,34 @@ CONFIG.isStep(steps.page_1) && describe("Page 1",() => {
     ბმულს, ან გადმოწერილ ფაილზე right click > get info ან properties და იქ გაჩვენებს სრულ სახელს.
     `)
 
-    /*
     it(`img ელემენტს უნდა ჰქონდეს 15px padding.
-        უკანა ფონი უნდა იყოს ნებისმიერი ფერის გარდა თეთრისა და შავისა (white,black).
-        სურათის სიგრძე იყოს 60%`, () => {
+        უკანა ფონი უნდა იყოს ნებისმიერი ფერის გარდა თეთრისა და შავისა (white,black).`, () => {
     
         const img = document.querySelector("div#page1 > div#page1-content > img");
         
-        // const bgColor = img.style.backgroundColor;
-
-        // expect(["white","black"].indexOf(bgColor) === -1).to.be.true;
-
-        // const padding = img.style.padding;
-        // expect(padding == "15px").to.be.true;
-
-        // const width = img.clientWidth;
-        // ეს არ მუშაობს
-        // console.log(width, img.style)
-        // expect(width === "100%").to.be.true;
+        const bgColor = img.style.backgroundColor;
+        expect(bgColor).to.be.oneOf(["white", "black", ""])
+        const padding = window.getComputedStyle(img, null).getPropertyValue('padding')
+        expect(padding).to.equal("15px");
     })
-    */
+
 
     it('დამატებითი ჩელენჯი თუ გინდა, დაგუგლე, როგორ მოექცეს წარწერა სურათის თავზე', () => {})
 
     it(`თუ შენი მშვენიერი საიტით დატკბობა მოგინდება ხოლმე "დახმარება"-ში დამალე 
     ტესტები. თავიდან გამოსაჩენად გვერდი გადატვირთე`, () => {})
-    // it("შექმნილი div#page1-content-ს სტილი ისე შეუცვალე, რომ სურათი მოექცეს შუაში",() => {
-    //     const div = document.querySelector("div#page1 > div#page1-content");
+    it("შექმნილი div#page1-content-ს სტილი ისე შეუცვალე, რომ სურათი მოექცეს შუაში",() => {
+        const div = document.querySelector("div#page1 > div#page1-content");
 
-    //     const divStyle = window.getComputedStyle(div);
+        const divStyle = window.getComputedStyle(div);
 
-    //     expect(div.style.display == "flex" || divStyle.getPropertyValue("display") == "flex").to.be.true;
-    //     expect(div.style.justifyContent == "center" || divStyle.getPropertyValue("justify-content") == "center").to.be.true;
-    // })
-    // it("#page1-content{")
-    // it(' display:flex;')
-    // it(' justify-content:center')
-    // it("}")
+        expect(div.style.display || divStyle.getPropertyValue("display")).to.equal("flex")
+        expect(div.style.justifyContent || divStyle.getPropertyValue("justify-content")).to.equal("center")
+    })
+    it("#page1-content{")
+    it(' display:flex;')
+    it(' justify-content:center')
+    it("}")
 
 
 })
@@ -303,10 +277,10 @@ CONFIG.isStep(steps.page_2) && describe("Page 2",() => {
         const heightTag = styleTag.getPropertyValue("height");
         const heightAttr = styleAttr.height;
 
-        expect("600px").to.be.oneOf([heightTag, heightAttr])
+        expect(heightTag || heightAttr).to.equal("600px")
         const colorTag = styleTag.getPropertyValue("background-color");
         const colorStyle = styleAttr.backgroundColor;
-        expect(colorTag != "rgba(0, 0, 0, 0)" || colorStyle != '').to.be.true;
+        expect(colorTag !== "rgba(0, 0, 0, 0)" || colorStyle !== '').to.be.true;
     })
     it("<div id='page2'></div>")
     it("#page2 { height: 600px; background-color: rgb();")
@@ -318,8 +292,8 @@ CONFIG.isStep(steps.page_2) && describe("Page 2",() => {
         const h1 = document.querySelector("div#page2 > h1#page2-title");
         expect(h1).to.exist
         expect(h1.innerText).to.have.lengthOf.gt(0)
-        expect("center").to.be.oneOf([h1.style.textAlign, window.getComputedStyle(h1).getPropertyValue("text-align")])
-        expect("250px").to.be.oneOf([h1.style.marginTop, window.getComputedStyle(h1).getPropertyValue("margin-top")])
+        expect(h1.style.textAlign || window.getComputedStyle(h1).getPropertyValue("text-align")).to.equal("center")
+        expect(h1.style.marginTop || window.getComputedStyle(h1).getPropertyValue("margin-top")).to.equal("250px")
     })
     it("<h1 id='page2-title'></h1>")
     it("#page2-title {")
@@ -353,18 +327,16 @@ CONFIG.isStep(steps.page_2) && describe("Page 2",() => {
         }
         expect(imageSrcs.size).to.be.equal(images.length)
     })
-    /*
+
     it("თითოეულ სურათს უნდა ჰქონდეს სიგანეც 350px, ხოლო opacity: 70%",() => {
         const container = document.querySelector("div#page2 > div#page2-content");
         const image = container.querySelector("img.image-row");
 
         const imageStyle = window.getComputedStyle(image);
-        console.log(imageStyle.getPropertyValue("width"),imageStyle.getPropertyValue("opacity"))
-        expect(imageStyle.getPropertyValue("width") == "350px").to.be.true;
-        // expect(imageStyle.getPropertyValue("height") == "350px").to.be.true;
-        expect(imageStyle.getPropertyValue("opacity") == "0.7").to.be.true;
+        expect(imageStyle.getPropertyValue("width")).to.equal("350px")
+        expect(imageStyle.getPropertyValue("opacity")).to.equal("0.7")
     })
-    */
+
     it(".image-row { width: ...")
 
     
@@ -414,21 +386,20 @@ CONFIG.isStep(steps.menu) && describe("Menu",() => {
     it(`თუ a ელემენტის href ატრიბუტში მიუთითებთ მაგალითისთვის href='#app', 
     დაჭერის შემდეგ გვერდი აისქროლება მითითებული id-ს მქონდე ელემენტთან`)
 
-    /*
+
     it(`შექმნილი div#menu უნდა იყოს ფიქსირებული და სქროლვისას უნდა ჩანდეს ზედა მარჯვენა მხარეს. 
     ამ ელემენტს უნდა ჰქონდეს 2px სისქის solid gold border`,() => {
         const div = document.querySelector("div#menu");
         
         const divStyle = window.getComputedStyle(div);
-        expect(divStyle.getPropertyValue("position") == "fixed" || div.style.position == "fixed").to.be.true;
-        expect(divStyle.getPropertyValue("top") == "0px" || div.style.top == "0px").to.be.true;
-        expect(divStyle.getPropertyValue("right") == "0px" || div.style.right == "0px").to.be.true;
+        expect(divStyle.getPropertyValue("position") || div.style.position).to.equal("fixed")
+        expect(divStyle.getPropertyValue("top") || div.style.top).to.equal("0px")
+        expect(divStyle.getPropertyValue("right") || div.style.right).to.equal("0px")
 
         const expectBorder = "2px solid rgb(255, 215, 0)"
-        expect(divStyle.getPropertyValue("border") == expectBorder || div.style.border == expectBorder).to.be.true;
-
+        expect(divStyle.getPropertyValue("border") || div.style.border).to.equal(expectBorder)
     })
-    */
+
     it(`იმისათვის, რომ ელემენტი ფიქსირებული იყოს, დაგჭირდებათ position:fixed`)
     it(`პოზიციის მისათითებლად, შეგიძლიათ გამოიყენოთ top right bottom left. 
     მაგალითად, bottom:200px ნიშნავს, რომ ქვევიდან 200 პიქსელში იყოს ელემენტი მოთავსებული`);
@@ -456,8 +427,7 @@ CONFIG.isStep(steps.footer) && describe("Footer",() => {
         
         expect(spans[0].innerText).to.have.lengthOf.at.least(1)
         expect(spans[1].innerText).to.equal("Ⓒ თბილისის თავისუფალი უნივერსიტეტი, 2021");
-        expect("center").to.be.oneOf([footer.style.textAlign, window.getComputedStyle(footer).getPropertyValue("text-align")])
-        // expect(footer.style.textAlign == "center" || window.getComputedStyle(footer).getPropertyValue("text-align") == "center").to.be.true;
+        expect(footer.style.textAlign || window.getComputedStyle(footer).getPropertyValue("text-align")).to.equal("center")
     })
     it('copyright symbol დაგუგლე, მონიშე და დააკოპირე')
     it('იმის მაგივრად, რომ თითოეული ტექსტი გაცენტრო, გაცენტრე მთლიანად div#footer')
