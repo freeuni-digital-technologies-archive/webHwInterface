@@ -59,7 +59,7 @@ CONFIG.isStep(steps.introduction) && describe("", () => {
     it(`ყველა დავალებას ექნება ხოლმე ტესტები.`)
     it(`ეს ტესტი ამოწმებს, რომ 2+2=4. თუ კოდი ტესტზე "გადის", მაშინ გამოჩნდება ხოლმე
     "შემდეგი ნაბიჯის" ღილაკი, როგორც ახლა მარჯვნივ. ჯერ არ დააჭირო, წაიკითხე ბოლომდე`, 
-    () => expect(2 + 2).eql(4))
+    () => expect(2 + 2).to.equal(4))
     it(`თუ ტესტის ტექსტი გაუგებარია, სცადე "დახმარება"-ში "მინიშნებების ჩვენება. 
     ამის შემდეგ ასეთი ლურჯი ფერით გამოჩნდება ხოლმე მინიშნებები (ამ გვერდზე ავტომატურად
     უკვე ნაჩვენებია). შენ თვითონ დაარეგულირე
@@ -90,7 +90,7 @@ CONFIG.isStep(steps.setup_and_password) && describe("", () => {
     it(`კოდის ედიტორის საშუალებით გახსენი html ფაილი, მოძებნე ხაზი, სადაც წერია div#write-password-here და ჩაწერე იქ პაროლი.
     პაროლის სანახავად გამოიყენე inspect element`, () => {
         const n = Number(document.querySelector('div#write-password-here').innerText)
-        expect(n).eql(CONFIG.password)
+        expect(n).to.equal(CONFIG.password)
     })
 
     toggle('help')
@@ -103,10 +103,9 @@ CONFIG.isStep(steps.header) && describe(`header`, () => {
 
     it(`head ელემენტში შექმენი title და ჩაწერე შენი საიტის სახელი. საიტს რამე თემა მოუფიქრე 😎`, () => {
         let title = document.querySelector("head > title");
-        expect(title != null || title != undefined).to.be.true;
-
+        expect(title).to.exist
         let text = title.innerText;
-        expect(text.length > 0).to.be.true;
+        expect(text).to.have.lengthOf.above(0)
 
     })
     it("<title> საიტის სახელი</title> - ეს ხაზი დაამატე <head>-ის შემდეგ")
@@ -118,15 +117,12 @@ CONFIG.isStep(steps.header) && describe(`header`, () => {
     გაითვალისწინე, რომ ფაილი უნდა იყოს .ico ფორმატის. ამის შესამოწმებლად ჩასმულ ბმულს
     დააკვირდი - ico-თი უნდა მთავრდებოდეს`, () => {
         let link = document.querySelector("head > link[rel='icon']")
-         
-        expect(link != null || link != undefined).to.be.true;
-
-        expect(link.href != null).to.be.true;
-        
+        let linkHref = link.href
+        expect(link).to.exist
+        expect(linkHref).to.exist
         let currentPath = window.location.href;
-
-        expect(link.href.length).not.equal(0)
-        expect(link.href != currentPath).to.be.true;
+        expect(linkHref).to.have.lengthOf.not.equal(0)
+        expect(linkHref).to.not.equal(currentPath)
         expect(link.href.endsWith('.ico')).to.be.true
         expect(link.href.startsWith('http')).to.be.true
     })
@@ -138,18 +134,18 @@ CONFIG.isStep(steps.header) && describe(`header`, () => {
     მასში დაამატე h1, რომლის id იქნება website-title. ხოლო კლასი უნდა ქონდეს შენი emailid
         ჩაწერე სათაური, რომელიც იქნება შემდეგი ფორმატის, მაგალითად: გიგის საიტი. აუცილებელია, რომ ზუსტად
         ეს სიტყვები გამოიყენო`,() => {
-            const elem = document.querySelector("div#website-title-container");
-        expect(elem != null || elem != undefined).to.be.true;
+        const elem = document.querySelector("div#website-title-container");
+        //expect(elem != null || elem != undefined).to.be.true;
+        expect(elem).to.exist
         const h1 = document.querySelector("div#website-title-container > h1#website-title");
+        expect(h1).to.exist
 
-        expect(h1 != null || h1 != undefined).to.be.true;
-        
         const h1_id = h1.getAttribute("id");
-        expect(h1_id != null || h1_id != undefined).to.be.true;
+        expect(h1_id).to.exist
 
         const text = h1.innerText;
         expect(strEndsWith(text,'ს საიტი')).to.be.true;
-        expect(text.length >= 9)
+        expect(text).to.have.lengthOf.at.least(9)
     })
 
     it(`<div id='website-title-container'><h1 id='website-title' class='imghv14'>
@@ -157,14 +153,14 @@ CONFIG.isStep(steps.header) && describe(`header`, () => {
 
     it('head ელემენტში შექმენი style ელემენტი',() => {
         const style = document.querySelector("head > style");
-        expect(style != null || style != undefined).to.be.true;
+        expect(style).to.exist
     })
     it("<style></style>")
     /*
-    it(`h1-ის div-ს უნდა ქონდეს 2px სისქის border, რომელიც იქნება წყვეტილი(იგულისხმება dotted) და ლურჯი (rgb) ფერის(blue). 
+    it(`h1-ის div-ს უნდა ქონდეს 2px სისქის border, რომელიც იქნება წყვეტილი(იგულისხმება dotted) და ლურჯი (rgb) ფერის(blue).
         style თაგში გამოიყენე #website-title სელექტორი. ტექსტზე ძალიან მიბჯენილი რომ არ გამოვიდეს, 10px padding დაუმატე`,() => {
         const h1 = document.querySelector("div#website-title-container > h1#website-title");
-        
+
 
         // const paddingPixels = h1style.getPropertyValue("padding");
         // expect(paddingPixels == "10px").to.be.true;
@@ -208,18 +204,17 @@ CONFIG.isStep(steps.header) && describe(`header`, () => {
         const displayTag = passwordDivStyleTag.getPropertyValue("display");
         const displayAttr = passwordDivStyleAttr.display;
 
-        expect(displayAttr == "none" || displayTag == "none").to.be.true;
+        // expect(displayAttr == "none" || displayTag == "none").to.be.true;
+        expect("none").to.be.oneOf([displayAttr, displayTag])
     })
     it(`გამოიყენე სელექტორი. ისევე, როგორც #website-title`)
 
 })
 
 CONFIG.isStep(steps.page_1) && describe("Page 1",() => {
-    console.log("whyyyyy")
-
     it("შექმენი div ელემენტი, რომლის id იქნება page1",() => {
         const div = document.querySelector("div#page1");
-        expect(div != null || div != undefined).to.be.true;
+        expect(div).to.exist
     })
     it("<div id='page1'></div>")
 
@@ -228,16 +223,12 @@ CONFIG.isStep(steps.page_1) && describe("Page 1",() => {
     და სურათთან დაკავშირებული სიტყვები (პოეტურობა არ დაიშურო)`,() => {
         const h1 = document.querySelector("div#page1 > h1#page1-title");
         expect(h1 != null || h1 != undefined).to.be.true;
-
-        // expect(h1.innerText == "Page 1").to.be.true;
-
-        //expect(h1.style.textAlign == "center" || window.getComputedStyle(h1).getPropertyValue("text-align") == "center").to.be.true;
     })
     it("<h1 id='page1-title'></h1>")
 
     it("div#page1 ელემენტში შექმენი ახალი div, რომლის id იქნება page1-content", () => {
         const div = document.querySelector("div#page1 > div#page1-content");
-        expect(div != null || div != undefined).to.be.true;
+        expect(div).to.exist
     })
     it("<div id='page1-content'></div> - ეს ჩაამატე h1-ის შემდეგ")
 
@@ -248,11 +239,9 @@ CONFIG.isStep(steps.page_1) && describe("Page 1",() => {
     იმისთვის, რომ სურათმა მთელი გვერდი დაიკავოს, მისი სიგანე 100% გავხადოთ, სიმაღლეს
     კი ავტომატურად შეეცვლება ზომა`,() => {
         const img = document.querySelector("div#page1 > div#page1-content >img");
-        expect(img != null || img != undefined).to.be.true;
-
+        expect(img).to.exist
         const src = img.getAttribute("src");
-        expect(src != null || src != undefined);
-
+        expect(src).to.exist
         expect(strStartsWith(src,"http")).to.be.false;
     })
     it("<img src='./my-image.jpg'/>")
@@ -307,36 +296,30 @@ CONFIG.isStep(steps.page_2) && describe("Page 2",() => {
         color picker). იმისთვის, რომ 
     ფონის ფერი გამოჩნდეს, ელემენტს სიმაღლე მიეცი - 600px`,() => {
         const div = document.querySelector("div#page2");
-        expect(div != null || div != undefined).to.be.true;
-
+        expect(div).to.exist
         const styleTag = window.getComputedStyle(div);
         const styleAttr = div.style;
 
         const heightTag = styleTag.getPropertyValue("height");
         const heightAttr = styleAttr.height;
 
-        expect(heightTag == "600px" || heightAttr == "600px").to.be.true;
-
+        expect("600px").to.be.oneOf([heightTag, heightAttr])
         const colorTag = styleTag.getPropertyValue("background-color");
         const colorStyle = styleAttr.backgroundColor;
-
-
         expect(colorTag != "rgba(0, 0, 0, 0)" || colorStyle != '').to.be.true;
     })
     it("<div id='page2'></div>")
     it("#page2 { height: 600px; background-color: rgb();")
 
 
-    it(`div#page2 ელემენტში შექმენი h1 ელემენტი,რომლის id იქნება page2-title და ჰორიზონტალურად 
+    it(`div#page2 ელემენტში შექმენი h1 ელემენტი,რომლის id იქნება page2-title, მასში რაიმე ეწერება და ჰორიზონტალურად 
     შუაში იქნება მოქცეული. ძალიან მიბჯენილი რომ არ გამოვიდეს წინა გვერდზე, მოდი
     margin-top იყოს 250 პიქსელი`,() => {
         const h1 = document.querySelector("div#page2 > h1#page2-title");
-        expect(h1 != null || h1 != undefined).to.be.true;
-
-        expect(h1.innerText.length > 3).to.be.true;
-
-        expect(h1.style.textAlign == "center" || window.getComputedStyle(h1).getPropertyValue("text-align") == "center").to.be.true;
-        expect(h1.style.marginTop == "250px" || window.getComputedStyle(h1).getPropertyValue("margin-top") == "250px").to.be.true;
+        expect(h1).to.exist
+        expect(h1.innerText).to.have.lengthOf.gt(0)
+        expect("center").to.be.oneOf([h1.style.textAlign, window.getComputedStyle(h1).getPropertyValue("text-align")])
+        expect("250px").to.be.oneOf([h1.style.marginTop, window.getComputedStyle(h1).getPropertyValue("margin-top")])
     })
     it("<h1 id='page2-title'></h1>")
     it("#page2-title {")
@@ -345,7 +328,7 @@ CONFIG.isStep(steps.page_2) && describe("Page 2",() => {
 
     it("div#page2 ელემენტში შექმენი ახალი div, რომლის id იქნება page2-content", () => {
         const div = document.querySelector("div#page2 > div#page2-content");
-        expect(div != null || div != undefined).to.be.true;
+        expect(div).to.exist
     })
     it("<div id='page2-content'></div>")
 
@@ -360,18 +343,15 @@ CONFIG.isStep(steps.page_2) && describe("Page 2",() => {
         const container = document.querySelector("div#page2 > div#page2-content");
 
         const images = container.querySelectorAll("img.image-row");
-
-        expect(images.length >= 3).to.be.true;
+        expect(images).to.have.lengthOf.at.least(3)
 
         let imageSrcs = new Set();
         for(image of images){
             const src = image.getAttribute("src");
-            expect(src.length > 0).to.be.true;
-            // expect(strStartsWith(src,"http")).to.be.false;
+            expect(src).to.have.lengthOf.at.least(1)
             imageSrcs.add(src);
         }
-
-        expect(imageSrcs.size == images.length).to.be.true;
+        expect(imageSrcs.size).to.be.equal(images.length)
     })
     /*
     it("თითოეულ სურათს უნდა ჰქონდეს სიგანეც 350px, ხოლო opacity: 70%",() => {
@@ -402,7 +382,8 @@ CONFIG.isStep(steps.page_2) && describe("Page 2",() => {
         const container = document.querySelector("div#page2 > div#page2-content");
 
         const containerStyle = window.getComputedStyle(container);
-        expect(containerStyle.getPropertyValue("display") == "flex" && containerStyle.getPropertyValue("justify-content") == "space-around").to.be.true;
+        expect(containerStyle.getPropertyValue("display")).to.be.equal("flex")
+        expect(containerStyle.getPropertyValue("justify-content")).to.be.equal("space-around")
     })
     it("ამისთვის დაგჭირდებათ, რომ page2-content display იყოს flex და justify-content იყოს space-around")
 
@@ -417,7 +398,7 @@ CONFIG.isStep(steps.menu) && describe("Menu",() => {
     მოდი ნავიგაცია დავამატოთ (და თითქმის მოვრჩით).
     შექმენი div ელემენტი, რომელსაც id ექნება menu`,() => {
         const div = document.querySelector("div#menu");
-        expect(div != null || div != undefined).to.be.true;
+        expect(div).to.exist
     })
 
 
@@ -426,11 +407,9 @@ CONFIG.isStep(steps.menu) && describe("Menu",() => {
         const div = document.querySelector("div#menu");
         
         const children = div.querySelectorAll("a.page-navigator");
-        expect(children.length == 2).to.be.true;
-
-        expect(children[0].getAttribute("href") == "#page1").to.be.true;
-        expect(children[1].getAttribute("href") == "#page2").to.be.true;
-
+        expect(children).to.have.lengthOf(2)
+        expect(children[0].getAttribute("href")).to.be.equal("#page1")
+        expect(children[1].getAttribute("href")).to.be.equal("#page2")
     })
     it(`თუ a ელემენტის href ატრიბუტში მიუთითებთ მაგალითისთვის href='#app', 
     დაჭერის შემდეგ გვერდი აისქროლება მითითებული id-ს მქონდე ელემენტთან`)
@@ -461,7 +440,7 @@ CONFIG.isStep(steps.footer) && describe("Footer",() => {
     ამიტომ იძულებული ვართ აქ დავასრულოთ. არადა სურათების ქვემოთ აღწერები და
     მთელი ამბები გვინდოდა გვესწავლებინა. მოკლედ, საიტის ბოლოში დაამატე ახალი div#footer`,() => {
         const footer = document.querySelector("div#footer");
-        expect(footer != null || footer != undefined).to.be.true;
+        expect(footer).to.exist
     })
     it(`footer ელემენტში შექმენი ორი პარაგრაფი. პირველი პარაგრაფი ორი span ელემენტით. ერთში ჩაწერე შენი სახელი და გვარი.
     მეორეში, ჩაწერე "Ⓒ თბილისის თავისუფალი უნივერსიტეტი, 2021". არ დაგავიწყდეს გაცენტრვა. მეორე პარაგრაფში
@@ -469,19 +448,16 @@ CONFIG.isStep(steps.footer) && describe("Footer",() => {
         const footer = document.querySelector("div#footer");
 
         const paragraphs = footer.querySelectorAll("p");
-        expect(paragraphs.length).eql(2);
-
+        expect(paragraphs).to.have.lengthOf(2)
 
         const spans = paragraphs[0].querySelectorAll("span");
-        expect(spans.length).eql(2);
-
+        expect(spans).to.have.lengthOf(2)
         console.log(spans);
         
-        expect(spans[0].innerText.length > 0).to.be.true;
-
-        expect(spans[1].innerText).eql("Ⓒ თბილისის თავისუფალი უნივერსიტეტი, 2021");
-
-        expect(footer.style.textAlign == "center" || window.getComputedStyle(footer).getPropertyValue("text-align") == "center").to.be.true;
+        expect(spans[0].innerText).to.have.lengthOf.at.least(1)
+        expect(spans[1].innerText).to.equal("Ⓒ თბილისის თავისუფალი უნივერსიტეტი, 2021");
+        expect("center").to.be.oneOf([footer.style.textAlign, window.getComputedStyle(footer).getPropertyValue("text-align")])
+        // expect(footer.style.textAlign == "center" || window.getComputedStyle(footer).getPropertyValue("text-align") == "center").to.be.true;
     })
     it('copyright symbol დაგუგლე, მონიშე და დააკოპირე')
     it('იმის მაგივრად, რომ თითოეული ტექსტი გაცენტრო, გაცენტრე მთლიანად div#footer')
@@ -555,4 +531,3 @@ function setupGuessingPassword(CONFIG) {
     setupGuessingPasswordBody(CONFIG, passwordsDiv);
     //setupGuessingPasswordFooter(passwordsDiv);
 }
-
