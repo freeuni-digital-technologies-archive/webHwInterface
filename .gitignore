@@ -19,3 +19,4 @@ server-tests/
 *_solution.*
 .vscode
 node_modules/
+.DS_Store
