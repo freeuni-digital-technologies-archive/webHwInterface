@@ -2,7 +2,7 @@
 // ჩვეულებრივ დამალული იქნება, პირველ გვერდზე მოეხსნება
 // დამალვა და დანარჩენებზე ღილაკს თუ დააჭერენ გამოჩნდება
 
-MESSAGES = {}
+const MESSAGES = {}
 MESSAGES['პირობები'] = `
     თქვენ შეგიძლიათ ცვლილებების შეტანა მხოლოდ მითითებული ფაილების
     მითითებულ ნაწილებში. 
@@ -78,10 +78,10 @@ export function showMessage(args) {
         <h3>${msg.replaceAll('-', ' ')}</h3>
        ${MESSAGES[msg]}
    </div>
-`)
+    `)
+    document.getElementById('instructions').innerHTML = c.join('\n') + `<div><button onclick="hideMessage()">დახურვა</button></div>`
+    //    document.getElementById('instructions-text').innerText = msg
+}
+
 window.showMessage = showMessage
 window.hideMessage = hideMessage
-
-document.getElementById('instructions').innerHTML = c.join('\n') + `<div><button onclick="hideMessage()">დახურვა</button></div>`
-//    document.getElementById('instructions-text').innerText = msg
-}
