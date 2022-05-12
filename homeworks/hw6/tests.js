@@ -140,10 +140,10 @@ export function generateTests(CONFIG) {
 		it(`კარგი, მოდი ამ ეტაპზე პროგრესი index.jsში შევინახოთ. შექმენი ფუნქცია
 			calculatorAdd და მიაბი იგი მიმატების ღილაკს. რომ გავიგოთ, 
 			სწორად მუშაობს თუ არა, ფუნქციიდან უბრალოდ რამე მესიჯი გააგზავნე
-			კონსოლში. გადატვირთე გვერდი, დააჭირე ღილაკს და ნახე მესიჯი
+			კონსოლში. გადატვირთე გვერდი, გახსენი კონსოლი, მაუსით დააჭირე + ღილაკს და ნახე მესიჯი
 			კონსოლში`, () => {
 				const c = document.querySelector(`button#add`).onclick
-				expect(c).to.not.be.undefined
+				expect(c).to.exist
 			})
 		splitToLines(`function calculatorAdd() {
 				console.log('function works!')
@@ -246,7 +246,7 @@ export function generateTests(CONFIG) {
 				return document.getElementById(id).value
 			}
 	 	`)
-		 it(`გამოიყენე ფუნქცია calculatorAdd() - ში (შეცვალე პირველი ორი ხაზი)`, () => {
+		 it(`გამოიყენე getValue() ფუნქცია: calculatorAdd() - ში (შეცვალე პირველი ორი ხაზი)`, () => {
 		 	window.setValueFunctionCount = 0
 		 	const oldGetValue = window.getValue
 		 	window.getValue = (id) => setValueFunctionCount++
