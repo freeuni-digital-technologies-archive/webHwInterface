@@ -414,8 +414,8 @@ CONFIG.isStep(steps.footer) && describe("Footer",() => {
         expect(footer).to.exist
     })
     it(`footer ელემენტში შექმენი ორი პარაგრაფი. პირველი პარაგრაფი ორი span ელემენტით. ერთში ჩაწერე შენი სახელი და გვარი.
-    მეორეში, ჩაწერე "Ⓒ თბილისის თავისუფალი უნივერსიტეტი, 2021". არ დაგავიწყდეს გაცენტრვა. მეორე პარაგრაფში
-    რამე მესიჯი დამიწერე :)`,() => {
+    მეორეში, ჩაწერე "Ⓒ თბილისის თავისუფალი უნივერსიტეტი, ${new Date().getFullYear()}". (Ⓒ სიმბოლოს ჩასასმელად შეგიძლიათ ჩაწეროთ &#9400, 
+    ანუ სადაც &#9400 ჩაწერთ მაგ ადგილს HTML აღიქვამს როგორც Ⓒ სიმბოლოს). არ დაგავიწყდეს გაცენტრვა. მეორე პარაგრაფში რამე მესიჯი დამიწერე :)`,() => {
         const footer = document.querySelector("div#footer");
 
         const paragraphs = footer.querySelectorAll("p");
@@ -426,7 +426,8 @@ CONFIG.isStep(steps.footer) && describe("Footer",() => {
         console.log(spans);
         
         expect(spans[0].innerText).to.have.lengthOf.at.least(1)
-        expect(spans[1].innerText).to.equal("Ⓒ თბილისის თავისუფალი უნივერსიტეტი, 2021");
+        //TODO Remove 2021 check for future homeworks
+        expect(spans[1].innerText).to.be.oneOf(["Ⓒ თბილისის თავისუფალი უნივერსიტეტი, 2021" , `Ⓒ თბილისის თავისუფალი უნივერსიტეტი, ${new Date().getFullYear()}`]);
         expect(footer.style.textAlign || window.getComputedStyle(footer).getPropertyValue("text-align")).to.equal("center")
     })
     it('copyright symbol დაგუგლე, მონიშე და დააკოპირე')
