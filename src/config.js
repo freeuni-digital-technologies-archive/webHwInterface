@@ -9,11 +9,12 @@
  *  */
 
  export class Config {
-    constructor() {
+    constructor(id) {
         this.readData()
         this.testCount = 0
         this.failed = false
         this.hints = false
+        this.hw_id = id
     }
 
     readData() {

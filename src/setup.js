@@ -3,9 +3,16 @@ import { Config } from './config'
 import {toggle, setupTestsDiv } from './utils'
 import mocha from 'mocha'
 
-export function setupInterface(CONFIG, HW) {
+export function setupInterface(CONFIG, HW, id) {
 	if (!CONFIG) {
-		CONFIG = new Config()
+		CONFIG = new Config(id)
+	}
+	let localConfig = JSON.parse(localStorage.getItem('config'))
+	if(localConfig.hw_id !== id){
+		localConfig.currentStep = 1
+		localConfig.hw_id = id
+		CONFIG.currentStep = 1
+		CONFIG.hw_id = id
 	}
 	if (!HW) {
 		HW = new Homework(CONFIG)
