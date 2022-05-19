@@ -60,7 +60,7 @@ export function generateTests(CONFIG) {
 		it(`0. ჯერ სკრიპტ თეგი ჩაამატე. index.js ფაილი უკვე შევქმენი. 
 			სკრიპტ თეგი აუცილებელია, რომ იყოს app div-ის შემდეგ 
 			(ადგილი უკვე მონიშნულია). თეგის id იყოს my-script, `, () => {
-			scriptElem = document.getElementById(`my-script`)
+			let scriptElem = document.getElementById(`my-script`)
 			expect(scriptElem.src).include('index')
 		})
 		it(`<script id="my-script" src="./index.js"></script>`)
@@ -76,8 +76,10 @@ export function generateTests(CONFIG) {
 			დრო რომ არ დაკარგო, უკვე დავწერეთ შესაბამისი html, რომელსაც 
 			getCalculatorElement() ფუნქცია აბრუნებს. სცადე მისი გამოძახება `)
 		it(`console > getCalculatorElement()`)
-		it(`4. მხოლოდ ის დაგვრჩენია, რომ app div-ში ეს html კოდი ჩავწეროთ.`)
-		it(`console > appDiv.innerHTML = getCalculatorElement()`)
+		it(`4. მოდი ახლა ეს ელემენტიც რაიმე ცვლადში შევინახოთ`)
+		it(`console > let ourDiv = getCalculatorElement()`)
+		it(`5. მხოლოდ ის დაგვრჩენია, რომ app div-ში ეს html კოდი ჩავწეროთ.`)
+		it(`console > appDiv.appendChild(ourDiv)`)
 
 		it(`თუ ყველაფერი გააკეთე, გამოიძახე ფუნქცია ILoggedEverythingToConsole() და შემდეგ ნაბიჯზე გადახვალ`)
 		window.ILoggedEverythingToConsole = () => HW.nextStep()
@@ -94,9 +96,9 @@ export function generateTests(CONFIG) {
 			გვერდის ჩატვირთვისას ბრაუზერი წაიკითხავს ფაილს და შეასრულებს იქ 
 			ჩაწერილ კოდს`, () => {
 			const c = document.getElementById('calculator')
-			expect(c).to.not.be.undefined
+			expect(c).to.exist
 		})
-		it(`document.getElementById('app').innerHTML = getCalculatorElement()`)
+		it(`document.getElementById('app').appendChild( getCalculatorElement() )`)
 	})
 
 	CONFIG.isStep(steps.addition1) && describe('მიმატება. ნაბიჯი 1', () => {
@@ -138,10 +140,10 @@ export function generateTests(CONFIG) {
 		it(`კარგი, მოდი ამ ეტაპზე პროგრესი index.jsში შევინახოთ. შექმენი ფუნქცია
 			calculatorAdd და მიაბი იგი მიმატების ღილაკს. რომ გავიგოთ, 
 			სწორად მუშაობს თუ არა, ფუნქციიდან უბრალოდ რამე მესიჯი გააგზავნე
-			კონსოლში. გადატვირთე გვერდი, დააჭირე ღილაკს და ნახე მესიჯი
+			კონსოლში. გადატვირთე გვერდი, გახსენი კონსოლი, მაუსით დააჭირე + ღილაკს და ნახე მესიჯი
 			კონსოლში`, () => {
 				const c = document.querySelector(`button#add`).onclick
-				expect(c).to.not.be.undefined
+				expect(c).to.exist
 			})
 		splitToLines(`function calculatorAdd() {
 				console.log('function works!')
@@ -244,7 +246,7 @@ export function generateTests(CONFIG) {
 				return document.getElementById(id).value
 			}
 	 	`)
-		 it(`გამოიყენე ფუნქცია calculatorAdd() - ში (შეცვალე პირველი ორი ხაზი)`, () => {
+		 it(`გამოიყენე getValue() ფუნქცია: calculatorAdd() - ში (შეცვალე პირველი ორი ხაზი)`, () => {
 		 	window.setValueFunctionCount = 0
 		 	const oldGetValue = window.getValue
 		 	window.getValue = (id) => setValueFunctionCount++
