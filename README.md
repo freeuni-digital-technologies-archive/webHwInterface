@@ -48,12 +48,12 @@
 1. ტესტების დაბილდვა და remote-ად ატანა (ანუ საწყის index.html ფაილში სკრიპტის რა ლინკიც იყო ჩასმული მანდ ცვლილებებს შეიტანს)
    ```sh
    # commit your changes
-   yarn publish
+   yarn publish-files
    ```
    Note: სანამ ამ ბრძანებას გამოიძახებ დარწმუნდი, რომ ყველა ცვლილება დაკომიტებულია.
 2. საწყისი ფაილების დაბილდვა და remote-ად ატანა (გამოიყენე თუ იმ ფაილებში მოახდენ ცვლილებას, რაც სტუდენტებს ეგზავნებათ)
    ```sh
-   yarn publish -- zip
+   yarn publish-files -- zip
    ```
 
 ## Github integration (Issues, branches, pull requests)
