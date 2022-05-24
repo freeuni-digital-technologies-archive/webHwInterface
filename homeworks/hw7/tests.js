@@ -1,7 +1,5 @@
 import { expect } from 'chai';
 import { splitToLines } from "../../src/utils"
-import { specifiers } from './specifiers'
-
 import { showMessage } from '../../src/instructions'
 
 const steps = {
@@ -13,6 +11,18 @@ const steps = {
     like_button: 6,
     like_function: 7,
     finish: 8
+}
+
+export const specifiers = {
+    textareaId: "new-post-text",
+    postsContainerId: "posts-container",
+    addPostButtonId: "add-post",
+    postElementClass: "post",
+    postElementIdSuffix: "post-",
+    postElementTextId: 'post-text',
+    postLikesNumberClass: 'post-likes-number',
+    postLikeButtonClass: 'post-like-button',
+    postDeleteButtonClass: 'delete-post'
 }
 
 export function generateTests(CONFIG){
@@ -28,12 +38,12 @@ export function generateTests(CONFIG){
         it(`პაროლზე რამე ორიგინალურის მოფიქრება გვინდოდა მაგრამ ვერ მოვასწარით.
          გახსენი კონსოლი და გამოიძახე getPassword() ფუნქცია, შემდეგ კი index.html ფაილში იპოვე div, რომლის id არის write-password-inside და დივის შიგნით ჩაწერეთ ფუნქციის მიერ დაბრუნებული შედეგი`, () => {
 			const n = Number(document.querySelector(`div#write-password-inside`).innerText)
-        	expect(n).eql(CONFIG.password)
+        	expect(n).to.equal(CONFIG.password)
 		})
         it(`console > getPassword()`)
-        
+
 	})
-    
+
 
     CONFIG.isStep(steps.elements) && describe('პოსტის დამატება (HTML)', () => {
         it(`მოდი დავამატოთ ისეთი სექცია, სადაც იუზერი შეძლებს ტექსტის შეყვანას და შემდეგ დაპოსტვას`)
@@ -42,14 +52,14 @@ export function generateTests(CONFIG){
         it(`იმისათვის, რომ პატარა ველი არ გვქონდეს, გამოვიყენოთ ერთ-ერთი თაგი textarea, 
         რომლის id იქნება ${specifiers.textareaId}`, () => {
             const textareaTag = document.querySelector(`div#app > textarea#${specifiers.textareaId}`)
-            expect(textareaTag).to.not.to.be.null;
+            expect(textareaTag).to.exist;
         })
         it(`<textarea id="new-post-text"></textarea>`)
 
         it(`textarea-ს ქვემოთ დაამატე ახალი დივ კონტეინერი, სადაც გამოჩნდება იუზერის მიერ დამატებული პოსტები. 
         კონტეინერის აიდი უნდა იყოს ${specifiers.postsContainerId}`,() => {
             const postsContainer = document.querySelector(`div#app > div#${specifiers.postsContainerId}`);
-            expect(postsContainer).to.not.to.be.null;
+            expect(postsContainer).to.exist;
         })
         it(`<div id="${specifiers.postsContainerId}"></div>`)
 
@@ -57,8 +67,8 @@ export function generateTests(CONFIG){
         it('ამ ღილაკის შიგნით ჩავწეროთ Add Post')
         it('ღილაკის შემოწმება',() => {
             const button = document.querySelector("div#app > button");
-            expect(button).not.to.be.null;
-            expect(button.innerText).eql('Add Post');
+            expect(button).to.exist;
+            expect(button.innerText).to.equal('Add Post');
         })
         it(`<button>Add Post</button>`)
     })
@@ -86,23 +96,23 @@ export function generateTests(CONFIG){
         it(`თვალსაჩინოებისთვის, მოდი ასეთი რამე გააკეთე:`)
         it(`console > postsContainer.innerText = "some <div style='color: red;'> text </div>" `)
         it(`console > postsContainer.innerHTML = "some <div style='color: red;'> text </div>"`)
-        
+
     })
-    
+
     CONFIG.isStep(steps.post_template) && describe('პოსტის template', () => {
 
         it(`ჯერ სკრიპტ თეგი ჩაამატე. index.js ფაილი უკვე შევქმენი. თქვენს სკრიპტ თეგს id უნდა ჰქონდეს my-script`, () => {
 			let scriptElem = document.querySelector("body > script#my-script")
             let srcAttr = scriptElem.getAttribute("src");
-
-            expect(srcAttr).eql("./index.js");
+            // TODO: uncomment this line
+            // expect(srcAttr).to.equal("./index.js");
 		})
         it(`<script id="my-script" src="./index.js"></script>`)
-        
+
 
         it(`გვინდა, რომ ყოველი ახალი პოსტის ელემენტს ქონდეს id, რომელშიც იქნება ნომერი, თუ მერამდენე პოსტია ის. ეს გაგვიმარტივებს პოსტების იდენტიფიცირებას, ვინაიდან შეიძლება არსებობდეს ორი პოსტი, რომელთაც იდენტური ტექსტი აქვთ.`)
         it(`პოსტი ჩვენთვის იქნება div ელემენტი, რომლის class იქნება ${specifiers.postElementClass}. ხოლო მისი id უნდა იწყებოდეს ${specifiers.postElementIdSuffix} და შემდეგ პოსტის იდენტიფიკატორი.`)
-        it(`პოსტის ელემენტის შიგნით გვქონდეს კიდევ ერთი div, რომელშიც შევინახავთ პოსტის ტექსტს. ამ div-ის id უნდა იყოს ${specifiers.postElementTextId}`)
+        it(`პოსტის ელემენტის შიგნით გვქონდეს კიდევ ერთი div, რომელშიც შევინახავთ პოსტის ტექსტს. ამ div-ის class უნდა იყოს ${specifiers.postElementTextId}`)
         it(`საბოლოო ჯამში, პოსტის ელემენტს ექნება ასეთი სახე:`)
         // it(`
         // <div class='${specifiers.postElementClass}' id='${specifiers.postElementIdSuffix}-1'>
@@ -111,10 +121,15 @@ export function generateTests(CONFIG){
         //     </div>
         // </div>
         // `)
+        it(`<div class='${specifiers.postElementClass}' id='${specifiers.postElementIdSuffix}-1'>`)
+        it(`<div class='${specifiers.postElementTextId}'>`)
+        it(`<!-- აქ იქნება ტექსტი -->`)
+        it(`</div>`)
+        it(`</div>`)
         !CONFIG.server && it(`იმისათვის, რომ პოსტების აიდიები გვქონდეს, შევინახოთ ცვლადში. თავდაპირველი პოსტის id იქნება 1, შესაბამისად, საწყისი მნიშვნელობა გვაქვს. 
             ფაილის დასაწყისში შექმენით POSTS_ID_COUNTER.`, () => {
-            expect(POSTS_ID_COUNTER).to.not.to.be.undefined;
-            expect(POSTS_ID_COUNTER).eql(1)
+            expect(POSTS_ID_COUNTER).to.exist;
+            expect(POSTS_ID_COUNTER).to.equal(1)
         })
         it(`let POSTS_ID_COUNTER = 1;`)
 
@@ -122,40 +137,45 @@ export function generateTests(CONFIG){
             testCreatePostTemplateBasisSection();
         })
         splitToLines("function createPostTemplate(postText,postId){\n" +
-            `return 
-                \`<div class='${specifiers.postElementClass}' id='${specifiers.postElementIdSuffix}\${postId}'>
-                    <div class='${specifiers.postElementTextId}'>\${postText}</div>
-                </div>\`
-            \n` + 
+            `
+                const outerDiv = document.createElement("div")
+                outerDiv.className = '${specifiers.postElementClass}'
+                outerDiv.id = '${specifiers.postElementIdSuffix}\${postId}'
+                const innerDiv = document.createElement("div")
+                innerDiv.className = '${specifiers.postElementTextId}'
+                innerDiv.textContent = postText
+                outerDiv.appendChild(innerDiv)
+                return outerDiv
+            `+
         "}")
-       
+
        })
 
     CONFIG.isStep(steps.add_post) && describe('პოსტის დამატება', () => {
         it(`ახლა კი შევქმნათ პოსტის დამატების ფუნქცია და სახელად დავარქვათ createNewPost, რომელსაც არგუმენტად გადაეცემა ახალი პოსტის ტექსტი და id. ჯერ, იპოვეთ პოსტების კონტეინერი და შეინახეთ ცვლადში. შემდეგ, გამოვიყენოთ ჩვენს მიერ დაწერილი createPostTemplate() ფუნქცია და მის მიერ დაბრუნებული template შევინახოთ ცვლადში. საბოლოოდ,  დავამატოთ ახალი პოსტი პოსტების კონტეინერის დასაწყისში.`, () => {
             createNewPost("post text 1", 1)
             let post = document.getElementById(`${specifiers.postElementIdSuffix}1`)
-            expect(post).to.not.to.be.null;
-            
+            expect(post).to.exist;
+
             let firstPost = document.getElementById(specifiers.postsContainerId).firstElementChild;
 
-            expect(firstPost).eql(post);
+            expect(firstPost).to.equal(post);
 
             firstPost.parentNode.removeChild(firstPost);
         })
         splitToLines(`function createNewPost(postText, id){
                 let posts = document.querySelector("div#${specifiers.postsContainerId}");
                 let post = createPostTemplate(postText,id);
-                posts.insertAdjacentHTML('afterbegin',post);
+                posts.insertAdjacentElement('afterbegin',post);
             }`)
 
         it('დავაკავშიროთ შესაყვანი ველი და ფუნქციის დაპოსტვის ფუნქციონალი ერთმანეთს')
 
         it(`ამისთვის,ჯერ გავიხსენოთ Add Post ღილაკი. დაუმატე ამ ღილაკს id მნიშვნელობით ${specifiers.addPostButtonId}. ღილაკს მიაბით newPost() ფუნქცია. ეს შეგიძლია onclick ატრიბუტით გააკეთო, მაგალითად onclick='someFunction()'. არ დაიბნეთ, ამ ფუნქციონალს შემდეგ ეტაპზე დავამატებთ`,() => {
             const button = document.querySelector(`div#app > button#${specifiers.addPostButtonId}`);
-            expect(button).to.not.to.be.null;
-            
-            expect(button.getAttribute("onclick")).eql("newPost()")
+            expect(button).to.exist;
+
+            expect(button.getAttribute("onclick")).to.equal("newPost()")
         })
         it(`<button id="${specifiers.addPostButtonId}" onclick="newPost()">Add Post</button>`)
 
@@ -164,12 +184,12 @@ export function generateTests(CONFIG){
         createNewPost() ფუნქცია. საბოლოოდ, გავზარდოთ POSTS_ID_COUNTER მნიშვნელობა ერთით`, () => {
             document.getElementById(specifiers.textareaId).value = 'post text 1';
             newPost();
-            expect(POSTS_ID_COUNTER).eql(2)
+            expect(POSTS_ID_COUNTER).to.equal(2)
 
             let firstPost = document.getElementById(specifiers.postsContainerId).firstElementChild;
-            expect(firstPost).to.not.to.be.null;
+            expect(firstPost).to.exist;
 
-            expect(firstPost.querySelector("div").innerText).eql("post text 1")
+            expect(firstPost.querySelector("div").innerText).to.equal("post text 1")
 
             firstPost.parentNode.removeChild(firstPost);
             document.getElementById(specifiers.textareaId).value = ''
@@ -184,7 +204,7 @@ export function generateTests(CONFIG){
 
         it(`თითქმის მოვრჩით ამ სექციას! textarea ელემენტს დაუმატე მინიშნება (placeholder) და ჩაუწერე შეკითხვა: "what's up? :)"`, () => {
             const textareaTag = document.querySelector(`div#app > textarea#${specifiers.textareaId}`)
-            expect(textareaTag.getAttribute("placeholder")).eql("what's up? :)")
+            expect(textareaTag.getAttribute("placeholder")).to.equal("what's up? :)")
         })
         it(`<textarea id="${specifiers.textareaId}" placeholder="what\'s up? :)"></textarea>`)
 
@@ -194,7 +214,7 @@ export function generateTests(CONFIG){
      * TODO
      * ამ ნაწილში გადმოვიდეს პოსტის id-ის გაზრდა
      * არსად არ ამოწმებ რომ addPost ფუნქციის გამოძახების მერე counter გაზრდილია...
-     * 
+     *
      */
     // CONFIG.isStep(steps.post_id) && describe('პოსტებისთვის id-ის მინიჭება', () => {
     //     it('test')
@@ -218,11 +238,11 @@ export function generateTests(CONFIG){
             testCreatePostTemplateLikeSection();
         })
 
-        
+
         !CONFIG.server && it('ჯერჯერობით შექმენი ცარიელი likePost(postId) ფუნქცია და შიგნით უბრალოდ notify ფუნქციას გადაეცი რომელი პოსტი დალაიქდა. ტექსტი უნდა იყოს აი ასეთი: notify("Post with id of 1 has been liked!")', () => {
             likePost(199);
             let answer = 'Post with id of 199 has been liked!'
-            expect(window.clientNotifiedText).eql(answer);
+            expect(window.clientNotifiedText).to.equal(answer);
 
         })
         splitToLines(`
@@ -266,13 +286,13 @@ export function generateTests(CONFIG){
               newPost()
               let post = document.getElementById('post-1')
               post.querySelector(`button.${specifiers.postLikeButtonClass}`).click()
-              
+
               let postLikesCount = post.querySelector(`span.${specifiers.postLikesNumberClass}`).innerText;
-              expect(postLikesCount).eql('1')
+              expect(postLikesCount).to.equal('1')
 
               post.parentNode.removeChild(post);
               setTextareaText('');
-              
+
         })
     })
 
@@ -294,30 +314,26 @@ function parseHtmlFromString(htmlString){
 
 function testCreatePostTemplateBasisSection(){
     let result = createPostTemplate("post text 1",1);
-    expect(result).to.not.to.be.undefined;
-    let postElem = parseHtmlFromString(result);
-    expect(postElem).to.not.to.be.undefined;
-    expect(postElem.getAttribute('class')).eql(specifiers.postElementClass);
-    expect(postElem.getAttribute('id')).eql(`${specifiers.postElementIdSuffix}1`)
-    
-    let postTextElem = postElem.querySelector(`div.${specifiers.postElementTextId}`);
-    expect(postTextElem).to.not.to.be.null;
-    expect(postTextElem.innerText).eql("post text 1")
+    expect(result).to.exist;
+    expect(result.getAttribute('class')).to.equal(specifiers.postElementClass);
+    expect(result.getAttribute('id')).to.equal(`${specifiers.postElementIdSuffix}1`)
+    let postTextElem = result.querySelector(`div.${specifiers.postElementTextId}`);
+    expect(postTextElem).to.exist;
+    expect(postTextElem.getAttribute('class')).to.equal(specifiers.postElementTextId)
+    expect(postTextElem.innerText).to.equal("post text 1")
 }
 
 function testCreatePostTemplateLikeSection(){
     let result = createPostTemplate("post text 1",1);
-    let postElem = parseHtmlFromString(result);
     testCreatePostTemplateBasisSection();
 
-    let postLikesSpan = postElem.querySelector(`span.${specifiers.postLikesNumberClass}`)
-    expect(postLikesSpan).to.not.to.be.null;
-    expect(postLikesSpan.innerText).eql('0')
+    let postLikesSpan = result.querySelector(`span.${specifiers.postLikesNumberClass}`)
+    expect(postLikesSpan).to.exist;
+    expect(postLikesSpan.innerText).to.equal('0')
 
-    let postLikeButton = postElem.querySelector(`button.${specifiers.postLikeButtonClass}`);
-    expect(postLikeButton).to.not.to.be.null;
-
-    expect(postLikeButton.getAttribute('onclick')).eql('likePost(1)')
+    let postLikeButton = result.querySelector(`button.${specifiers.postLikeButtonClass}`);
+    expect(postLikeButton).to.exist;
+    expect(postLikeButton.getAttribute('onclick')).to.equal('likePost(1)')
 }
 
 
