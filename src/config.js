@@ -14,11 +14,16 @@
         this.testCount = 0
         this.failed = false
         this.hints = false
-        this.hw_id = id
+        if (this.hw_id !== id) {
+            this.hw_id = id
+            this.save()
+            this.currentStep = 1
+            window.location.reload()
+        }
     }
 
     readData() {
-        const c = JSON.parse(localStorage.getItem('config')) || { currentStep: 1 }
+        const c = JSON.parse(localStorage.getItem('config')) || { currentStep: 1, hw_id: '' }
         Object.keys(c).forEach(k => this[k] = c[k])
     }
 
