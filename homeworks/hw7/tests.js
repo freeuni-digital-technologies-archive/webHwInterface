@@ -104,8 +104,7 @@ export function generateTests(CONFIG){
         it(`ჯერ სკრიპტ თეგი ჩაამატე. index.js ფაილი უკვე შევქმენი. თქვენს სკრიპტ თეგს id უნდა ჰქონდეს my-script`, () => {
 			let scriptElem = document.querySelector("body > script#my-script")
             let srcAttr = scriptElem.getAttribute("src");
-            // TODO: uncomment this line
-            // expect(srcAttr).to.equal("./index.js");
+            expect(srcAttr).to.equal("./index.js");
 		})
         it(`<script id="my-script" src="./index.js"></script>`)
 
@@ -134,36 +133,42 @@ export function generateTests(CONFIG){
         it(`let POSTS_ID_COUNTER = 1;`)
 
         it(`დავამატოთ ფუნქცია, რომელიც გვიბრუნებს პოსტის template-ს. ეს template უკვე აღვწერეთ წინა ნაბიჯებში როგორი უნდა იყოს. \
-            დავარქვათ ამ ფუნქციას createPostTemplate, გადავცეთ არგუმენტად პოსტის ტექსტი და პოსტის აიდი.
-            createPostTemplate ფუნქციის ტანში ძალიან ბევრი ხაზი რომ არ გვეწეროს მოდი შევქმნათ ცვლადი template და დამხმარე ფუნქცია createInitialTemplate.
-            template შეინახავს createInitialTemplate-ის მიერ დაბრუნებულ მნიშვნელობას, ხოლო createPostTemplate დააბრუნებს template-ს`
+            დავარქვათ ამ ფუნქციას createPostElement, გადავცეთ არგუმენტად პოსტის ტექსტი და პოსტის აიდი.
+            createPostTemplate ფუნქციის ტანში ძალიან ბევრი ხაზი რომ არ გვეწეროს მოდი შევქმნათ ცვლადი template და დამხმარე ფუნქცია createPostDiv.
+            template შეინახავს createPostDiv-ის მიერ დაბრუნებულ მნიშვნელობას, ხოლო createPostTemplate დააბრუნებს template-ს`
             , () => {
-            const createPostTemplateTest = createPostTemplate("post text 1",1);
-            const createInitialTemplateTest = createInitialTemplate("post text 1",1);
+            const createPostTemplateTest = createPostElement("post text 1",1);
+            const createPostDivTest = createPostDiv("post text 1",1);
             testTemplateBasics(createPostTemplateTest);
-            testTemplateBasics(createInitialTemplateTest);
+            testTemplateBasics(createPostDivTest);
         })
-        splitToLines("function createPostTemplate(postText,postId){\n" +
+        splitToLines("function createPostElement(postText,postId){\n" +
             `
-                const template = createInitialTemplate(postText, postId);
-                return template;
+                const postElement = createPostDiv(postText, postId);
+                return postElement;
             `+
-        "}\n\n" + "function createInitialTemplate (postText, postId){\n" +
+        "}\n\n" + "function createPostDiv (postText, postId){\n" +
         `
                 const outerDiv = document.createElement("div")
                 outerDiv.className = '${specifiers.postElementClass}'
                 outerDiv.id = '${specifiers.postElementIdSuffix}\${postId}'
+                
                 const innerDiv = document.createElement("div")
                 innerDiv.className = '${specifiers.postElementTextId}'
                 innerDiv.textContent = postText
                 outerDiv.appendChild(innerDiv)
+                
                 return outerDiv
         ` + "}")
 
        })
 
     CONFIG.isStep(steps.add_post) && describe('პოსტის დამატება', () => {
-        it(`ახლა კი შევქმნათ პოსტის დამატების ფუნქცია და სახელად დავარქვათ createNewPost, რომელსაც არგუმენტად გადაეცემა ახალი პოსტის ტექსტი და id. ჯერ, იპოვეთ პოსტების კონტეინერი და შეინახეთ ცვლადში. შემდეგ, გამოვიყენოთ ჩვენს მიერ დაწერილი createPostTemplate() ფუნქცია და მის მიერ დაბრუნებული template შევინახოთ ცვლადში. საბოლოოდ,  დავამატოთ ახალი პოსტი პოსტების კონტეინერის დასაწყისში.`, () => {
+        it(`ახლა კი შევქმნათ პოსტის დამატების ფუნქცია და სახელად დავარქვათ createNewPost, 
+        რომელსაც არგუმენტად გადაეცემა ახალი პოსტის ტექსტი და id. ჯერ, 
+        იპოვე პოსტების კონტეინერი და შეინახე ცვლადში. შემდეგ, გამოვიყენოთ ჩვენს მიერ დაწერილი 
+        createPostElement() ფუნქცია და მის მიერ დაბრუნებული postElement შევინახოთ ცვლადში. 
+        საბოლოოდ,  დავამატოთ ახალი პოსტი პოსტების კონტეინერის დასაწყისში.`, () => {
             createNewPost("post text 1", 1)
             let post = document.getElementById(`${specifiers.postElementIdSuffix}1`)
             expect(post).to.exist;
@@ -176,7 +181,7 @@ export function generateTests(CONFIG){
         })
         splitToLines(`function createNewPost(postText, id){
                 let posts = document.querySelector("div#${specifiers.postsContainerId}");
-                let post = createPostTemplate(postText,id);
+                let post = createPostElement(postText,id);
                 posts.insertAdjacentElement('afterbegin',post);
             }`)
 
@@ -234,51 +239,57 @@ export function generateTests(CONFIG){
     CONFIG.isStep(steps.like_button) && describe('ლაიქის დამატება', () => {
         CONFIG.hints = 'on'
         it('ღილაკის დამატება და ფუნქციის მიბმა')
-        it(`დაპოსტვის ღილაკისგან განსხვავებით, ლაიქის ღილაკს index.html-ში ვერ დავამატებთ - ყველა პოსტს ცალკე სჭირდება. 
-            ნათელია, რომ ეს ღილაკი createPostTemplate() ფუნქციაში უნდა ჩავსვათ. `)
-        it(`ტრადიციულად პოსტის დალაიქება ტექსტის ქვემოთაა, ამიტომ createPostTemplate ფუნქციაში
-            ${specifiers.postElementTextId}-ის შემდეგ, '${specifiers.postElementClass}'-ში დავამატოთ span. ამისთვის შეგიძლია template ცვლადი გამოიყენო
+        it(`დაპოსტვის ღილაკისგან განსხვავებით, ლაიქის ღილაკს index.html-ში ვერ დავამატებთ - 
+        ყველა პოსტს ცალკე სჭირდება. 
+            ნათელია, რომ ეს ღილაკი createPostElement() ფუნქციაში უნდა ჩავსვათ. `)
+        it(`ტრადიციულად პოსტის დალაიქება ტექსტის ქვემოთაა, ამიტომ createPostElement ფუნქციაში
+            ${specifiers.postElementTextId}-ის შემდეგ, '${specifiers.postElementClass}'-ში დავამატოთ span. 
+            ამისთვის შეგიძლია postElement ცვლადი გამოიყენო
             და მისი დახმარებით ჩაამატო span საჭირო ადგილას
             span-ს უნდა ჰქონდეს კლასი ${specifiers.postLikesNumberClass}.   
             ამ span-ში შევინახავთ რამდენი ლაიქი აქვს პოსტს.`, ()=>{
-            let result = createPostTemplate("post text 1",1);
+            let result = createPostElement("post text 1",1);
             testTemplateBasics(result);
             let postLikesSpan = result.querySelector(`span.${specifiers.postLikesNumberClass}`)
             expect(postLikesSpan).to.exist;
             expect(postLikesSpan.innerText).to.equal('0')
         })
-        it(`function createPostTemplate(postText, postId) {`)
-        it(`const template = createInitialTemplate(postText, postId)`)
-        it(`const span = document.createElement("span)`);
-        it(`span.className = ${specifiers.postLikesNumberClass}`)
-        it(`span.textContent = '0'`)
-        it(`template.appendChild(span)`)
-        it(`return template`)
-        it(`}`)
+        splitToLines(`
+            function createPostElement(postText, postId) {
+                const postElement = createPostDiv(postText, postId)
+                const span = document.createElement("span)
+                const span = document.createElement("span)
+                span.className = ${specifiers.postLikesNumberClass}
+                span.textContent = '0'
+                return postElement
+        }`)
+
         it(`ასევე span-ის შემდეგ დავამატოთ button ღილაკი, რომელსაც მივაბავთ likePost ფუნქციას. 
-            span-ის მსგავსად გამოიყენე template ცვლადი, ღილაკი დაამატე სულ ბოლოს return template-მდე.
+            span-ის მსგავსად გამოიყენე postElement ცვლადი, ღილაკი დაამატე სულ ბოლოს return postElement-მდე.
             ღილაკს უნდა ჰქონდეს კლასი ${specifiers.postLikeButtonClass}.`, () =>{
-            let result = createPostTemplate("post text 1",1);
+            let result = createPostElement("post text 1",1);
             testTemplateBasics(result);
             let postLikeButton = result.querySelector(`button.${specifiers.postLikeButtonClass}`);
             expect(postLikeButton).to.exist;
             expect(postLikeButton.getAttribute('onclick')).to.equal('likePost(1)')
         })
-        it(`function createPostTemplate(postText, postId) {`)
-        it(`...`)
-        it(`const button = document.createElement("button")1`)
-        it("button.setAttribute(\"onclick\", \`likePost(${postId})\`)")
-        it(`button.className = "post-like-button"`)
-        it(`button.textContent = "like"`)
-        it(`template.appendChild(button)`)
-        it(`return template`)
-        it('}')
-        it(`likePost ფუნქციას შემდეგ ეტაპზე დავაიმპლემენტირებთ. მანამდე კი, უბრალოდ მისი მოხაზულობა ჩამოვაყალიბოთ.
-            likePost ფუნქციას უნდა გადავცეთ იმ პოსტის აიდი, რომლის დალაიქებაც გვინდა. 
-            createPostTemplate ფუნქციაში ავტომატურად გადმოგვეწოდება postId, შესაბამისად, 
-            ღილაკში, სადაც likePost ფუნქციას გამოვიძახებთ, ავტომატურად შეგვიძლია გადავცეთ postId`)
-        it(`<button onclick="likePost(\${postId})" class="${specifiers.postLikeButtonClass}">like</button>`)
+        splitToLines(`
+            function createPostElement(postText, postId) {
+                // ....
+                const button = document.createElement("button")1
+                button.onclick = function() {
+                    likePost(\${postId})
+                }
+                button.className = "post-like-button"
+                button.textContent = "like"
+                postElement.appendChild(button)
+                
+                return postElement
+        `)
 
+        it(`დააკვირდი onclick ფუნქციას - button.onclick = likePost(...) რომ დაგვეწერა,
+        რა მოხდებოდა? - likePost ფუნქციას ელემენტის შექმნისას გამოიძახებდა. ამიტომ გვჭირდება, რომ 
+        დავაკონკრეტოთ, onclick-ზე გამოძახებულმა ფუნქციამ გამოიძახოს likePost`)
 
         !CONFIG.server && it('ჯერჯერობით შექმენი ცარიელი likePost(postId) ფუნქცია და შიგნით უბრალოდ notify ფუნქციას გადაეცი რომელი პოსტი დალაიქდა. ტექსტი უნდა იყოს აი ასეთი: notify("Post with id of 1 has been liked!")', () => {
             likePost(199);
@@ -298,7 +309,7 @@ export function generateTests(CONFIG){
         it(`ახლა დავფიქრდეთ, რა უნდა გააკეთოს likePost ფუნქციამ. 
             ჩვენ გვჭირდება ${specifiers.postLikesNumberClass}-ის innerText-ის შეცვლა, როცა პოსტს დავალაიქებთ. 
             ამიტომ მოდი ჯერ ვიპოვოთ ეს ელემენტი. 
-            როდესაც პოსტის ელემენტს იპოვი, დაამატე ერთი check. ეს საჭიროა იმისთვის, რომ დავალიდურდეს პოსტის არსებობა და არარსებულ ინფორმაციას არ ვემუშავოთ.
+          
             დალაიქების შემდეგ, პოსტის ლაიქების რაოდენობა გაიზრდება ერთით.
             ვინაიდან პოსტის ლაიქების ელემენტი უკვე ვიპოვეთ, წავიკითხოთ მასში ლაიქების რაოდენობა და მისი მნიშვნელობა გავზარდოთ ერთით.
             როდესაც ლაიქების რაოდენობას წავიკითხავთ, გადავიყვანოთ იგი რიცხვის ტიპში, რაშიც ჯავასკრიპტში ჩაშენებული Number() ფუნქცია დაგვეხმარება.
@@ -313,16 +324,15 @@ export function generateTests(CONFIG){
             function likePost(postId){
                 notify(\`Post with id of \${postId} has been liked!\`);
                 let post =  document.getElementById('post-' + postId); 
-                if(post == null){
-                    return;
-                }
                 let post_like_count = post.querySelector('span.post-likes-number');
                 let currentLikes = Number(post_like_count.innerText)
                 currentLikes++;
                 post_like_count.innerText = currentLikes;
             }
         `)
-        !CONFIG.server && it('likePost ფუნქციის შემოწმება',() => {
+
+        // TODO აქ მეტი ჩექია დასამატებელი, თუ არასწორად დაწერეს მარტო ერთ პოსტზე იმუშავებს
+        it('likePost ფუნქციის შემოწმება',() => {
               setTextareaText('post text 1');
               newPost()
               let post = document.getElementById('post-1')
@@ -346,11 +356,6 @@ export function generateTests(CONFIG){
         celebrationGif.height = 400
         document.getElementById('tests').insertBefore(celebrationGif, document.getElementById('help'))
     })
-}
-
-function parseHtmlFromString(htmlString){
-    let domParser = new DOMParser();
-    return domParser.parseFromString(htmlString,"text/html").body.firstElementChild;
 }
 
 function testTemplateBasics(template){
@@ -382,9 +387,9 @@ function setPassword(CONFIG) {
     CONFIG.isStep(steps.delete_post) && describe('პოსტის წაშლა', () => {
         CONFIG.hints = 'on'
         it('ბოლო ფუნქციონალი რაც დაგვრჩა, არის პოსტის წაშლა')
-        it('ამისთვის, ისევ createPostTemplate ფუნქციის შეცვლა მოგვიწევს, ვინაიდან თითოეულ პოსტს უნდა ჰქონდეს თავისი წაშლის ღილაკი')
+        it('ამისთვის, ისევ createPostElement ფუნქციის შეცვლა მოგვიწევს, ვინაიდან თითოეულ პოსტს უნდა ჰქონდეს თავისი წაშლის ღილაკი')
         // TODO: change delete-post hardcoded value
-        it('დაამატე createPostTemplate ფუნქციაში ახალი button, რომლის class იქნება delete-post და onclick ექნება deletePost(${postId}). აქაც, deletePost უნდა გადაეცემოდეს იმ პოსტის აიდი, რომლის წაშლაც გვინდა და უბრალოდ მოხაზულობა აღვწეროთ დაიმპლემენტირებამდე.')
+        it('დაამატე createPostElement ფუნქციაში ახალი button, რომლის class იქნება delete-post და onclick ექნება deletePost(${postId}). აქაც, deletePost უნდა გადაეცემოდეს იმ პოსტის აიდი, რომლის წაშლაც გვინდა და უბრალოდ მოხაზულობა აღვწეროთ დაიმპლემენტირებამდე.')
         it('ღილაკის შემოწმება',() => {
             testCreatePostTemplateDeletePostSection();
         })
@@ -418,7 +423,7 @@ function setPassword(CONFIG) {
 
 
 function testCreatePostTemplateDeletePostSection(){
-    let result = createPostTemplate("post text 1",1);
+    let result = createPostElement("post text 1",1);
     let postElem = parseHtmlFromString(result);
     testCreatePostTemplateLikeSection();
 
