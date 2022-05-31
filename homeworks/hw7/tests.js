@@ -29,14 +29,13 @@ export function generateTests(CONFIG){
     CONFIG.hints = 'on'
 
     CONFIG.isStep(steps.greetings) && describe(`შესავალი`, () => {
-		it(`ამ დავალებაში რამდენიმე კვირის წინ სემინარზე ნასწავლ მასალაში ვივარჯიშებთ`)
+		it(`ამ დავალებაში რამდენიმე კვირის წინ სემინარზე ნასწავლ მასალაში ვივარჯიშებთ. გვინდა 
+		გავაკეთოთ "სოციალური ქსელი" დაპოსტვის და დალაიქების ფუნქციით`)
         setPassword(CONFIG)
-        /**
-         * TODO რამის მოფიქრება
-         */
         window.getPassword = () => CONFIG.password
         it(`პაროლზე რამე ორიგინალურის მოფიქრება გვინდოდა მაგრამ ვერ მოვასწარით.
-         გახსენი კონსოლი და გამოიძახე getPassword() ფუნქცია, შემდეგ კი index.html ფაილში იპოვე div, რომლის id არის write-password-inside და დივის შიგნით ჩაწერეთ ფუნქციის მიერ დაბრუნებული შედეგი`, () => {
+         გახსენი კონსოლი და გამოიძახე getPassword() ფუნქცია, შემდეგ კი index.html ფაილში იპოვე div, 
+         რომლის id არის write-password-inside. აქ ჩაწერე ფუნქციის მიერ დაბრუნებული შედეგი`, () => {
 			const n = Number(document.querySelector(`div#write-password-inside`).innerText)
         	expect(n).to.equal(CONFIG.password)
 		})
@@ -46,11 +45,12 @@ export function generateTests(CONFIG){
 
 
     CONFIG.isStep(steps.elements) && describe('პოსტის დამატება (HTML)', () => {
-        it(`მოდი დავამატოთ ისეთი სექცია, სადაც იუზერი შეძლებს ტექსტის შეყვანას და შემდეგ დაპოსტვას`)
-        it(`input ელემენტი უკვე ნასწავლი გვაქვს, მაგრამ მისი დამატების შემთხვევაში ვხედავთ 
+        it(`დასაწყისისთვის გვჭირდება ტექსტის შესაყვანი ველი`)
+        it(`input ელემენტი უკვე ნასწავლი გვაქვს, მაგრამ მისი დამატების შემთხვევაში ვხედავთ, 
         რომ საკმაოდ პატარა ველი არის მრავარპარაგრაფიანი მჭერმეტყველი პოსტებისთვის, რომელიც სოციალურ მედიას ახასიათებს.`)
         it(`იმისათვის, რომ პატარა ველი არ გვქონდეს, გამოვიყენოთ ერთ-ერთი თაგი textarea, 
-        რომლის id იქნება ${specifiers.textareaId}`, () => {
+        რომლის id იქნება ${specifiers.textareaId}. დაამატე index.html-ში. გაითვალისწინე, რომ ყველა ელემენტი 
+        div#app-ში იყოს (ანუ div-ში, რომლის id არის app)`, () => {
             const textareaTag = document.querySelector(`div#app > textarea#${specifiers.textareaId}`)
             expect(textareaTag).to.exist;
         })
@@ -63,9 +63,8 @@ export function generateTests(CONFIG){
         })
         it(`<div id="${specifiers.postsContainerId}"></div>`)
 
-        it('მოდი textarea ელემენტის ქვევით დავამატოთ ღილაკი, რომელსაც მომავალში გამოვიყენებთ ახალი პოსტების დასამატებლად.')
-        it('ამ ღილაკის შიგნით ჩავწეროთ Add Post')
-        it('ღილაკის შემოწმება',() => {
+        it(`მოდი textarea ელემენტის ქვევით დავამატოთ ღილაკი, რომელსაც მომავალში 
+        გამოვიყენებთ ახალი პოსტების დასამატებლად. ღილაკში ჩაწერე ტექსტი Add Post`,() => {
             const button = document.querySelector("div#app > button");
             expect(button).to.exist;
             expect(button.innerText).to.equal('Add Post');
@@ -73,35 +72,55 @@ export function generateTests(CONFIG){
         it(`<button>Add Post</button>`)
     })
 
-    CONFIG.isStep(steps.console) && describe('DOM ფუნქციონალი', () => {
-        it('სანამ შემდეგ ეტაპზე გადახვალ, მოდი კონსოლის საშუალებით ჩავატაროთ პატარ-პატარა ოპერაციები')
+    !CONFIG.server && CONFIG.isStep(steps.console) && describe('DOM ფუნქციონალი კონსოლში', () => {
+        CONFIG.failed = true
+        it('სანამ შემდეგ ეტაპზე გადახვალ,  კონსოლის საშუალებით პატარ-პატარა ოპერაციები ჩავატაროთ')
         it('თუ ხაზის დასაწყისში წერია console > , ეს ნიშნავს რომ >-ის მერე დაწერილი კოდი კონსოლში უნდა ჩაწერო')
 
-        it(`ამ ეტაპზე, ჩვენ გვაქვს დამატებული textarea, რომლის id არის ${specifiers.textareaId}.ასევე button და ერთი ცალი div, რომლის id არის ${specifiers.postsContainerId}`)
-        it(`მოდი იპოვე ეს ელემენტები DOM-ის საშუალებით. პირველ ეტაპზე, იპოვე textarea თაგი. რადგან ამ თაგს აქვს თავისი უნიკალური id, შეგიძლია document.getElementById() ფუნქცია გამოიძახო`)
+        it(`ამ ეტაპზე, ჩვენ გვაქვს დამატებული textarea, რომლის id არის ${specifiers.textareaId}.
+        ასევე button და ერთი ცალი div, რომლის id არის ${specifiers.postsContainerId}. იპოვე ეს ელემენტები DOM-ის საშუალებით. 
+        პირველ ეტაპზე, იპოვე textarea თაგი. რადგან ამ თაგს აქვს თავისი უნიკალური id, შეგიძლია document.getElementById() ფუნქცია გამოიძახო`)
         it(`console > document.getElementById("${specifiers.textareaId}")`)
         it(`კონსოლში დაინახავ, რომ დაიბეჭდება textarea თაგი.`)
-
+        it(``)
         it(`ახლა კი, თვითონ ბრაუზერში textarea შიგნით ჩაწერე რაიმე ტექსტი. მაგალითისთვის შეიძლება ჩაწერო Hello World!`)
-        it(`ისევ გავიმეოროთ ამ თაგის მოძებნის პროცესი, უბრალოდ ახლა ცვლადში შევინახოთ`)
-        it(`console > let textareaTag = document.getElementById("${specifiers.textareaId}")`)
+        it(`ისევ გავიმეოროთ ამ თაგის მოძებნის პროცესი, უბრალოდ ახლა textAreaTag ცვლადში შევინახოთ`)
+        it(`console > var textarea = document.getElementById("${specifiers.textareaId}")`)
         it(`ამ ცვლადის საშუალებით შეგვიძლია დავბეჭდოთ ის ტექსტი, რომელიც textarea-ს შიგნით წერია.`)
-        it(`console > textareaTag.value`)
+        it(`console > textarea.value`)
 
         it(`მოდი იგივენაირად იპოვე და შეინახე div ელემენტი, რომლის id არის ${specifiers.postsContainerId}`)
-        it(`console > let postsContainer = document.getElementById("${specifiers.postsContainerId}")`)
+        it(`console > var postsContainer = document.getElementById("${specifiers.postsContainerId}")`)
 
-        it(`კონსოლიდანვე შეგვიძლია ამ კონტეინერის შიგნით დავამატოთ ტექსტი, ან რაიმე ნებიმსიერი თაგი. ამ ეტაპზე, უბრალოდ რაიმე ტექსტი დავამატოთ. ამისთვის, შეგიძლია გამოიყენო innerText ან innerHTML.`)
-        it(`რა განსხვავებაა innerText და innerHTML შორის? innerText დაამატებს გადაცემულ სიმბოლოებს როგორც ტექსტს, ხოლო innerHTML-ს დაამატებს, როგორც HTML კოდს.`)
-        it(`თვალსაჩინოებისთვის, მოდი ასეთი რამე გააკეთე:`)
-        it(`console > postsContainer.innerText = "some <div style='color: red;'> text </div>" `)
-        it(`console > postsContainer.innerHTML = "some <div style='color: red;'> text </div>"`)
+        it(`კონსოლიდანვე შეგვიძლია ამ კონტეინერის შიგნით დავამატოთ ტექსტი`)
+        it(`console > postsContainer.innerText = "my post's text" `)
+        it(`თუ ჩამოთვლილი ნაბიჯები შეასრულე, გამოიძაზე consoleReady()`)
+
+        window.consoleReady = function() {
+            if (typeof (window.textarea) === 'undefined') {
+                console.error('ცვლადი სახელით textarea არ არსებობს')
+                return
+            }
+            if (window.textarea.value.length < 1) {
+                console.error('textarea-ში არაფერი წერია, გადაამოწმე რომ კონსოლში textarea.value შეგიძლია წაიკითხო')
+                return
+            }
+            if (typeof (window.postsContainer) === 'undefined') {
+                console.error('ცვლადი სახელით postsContainer არ არსებობს')
+                return
+            }
+            if (window.postsContainer.innerText.length < 1) {
+                console.error(specifiers.postsContainerId + "- ში არაფერი წერია")
+                return
+            }
+            HW.nextStep()
+        }
 
     })
 
     CONFIG.isStep(steps.post_template) && describe('პოსტის template', () => {
-
-        it(`ჯერ სკრიპტ თეგი ჩაამატე. index.js ფაილი უკვე შევქმენი. თქვენს სკრიპტ თეგს id უნდა ჰქონდეს my-script`, () => {
+        it(`ახლა შეგვიძლია ისევ ედიტორს დავუბრუნდეთ`)
+        it(`ჯერ სკრიპტ თეგი ჩაამატე. index.js ფაილი უკვე შევქმენი. შენს სკრიპტ თეგს id უნდა ჰქონდეს my-script`, () => {
 			let scriptElem = document.querySelector("body > script#my-script")
             let srcAttr = scriptElem.getAttribute("src");
             expect(srcAttr).to.equal("./index.js");
@@ -109,9 +128,12 @@ export function generateTests(CONFIG){
         it(`<script id="my-script" src="./index.js"></script>`)
 
 
-        it(`გვინდა, რომ ყოველი ახალი პოსტის ელემენტს ქონდეს id, რომელშიც იქნება ნომერი, თუ მერამდენე პოსტია ის. ეს გაგვიმარტივებს პოსტების იდენტიფიცირებას, ვინაიდან შეიძლება არსებობდეს ორი პოსტი, რომელთაც იდენტური ტექსტი აქვთ.`)
-        it(`პოსტი ჩვენთვის იქნება div ელემენტი, რომლის class იქნება ${specifiers.postElementClass}. ხოლო მისი id უნდა იწყებოდეს ${specifiers.postElementIdSuffix} და შემდეგ პოსტის იდენტიფიკატორი.`)
-        it(`პოსტის ელემენტის შიგნით გვქონდეს კიდევ ერთი div, რომელშიც შევინახავთ პოსტის ტექსტს. ამ div-ის class უნდა იყოს ${specifiers.postElementTextId}`)
+        it(`გვინდა, რომ ყოველი ახალი პოსტის ელემენტს ქონდეს id, რომელშიც იქნება ნომერი, თუ მერამდენე პოსტია ის. 
+        ეს გაგვიმარტივებს პოსტების იდენტიფიცირებას, ვინაიდან შეიძლება არსებობდეს ორი პოსტი, რომელთაც იდენტური ტექსტი აქვთ.`)
+        it(`პოსტი ჩვენთვის იქნება div ელემენტი, რომლის class იქნება ${specifiers.postElementClass}. 
+        ხოლო მისი id უნდა იწყებოდეს ${specifiers.postElementIdSuffix} და შემდეგ პოსტის იდენტიფიკატორი.`)
+        it(`პოსტის ელემენტის შიგნით გვქონდეს კიდევ ერთი div, რომელშიც შევინახავთ პოსტის ტექსტს. 
+        ამ div-ის class უნდა იყოს ${specifiers.postElementTextId}`)
         it(`საბოლოო ჯამში, პოსტის ელემენტს ექნება ასეთი სახე:`)
         // it(`
         // <div class='${specifiers.postElementClass}' id='${specifiers.postElementIdSuffix}-1'>
