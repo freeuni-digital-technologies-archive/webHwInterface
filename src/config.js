@@ -16,8 +16,8 @@
         this.hints = false
         if (this.hw_id !== id) {
             this.hw_id = id
-            this.save()
             this.currentStep = 1
+            this.save()
             window.location.reload()
         }
     }
