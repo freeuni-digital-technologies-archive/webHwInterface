@@ -201,8 +201,7 @@ export function generateTests(CONFIG){
     })
 
     CONFIG.isStep(steps.add_post) && describe(`პოსტის დამატება`, () => {
-        it(`ახლა, კონსოლში გამოძახების მაგივრად, ღილაკს დავუკავშიროთ ფუნქციონალი. 
-        შექმენი ფუნქცია, რომელშიც:`)
+        it(` შექმენი ფუნქცია, რომელშიც:`)
         splitToLines(`
         1. აიღებ textarea#${specifiers.textareaId} მნიშვნელობას
          2. შექმნი ახალ პოსტს
@@ -214,10 +213,10 @@ export function generateTests(CONFIG){
 
             window.addPost()
 
-            const posts = document.getElementById(specifiers.postsContainerId)
-            const post = posts.childNodes[0]
-            let postTextElem = post.querySelector(`div.${specifiers.postElementTextClass}`)
-            expect(postTextElem.innerText).equal('some random post')
+            const posts = document.querySelectorAll(`#${specifiers.postsContainerId} div.${specifiers.postElementTextClass} `)
+            const post = posts[0];
+
+            expect(post.innerText).equal('some random post')
             textarea.innerText = ''
             posts.innerHTML = ''
         })
@@ -234,8 +233,7 @@ export function generateTests(CONFIG){
     CONFIG.isStep(steps.finish) && describe('🥳', () => {
         toggle('help')
         showMessage('დავალების-ატვირთვა')
-        it(`დავალების ატვირთვის წესი იგივეა, რაც წინაზე (შეგიძლია ქვემოთ ნახო). პირველი რამდენიმე სტუდენტი, ვინც მომწერს
-        რა ნაბიჯი გამოვტოვე სრული ფუნქციონალისთვის, ბონუს ქულას მიიღებს`, () => {})
+        it(`დავალების ატვირთვის წესი იგივეა, რაც წინაზე (შეგიძლია ქვემოთ ნახო).`, () => {})
         const celebrationGif = document.createElement('img')
         celebrationGif.src = 'https://media0.giphy.com/media/f6hnhHkks8bk4jwjh3/giphy.gif'
         celebrationGif.height = 400
