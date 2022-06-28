@@ -9,13 +9,17 @@
  *  */
 
  export class Config {
-    constructor(id) {
+    constructor(hwId) {
         this.readData()
         this.testCount = 0
         this.failed = false
         this.hints = false
-        if (this.hw_id !== id) {
-            this.hw_id = id
+    }
+
+    checkHwId(hwId) {
+        localStorage.clear()
+        if (hwId !== '' && this.hw_id !== hwId) {
+            this.hw_id = hwId
             this.currentStep = 1
             this.save()
             window.location.reload()

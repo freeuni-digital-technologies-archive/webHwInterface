@@ -9,7 +9,7 @@ const testResults = []
 
 
 export function setupServer(CONFIG) {
-    const opts = setupInterface(CONFIG)
+    const opts = setupInterface('', CONFIG)
     // toggle('tests') // მე თუ გავხსნი ბრაუზერში რომ პირდაპირ საიტი ვნახო
     opts.launch = (getScore) => {
         mocha.run()
